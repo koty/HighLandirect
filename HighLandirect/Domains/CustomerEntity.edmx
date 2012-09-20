@@ -1,0 +1,441 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="HighLandirect.Domain.Store" Alias="Self" Provider="System.Data.SqlServerCe.4.0" ProviderManifestToken="3.5" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="HighLandirectDomainStoreContainer">
+          <EntitySet Name="CustomerMaster" EntityType="HighLandirect.Domain.Store.CustomerMaster" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Order" EntityType="HighLandirect.Domain.Store.Order" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="OrderHistory" EntityType="HighLandirect.Domain.Store.OrderHistory" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="ProductMaster" EntityType="HighLandirect.Domain.Store.ProductMaster" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="ReportMemo" EntityType="HighLandirect.Domain.Store.ReportMemo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Store" EntityType="HighLandirect.Domain.Store.Store" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <AssociationSet Name="FK_OrderHistoryReceiveCustID_Customer" Association="HighLandirect.Domain.Store.FK_OrderHistoryReceiveCustID_Customer">
+            <End Role="CustomerMaster" EntitySet="CustomerMaster" />
+            <End Role="OrderHistory" EntitySet="OrderHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderHistorySendCustID_Customer" Association="HighLandirect.Domain.Store.FK_OrderHistorySendCustID_Customer">
+            <End Role="CustomerMaster" EntitySet="CustomerMaster" />
+            <End Role="OrderHistory" EntitySet="OrderHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderReceiveCustID_Customer" Association="HighLandirect.Domain.Store.FK_OrderReceiveCustID_Customer">
+            <End Role="CustomerMaster" EntitySet="CustomerMaster" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderSendCustID_Customer" Association="HighLandirect.Domain.Store.FK_OrderSendCustID_Customer">
+            <End Role="CustomerMaster" EntitySet="CustomerMaster" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="CustomerMaster">
+          <Key>
+            <PropertyRef Name="CustNo" />
+          </Key>
+          <Property Name="CustNo" Type="int" Nullable="false" />
+          <Property Name="Furigana" Type="nvarchar" MaxLength="255" />
+          <Property Name="CustName" Type="nvarchar" Nullable="false" MaxLength="255" />
+          <Property Name="Keisho" Type="nvarchar" MaxLength="2" />
+          <Property Name="CityName" Type="nvarchar" MaxLength="32" />
+          <Property Name="PostalCD" Type="nvarchar" MaxLength="7" />
+          <Property Name="PrefectureCD" Type="nvarchar" MaxLength="10" />
+          <Property Name="PrefectureName" Type="nvarchar" MaxLength="32" />
+          <Property Name="RegionCD" Type="nvarchar" MaxLength="10" />
+          <Property Name="RegionName" Type="nvarchar" MaxLength="10" />
+          <Property Name="Address1" Type="nvarchar" MaxLength="255" />
+          <Property Name="Address2" Type="nvarchar" MaxLength="255" />
+          <Property Name="Address3" Type="nvarchar" MaxLength="255" />
+          <Property Name="Address4" Type="nvarchar" MaxLength="255" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="36" />
+          <Property Name="Fax" Type="nvarchar" MaxLength="36" />
+          <Property Name="Phone2" Type="nvarchar" MaxLength="36" />
+          <Property Name="MailAddress" Type="nvarchar" MaxLength="64" />
+          <Property Name="Memo" Type="nvarchar" MaxLength="255" />
+          <Property Name="Label" Type="bit" />
+          <Property Name="LatestSend" Type="datetime" />
+          <Property Name="LatestResceive" Type="datetime" />
+          <Property Name="Delete" Type="bit" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="bigint" Nullable="false" />
+          <Property Name="OrderDate" Type="datetime" Nullable="false" />
+          <Property Name="ReceiveCustID" Type="int" Nullable="false" />
+          <Property Name="SendCustID" Type="int" Nullable="false" />
+          <Property Name="ProductID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OrderHistory">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="bigint" Nullable="false" />
+          <Property Name="OrderDate" Type="datetime" Nullable="false" />
+          <Property Name="ReceiveCustID" Type="int" Nullable="false" />
+          <Property Name="SendCustID" Type="int" Nullable="false" />
+          <Property Name="ProductID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProductMaster">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="ProductName" Type="nvarchar" Nullable="false" MaxLength="32" />
+          <Property Name="Tanka" Type="money" Nullable="false" />
+          <Property Name="IsDefault" Type="bit" />
+        </EntityType>
+        <EntityType Name="ReportMemo">
+          <Key>
+            <PropertyRef Name="ReportMemoId" />
+          </Key>
+          <Property Name="ReportMemoId" Type="numeric" Nullable="false" />
+          <Property Name="ReportMemo" Type="nvarchar" MaxLength="100" />
+          <Property Name="MemoName" Type="nvarchar" MaxLength="100" />
+          <Property Name="IsDefault" Type="bit" />
+        </EntityType>
+        <EntityType Name="Store">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="numeric" Nullable="false" />
+          <Property Name="StoreId1" Type="nvarchar" MaxLength="100" />
+          <Property Name="StoreId2" Type="nvarchar" MaxLength="100" />
+          <Property Name="CustomerCD" Type="nvarchar" MaxLength="100" />
+          <Property Name="StoreName" Type="nvarchar" MaxLength="100" />
+          <Property Name="IsDefault" Type="bit" />
+        </EntityType>
+        <Association Name="FK_OrderHistoryReceiveCustID_Customer">
+          <End Role="CustomerMaster" Type="HighLandirect.Domain.Store.CustomerMaster" Multiplicity="1" />
+          <End Role="OrderHistory" Type="HighLandirect.Domain.Store.OrderHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustomerMaster">
+              <PropertyRef Name="CustNo" />
+            </Principal>
+            <Dependent Role="OrderHistory">
+              <PropertyRef Name="ReceiveCustID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderHistorySendCustID_Customer">
+          <End Role="CustomerMaster" Type="HighLandirect.Domain.Store.CustomerMaster" Multiplicity="1" />
+          <End Role="OrderHistory" Type="HighLandirect.Domain.Store.OrderHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustomerMaster">
+              <PropertyRef Name="CustNo" />
+            </Principal>
+            <Dependent Role="OrderHistory">
+              <PropertyRef Name="SendCustID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderReceiveCustID_Customer">
+          <End Role="CustomerMaster" Type="HighLandirect.Domain.Store.CustomerMaster" Multiplicity="1" />
+          <End Role="Order" Type="HighLandirect.Domain.Store.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustomerMaster">
+              <PropertyRef Name="CustNo" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="ReceiveCustID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderSendCustID_Customer">
+          <End Role="CustomerMaster" Type="HighLandirect.Domain.Store.CustomerMaster" Multiplicity="1" />
+          <End Role="Order" Type="HighLandirect.Domain.Store.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustomerMaster">
+              <PropertyRef Name="CustNo" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="SendCustID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="HighLandirect.Domain" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="MyDataEntities" annotation:LazyLoadingEnabled="true" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+          <EntitySet Name="Customers" EntityType="HighLandirect.Domain.Customer" />
+          <EntitySet Name="OrderHistories" EntityType="HighLandirect.Domain.OrderHistory" />
+          <EntitySet Name="Products" EntityType="HighLandirect.Domain.Product" />
+          <EntitySet Name="Orders" EntityType="HighLandirect.Domain.Order" />
+          <AssociationSet Name="FK_OrderHistoryReceiveCustID_Customer" Association="HighLandirect.Domain.FK_OrderHistoryReceiveCustID_Customer">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="OrderHistory" EntitySet="OrderHistories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderHistorySendCustID_Customer" Association="HighLandirect.Domain.FK_OrderHistorySendCustID_Customer">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="OrderHistory" EntitySet="OrderHistories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderReceiveCustID_Customer" Association="HighLandirect.Domain.FK_OrderReceiveCustID_Customer">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderSendCustID_Customer" Association="HighLandirect.Domain.FK_OrderSendCustID_Customer">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <EntitySet Name="ReportMemos" EntityType="HighLandirect.Domain.ReportMemo" />
+          <EntitySet Name="Stores" EntityType="HighLandirect.Domain.Store" />
+        </EntityContainer>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="CustNo" />
+          </Key>
+          <Property Name="CustNo" Type="Int32" Nullable="false" />
+          <Property Name="Furigana" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="CustName" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="Keisho" Type="String" MaxLength="2" Unicode="true" FixedLength="false" />
+          <Property Name="CityName" Type="String" MaxLength="32" Unicode="true" FixedLength="false" />
+          <Property Name="PostalCD" Type="String" MaxLength="7" Unicode="true" FixedLength="false" />
+          <Property Name="PrefectureCD" Type="String" MaxLength="10" Unicode="true" FixedLength="false" />
+          <Property Name="PrefectureName" Type="String" MaxLength="32" Unicode="true" FixedLength="false" />
+          <Property Name="RegionCD" Type="String" MaxLength="10" Unicode="true" FixedLength="false" />
+          <Property Name="RegionName" Type="String" MaxLength="10" Unicode="true" FixedLength="false" />
+          <Property Name="Address1" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="Address2" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="Address3" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="Address4" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="Phone" Type="String" MaxLength="36" Unicode="true" FixedLength="false" />
+          <Property Name="Fax" Type="String" MaxLength="36" Unicode="true" FixedLength="false" />
+          <Property Name="Phone2" Type="String" MaxLength="36" Unicode="true" FixedLength="false" />
+          <Property Name="MailAddress" Type="String" MaxLength="64" Unicode="true" FixedLength="false" />
+          <Property Name="Memo" Type="String" MaxLength="1" Unicode="true" FixedLength="false" />
+          <Property Name="Label" Type="Boolean" />
+          <NavigationProperty Name="OrderHistory" Relationship="HighLandirect.Domain.FK_OrderHistoryReceiveCustID_Customer" FromRole="Customer" ToRole="OrderHistory" />
+          <NavigationProperty Name="OrderHistory1" Relationship="HighLandirect.Domain.FK_OrderHistorySendCustID_Customer" FromRole="Customer" ToRole="OrderHistory" />
+          <NavigationProperty Name="Order" Relationship="HighLandirect.Domain.FK_OrderReceiveCustID_Customer" FromRole="Customer" ToRole="Order" />
+          <NavigationProperty Name="Order1" Relationship="HighLandirect.Domain.FK_OrderSendCustID_Customer" FromRole="Customer" ToRole="Order" />
+          <Property Type="DateTime" Name="LatestSend" />
+          <Property Type="DateTime" Name="LatestResceive" />
+          <Property Type="Boolean" Name="Delete" />
+        </EntityType>
+        <EntityType Name="OrderHistory">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="Int64" Nullable="false" />
+          <Property Name="OrderDate" Type="DateTime" Nullable="false" />
+          <Property Name="ReceiveCustID" Type="Int32" Nullable="false" />
+          <Property Name="SendCustID" Type="Int32" Nullable="false" />
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CustomerMasterReceive" Relationship="HighLandirect.Domain.FK_OrderHistoryReceiveCustID_Customer" FromRole="OrderHistory" ToRole="Customer" />
+          <NavigationProperty Name="CustomerMasterSend" Relationship="HighLandirect.Domain.FK_OrderHistorySendCustID_Customer" FromRole="OrderHistory" ToRole="Customer" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="ProductName" Type="String" Nullable="false" MaxLength="32" Unicode="true" FixedLength="false" />
+          <Property Name="Tanka" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Type="Boolean" Name="IsDefault" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Type="Int64" Name="OrderID" Nullable="false" />
+          <Property Type="DateTime" Name="OrderDate" Nullable="false" />
+          <Property Type="Int32" Name="ReceiveCustID" Nullable="false" />
+          <Property Type="Int32" Name="SendCustID" Nullable="false" />
+          <Property Type="Int32" Name="ProductID" Nullable="false" />
+          <NavigationProperty Name="CustomerMasterReceive" Relationship="HighLandirect.Domain.FK_OrderReceiveCustID_Customer" FromRole="Order" ToRole="Customer" />
+          <NavigationProperty Name="CustomerMasterSend" Relationship="HighLandirect.Domain.FK_OrderSendCustID_Customer" FromRole="Order" ToRole="Customer" />
+        </EntityType>
+        <Association Name="FK_OrderHistoryReceiveCustID_Customer">
+          <End Type="HighLandirect.Domain.Customer" Role="Customer" Multiplicity="1" />
+          <End Type="HighLandirect.Domain.OrderHistory" Role="OrderHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustNo" />
+            </Principal>
+            <Dependent Role="OrderHistory">
+              <PropertyRef Name="ReceiveCustID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderHistorySendCustID_Customer">
+          <End Type="HighLandirect.Domain.Customer" Role="Customer" Multiplicity="1" />
+          <End Type="HighLandirect.Domain.OrderHistory" Role="OrderHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustNo" />
+            </Principal>
+            <Dependent Role="OrderHistory">
+              <PropertyRef Name="SendCustID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderReceiveCustID_Customer">
+          <End Type="HighLandirect.Domain.Customer" Role="Customer" Multiplicity="1" />
+          <End Type="HighLandirect.Domain.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustNo" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="ReceiveCustID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderSendCustID_Customer">
+          <End Type="HighLandirect.Domain.Customer" Role="Customer" Multiplicity="1" />
+          <End Type="HighLandirect.Domain.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustNo" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="SendCustID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ReportMemo">
+          <Key>
+            <PropertyRef Name="ReportMemoId" />
+          </Key>
+          <Property Type="Decimal" Name="ReportMemoId" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="String" Name="ReportMemo1" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="MemoName" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="IsDefault" />
+        </EntityType>
+        <EntityType Name="Store">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Decimal" Name="id" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="String" Name="StoreId1" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="StoreId2" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="CustomerCD" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="StoreName" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="IsDefault" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="HighLandirectDomainStoreContainer" CdmEntityContainer="MyDataEntities">
+          <EntitySetMapping Name="Customers"><EntityTypeMapping TypeName="HighLandirect.Domain.Customer"><MappingFragment StoreEntitySet="CustomerMaster">
+            <ScalarProperty Name="Delete" ColumnName="Delete" />
+                <ScalarProperty Name="LatestResceive" ColumnName="LatestResceive" />
+                <ScalarProperty Name="LatestSend" ColumnName="LatestSend" />
+                <ScalarProperty Name="CustNo" ColumnName="CustNo" />
+            <ScalarProperty Name="Furigana" ColumnName="Furigana" />
+            <ScalarProperty Name="CustName" ColumnName="CustName" />
+            <ScalarProperty Name="Keisho" ColumnName="Keisho" />
+            <ScalarProperty Name="CityName" ColumnName="CityName" />
+            <ScalarProperty Name="PostalCD" ColumnName="PostalCD" />
+            <ScalarProperty Name="PrefectureCD" ColumnName="PrefectureCD" />
+            <ScalarProperty Name="PrefectureName" ColumnName="PrefectureName" />
+            <ScalarProperty Name="RegionCD" ColumnName="RegionCD" />
+            <ScalarProperty Name="RegionName" ColumnName="RegionName" />
+            <ScalarProperty Name="Address1" ColumnName="Address1" />
+            <ScalarProperty Name="Address2" ColumnName="Address2" />
+            <ScalarProperty Name="Address3" ColumnName="Address3" />
+            <ScalarProperty Name="Address4" ColumnName="Address4" />
+            <ScalarProperty Name="Phone" ColumnName="Phone" />
+            <ScalarProperty Name="Fax" ColumnName="Fax" />
+            <ScalarProperty Name="Phone2" ColumnName="Phone2" />
+            <ScalarProperty Name="MailAddress" ColumnName="MailAddress" />
+            <ScalarProperty Name="Memo" ColumnName="Memo" />
+            <ScalarProperty Name="Label" ColumnName="Label" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="OrderHistories"><EntityTypeMapping TypeName="HighLandirect.Domain.OrderHistory"><MappingFragment StoreEntitySet="OrderHistory">
+            <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+            <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+            <ScalarProperty Name="ReceiveCustID" ColumnName="ReceiveCustID" />
+            <ScalarProperty Name="SendCustID" ColumnName="SendCustID" />
+            <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Products"><EntityTypeMapping TypeName="HighLandirect.Domain.Product"><MappingFragment StoreEntitySet="ProductMaster">
+            <ScalarProperty Name="IsDefault" ColumnName="IsDefault" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+            <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+            <ScalarProperty Name="Tanka" ColumnName="Tanka" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="HighLandirect.Domain.Order">
+              <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="SendCustID" ColumnName="SendCustID" />
+                <ScalarProperty Name="ReceiveCustID" ColumnName="ReceiveCustID" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReportMemos">
+            <EntityTypeMapping TypeName="HighLandirect.Domain.ReportMemo">
+              <MappingFragment StoreEntitySet="ReportMemo">
+                <ScalarProperty Name="IsDefault" ColumnName="IsDefault" />
+                <ScalarProperty Name="MemoName" ColumnName="MemoName" />
+                <ScalarProperty Name="ReportMemo1" ColumnName="ReportMemo" />
+                <ScalarProperty Name="ReportMemoId" ColumnName="ReportMemoId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Stores">
+            <EntityTypeMapping TypeName="HighLandirect.Domain.Store">
+              <MappingFragment StoreEntitySet="Store">
+                <ScalarProperty Name="IsDefault" ColumnName="IsDefault" />
+                <ScalarProperty Name="StoreName" ColumnName="StoreName" />
+                <ScalarProperty Name="CustomerCD" ColumnName="CustomerCD" />
+                <ScalarProperty Name="StoreId2" ColumnName="StoreId2" />
+                <ScalarProperty Name="StoreId1" ColumnName="StoreId1" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="CustomerEntity">
+        <EntityTypeShape EntityType="HighLandirect.Domain.Customer" Width="1.5" PointX="6" PointY="0.625" Height="5.36375" IsExpanded="true" />
+        <EntityTypeShape EntityType="HighLandirect.Domain.OrderHistory" Width="1.875" PointX="3.125" PointY="0.75" Height="2.4470833333333331" IsExpanded="true" />
+        <EntityTypeShape EntityType="HighLandirect.Domain.Product" Width="1.5" PointX="0.875" PointY="0.5" Height="1.5356249999999996" IsExpanded="true" />
+        <EntityTypeShape EntityType="HighLandirect.Domain.Order" Width="2.125" PointX="3.125" PointY="3.5" Height="2.2647916666666656" />
+        <AssociationConnector Association="HighLandirect.Domain.FK_OrderHistoryReceiveCustID_Customer">
+          <ConnectorPoint PointX="6" PointY="2.3984606880135835" />
+          <ConnectorPoint PointX="5" PointY="2.3984606880135835" />
+        </AssociationConnector>
+        <AssociationConnector Association="HighLandirect.Domain.FK_OrderHistorySendCustID_Customer">
+          <ConnectorPoint PointX="6" PointY="1.5117303440067915" />
+          <ConnectorPoint PointX="5" PointY="1.5117303440067915" />
+        </AssociationConnector>
+        <AssociationConnector Association="HighLandirect.Domain.FK_OrderReceiveCustID_Customer">
+          <ConnectorPoint PointX="6" PointY="5.1501371002197267" />
+          <ConnectorPoint PointX="5.25" PointY="5.1501371002197267" />
+        </AssociationConnector>
+        <AssociationConnector Association="HighLandirect.Domain.FK_OrderSendCustID_Customer">
+          <ConnectorPoint PointX="6" PointY="4.2625685501098634" />
+          <ConnectorPoint PointX="5.25" PointY="4.2625685501098634" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="HighLandirect.Domain.ReportMemo" Width="1.5" PointX="0.875" PointY="2.75" Height="1.7179166666666665" />
+        <EntityTypeShape EntityType="HighLandirect.Domain.Store" Width="1.5" PointX="0.875" PointY="4.75" Height="2.0824999999999996" />
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

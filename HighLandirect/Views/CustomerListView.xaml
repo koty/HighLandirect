@@ -1,0 +1,97 @@
+﻿<UserControl x:Class="HighLandirect.Views.CustomerListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:vm="clr-namespace:HighLandirect.ViewModels"
+             xmlns:l="clr-namespace:Livet.Behaviors.Messaging;assembly=Livet"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:Messaging="clr-namespace:Livet.Messaging;assembly=Livet" xmlns:v="clr-namespace:HighLandirect.Views"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance vm:CustomerListViewModel}">
+    <UserControl.Resources>
+        <SolidColorBrush x:Key="LightBlueBrushKey">#FFC6D2F5</SolidColorBrush>
+    </UserControl.Resources>
+    <DockPanel>
+        <ToolBarTray DockPanel.Dock="Top">
+            <ToolBar>
+                <Button Command="{Binding AddNewCommand}" Content="追加" Background="{StaticResource LightBlueBrushKey}"></Button>
+                <Separator Width="10" />
+                <TextBox Width="150" Text="{Binding SearchString, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true, 
+                     ValidatesOnDataErrors=true, NotifyOnValidationError=true}" />
+                <Button Command="{Binding SearchCommand}" Content="検索" />
+                <Separator Width="10"/>
+                <Button Command="{Binding AddSendCustomerCommand}" Content="送主として追加"/>
+                <Button Command="{Binding AddResceiveCustomerCommand}" Content="送先として追加"/>
+                <Separator Width="10" />
+                <Button Command="{Binding PrintAtenaSealCommand}" Content="宛名シール印刷">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <l:ConfirmationDialogInteractionMessageAction>
+                                <l:DirectInteractionMessage CallbackCommand="{Binding RemoveCommand}">
+                                    <Messaging:ConfirmationMessage Button="OKCancel" 
+                                                  Caption="確認"
+                                                  Text="宛名ラベルを印刷しますか？"
+                                                  Image="Information"/>
+                                </l:DirectInteractionMessage>
+                            </l:ConfirmationDialogInteractionMessageAction>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+                <Button Command="{Binding PrintKokyakuDaichoCommand}" Content="顧客台帳印刷">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <l:ConfirmationDialogInteractionMessageAction>
+                                <l:DirectInteractionMessage CallbackCommand="{Binding RemoveCommand}">
+                                    <Messaging:ConfirmationMessage Button="OKCancel" 
+                                                  Caption="確認"
+                                                  Text="顧客台帳を印刷しますか？"
+                                                  Image="Information"/>
+                                </l:DirectInteractionMessage>
+                            </l:ConfirmationDialogInteractionMessageAction>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+                <Separator Width="10" />
+                <CheckBox Checked="{Binding ShowDeletedData}" Unchecked="{Binding HideDeletedData}" Content="削除行を表示" />
+                <Button Command="{Binding RemoveCommand}" Content="削除" Visibility="Hidden"/>
+            </ToolBar>
+        </ToolBarTray>
+        <DataGrid ItemsSource="{Binding CustomerViewModels}" SelectedItem="{Binding SelectedCustomer}" AutoGenerateColumns="False" CanUserAddRows="False"
+                  SelectionChanged="{Binding ListViewSelectionChanged}" FontSize="14">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding CustNo}" Header="顧客番号" Width="70"/>
+                <DataGridTextColumn Binding="{Binding CustName}" Header="顧客名" Width="100"/>
+                <DataGridTextColumn Binding="{Binding PostalCD}" Header="郵便番号" Width="60"/>
+                <DataGridTextColumn Binding="{Binding CityName}" Header="市町村名" Width="70"/>
+                <DataGridTextColumn Binding="{Binding Address1}" Header="住所１" Width="150"/>
+                <DataGridTextColumn Binding="{Binding Address2}" Header="住所２" Width="150"/>
+                <DataGridTextColumn Binding="{Binding Phone}" Header="電話番号" Width="100"/>
+                <DataGridTextColumn Binding="{Binding MailAddress}" Header="メールアドレス" Width="100"/>
+                <DataGridTemplateColumn Header="" Width="30" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox IsChecked="{Binding Label}"
+                                 Checked="{Binding LabelCheckBox_Checked}"
+                                      Unchecked="{Binding LabelCheckBox_Checked}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Binding="{Binding LatestSend}" Header="最終荷主日" Width="100" />
+                <DataGridTextColumn Binding="{Binding LatestResceive}" Header="最終宛先日" Width="100" />
+                <DataGridTemplateColumn Header="一覧に出さない" Width="30" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox IsChecked="{Binding Delete}"
+                                 Checked="{Binding DeleteCheckBox_Checked}"
+                                      Unchecked="{Binding DeleteCheckBox_Checked}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <v:CustomerView x:Name="customerViewPresenter" DataContext="SelectedCustomer" />
+        </ScrollViewer>
+    </DockPanel>
+</UserControl>

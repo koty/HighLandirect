@@ -1,0 +1,84 @@
+
+drop table [CustomerMaster]
+go
+CREATE TABLE [CustomerMaster](
+	[CustNo] [int] NOT NULL,
+	[Furigana] [nvarchar](255) NULL,
+	[CustName] [nvarchar](255) NOT NULL,
+	[Keisho] [nvarchar](2) NULL,
+	[CityName] [nvarchar](32) NULL,
+	[PostalCD] [nvarchar](7) NULL,
+	[PrefectureCD] [nvarchar](10) NULL,
+	[PrefectureName] [nvarchar](32) NULL,
+	[RegionCD] [nvarchar](10) NULL,
+	[RegionName] [nvarchar](10) NULL,
+	[Address1] [nvarchar](255) NULL,
+	[Address2] [nvarchar](255) NULL,
+	[Address3] [nvarchar](255) NULL,
+	[Address4] [nvarchar](255) NULL,
+	[Phone] [nvarchar](36) NULL,
+	[Fax] [nvarchar](36) NULL,
+	[Phone2] [nvarchar](36) NULL,
+	[MailAddress] [nvarchar](64) NULL,
+	[Memo] [nvarchar] NULL,
+	[Label] [bit] NULL,
+ CONSTRAINT [PK_CustomerMaster] PRIMARY KEY  
+(
+	[CustNo] 
+) 
+) 
+
+go
+drop table [OrderHistory]
+go
+CREATE TABLE [OrderHistory](
+	[OrderID] [bigint] NOT NULL,
+	[OrderDate] [datetime] NOT NULL,
+	[ReceiveCustID] [int] NOT NULL,
+	[SendCustID] [int] NOT NULL,
+	[ProductID] [int] NOT NULL,
+ CONSTRAINT [PK_OrderHistory] PRIMARY KEY
+ (
+    [OrderID]
+  )
+)
+
+GO
+
+drop table [Order]
+go
+CREATE TABLE [Order](
+	[OrderID] [bigint] NOT NULL,
+	[OrderDate] [datetime] NOT NULL,
+	[ReceiveCustID] [int] NOT NULL,
+	[SendCustID] [int] NOT NULL,
+	[ProductID] [int] NOT NULL,
+ CONSTRAINT [PK_Order] PRIMARY KEY
+ (
+    [OrderID]
+  )
+)
+
+go
+
+drop table [ProductMaster]
+go
+CREATE TABLE [ProductMaster](
+	[ProductID] [int] NOT NULL,
+	[ProductName] [nvarchar](32) NOT NULL,
+	[Tanka] [money] NOT NULL,
+ CONSTRAINT [PK_ProductMaster] PRIMARY KEY  
+(
+	[ProductID] 
+)
+) 
+
+GO
+
+ALTER TABLE [CustomerMaster] ADD  CONSTRAINT [DF_CustomerMaster_Label]  DEFAULT ((0)) FOR [Label]
+GO
+
+ALTER TABLE [ProductMaster] ADD  CONSTRAINT [DF_ProductMaster_Tanka]  DEFAULT ((0)) FOR [Tanka]
+GO
+
+

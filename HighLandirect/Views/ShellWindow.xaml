@@ -1,0 +1,104 @@
+﻿<Window x:Class="HighLandirect.Views.ShellWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:p="clr-namespace:HighLandirect.Properties"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:HighLandirect.ViewModels"
+        xmlns:v="clr-namespace:HighLandirect.Views"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:b="clr-namespace:Livet.Behaviors;assembly=Livet"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance vm:ShellViewModel}"
+        Title="{Binding Title}"
+        Icon="{StaticResource BookLibraryImageSource}"
+        Height="600" Width="1000">
+    
+    <Window.InputBindings>
+        <KeyBinding x:Name="saveKeyBinding" Key="S" Modifiers="Control"/>
+    </Window.InputBindings>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closing">
+            <b:LivetCallMethodAction MethodTarget="{Binding}" MethodName="ShellViewModelClosing" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="データ">
+                <MenuItem Command="{Binding SaveCommand}" Header="保存" Icon="{StaticResource SaveImage}" 
+                          InputGestureText="{x:Static p:Resources.ControlS}"/>
+                <Separator/>
+                <MenuItem Command="{Binding GetBackUpDataCommand}" Header="バックアップ用データ取得" Icon="{StaticResource DownLoadImage}">
+                </MenuItem>
+                <MenuItem Command="{Binding SetBackUpDataCommand}" Header="バックアップ用データ復元" Icon="{StaticResource UpLoadImage}" />
+                <Separator/>
+                <MenuItem Command="{Binding GetExportDataCommand}" Header="データエクスポート" Icon="{StaticResource DownLoadImage}" />
+                <MenuItem Command="{Binding SetImportDataCommand}" Header="データインポート" Icon="{StaticResource UpLoadImage}" />
+                <Separator/>
+                <MenuItem Command="{Binding ExitCommand}" Header="終了"/>
+            </MenuItem>
+            <MenuItem Header="編集">
+                <MenuItem Command="ApplicationCommands.Undo" Header="元に戻す" Icon="{StaticResource UndoImage}"/>
+                <MenuItem Command="ApplicationCommands.Redo" Header="元に戻すを元に戻す" Icon="{StaticResource RedoImage}"/>
+                <Separator/>
+                <MenuItem Command="ApplicationCommands.Cut" Header="切り取り" Icon="{StaticResource CutImage}"/>
+                <MenuItem Command="ApplicationCommands.Copy" Header="コピー" Icon="{StaticResource CopyImage}"/>
+                <MenuItem Command="ApplicationCommands.Paste" Header="貼り付け" Icon="{StaticResource PasteImage}"/>
+                <MenuItem Command="EditingCommands.Delete" Header="削除" Icon="{StaticResource DeleteImage}"/>
+                <Separator/>
+                <MenuItem Command="ApplicationCommands.SelectAll" Header="すべて選択"/>
+            </MenuItem>
+            <MenuItem Header="ヘルプ">
+                <MenuItem Command="{Binding AboutCommand}" Header="HighLandirectについて"/>
+            </MenuItem>
+        </Menu>
+
+        <ToolBarTray DockPanel.Dock="Top">
+            <ToolBar>
+                <Button Command="{Binding SaveCommand}" Content="{StaticResource SaveImage}" ToolTip="{x:Static p:Resources.Save}"/>
+                <Separator/>
+                <Button Command="ApplicationCommands.Undo" Content="{StaticResource UndoImage}" ToolTip="{x:Static p:Resources.Undo}"/>
+                <Button Command="ApplicationCommands.Redo" Content="{StaticResource RedoImage}" ToolTip="{x:Static p:Resources.Redo}"/>
+                <Button Command="ApplicationCommands.Cut" Content="{StaticResource CutImage}" ToolTip="{x:Static p:Resources.Cut}"/>
+                <Button Command="ApplicationCommands.Copy" Content="{StaticResource CopyImage}" ToolTip="{x:Static p:Resources.Copy}"/>
+                <Button Command="ApplicationCommands.Paste" Content="{StaticResource PasteImage}" ToolTip="{x:Static p:Resources.Paste}"/>
+            </ToolBar>
+        </ToolBarTray>
+
+        <StatusBar DockPanel.Dock="Bottom">
+            <StatusBarItem Content="{x:Static p:Resources.Ready}"/>
+        </StatusBar>
+
+        <TabControl>
+            <TabItem Header="{x:Static p:Resources.Order}">
+                <v:OrderListView Grid.Row="0" Grid.Column="0" DataContext="OrderListViewModel" />
+            </TabItem>
+            <TabItem Header="{x:Static p:Resources.AddressBook}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="500" 
+                                          MinWidth="{Binding Content.MinWidth, ElementName=customerViewPresenter}"/>
+                    </Grid.ColumnDefinitions>
+
+                    <v:OrderListView DataContext="CustomerListViewModel" />
+
+                </Grid>
+            </TabItem>
+            <TabItem Header="{x:Static p:Resources.Product}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="500"
+                                          MinWidth="{Binding Content.MinWidth, ElementName=productViewPresenter}"/>
+                    </Grid.ColumnDefinitions>
+
+                    <v:ProductListView DataContext="ProductListViewModel" />
+
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+    </DockPanel>
+    
+</Window>
