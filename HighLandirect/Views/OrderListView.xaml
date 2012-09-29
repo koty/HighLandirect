@@ -79,7 +79,7 @@
                 <ComboBox Width="140" Height="30" Grid.ColumnSpan="2" HorizontalAlignment="Left"
                           ItemsSource="{Binding Source={StaticResource storeDataProvider}}"
                           SelectedItem="{Binding SelectedStore}" DisplayMemberPath="StoreName"
-                          SelectionChanged="{Binding SendStoreSelectionChanged}" FontSize="16" Margin="11,0,0,0" />
+                          FontSize="16" Margin="11,0,0,0" />
                 <CheckBox IsChecked="{Binding SelectedStore.IsDefault}" Content="既定" Grid.Column="2" Grid.ColumnSpan="2" Margin="0,6,12,0" />
                 <TextBlock Text="発店コード" Grid.Row="1" Margin="11,9,98,26" FontSize="20" Grid.ColumnSpan="2" Width="91" Height="25" Grid.RowSpan="2" />
                 <TextBox Text="{Binding SelectedStore.StoreId1}" Width="60" Grid.Row="2" Margin="11,1,0,0" Height="29" FontSize="20" MinWidth="10" />
@@ -103,29 +103,28 @@
                         <Button Command="{Binding AddOrderFromSelectedHistoryCommand}" Width="120" Content="履歴から注文を追加" Margin="0" />
                     </ToolBar>
                 </ToolBarTray>
-                <ListView ItemsSource="{Binding OrderHistories}" SelectedItem="{Binding SelectedOrderHistory}"
-                  SelectionChanged="{Binding OrderHistorySelectionChanged}">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn DisplayMemberBinding="{Binding OrderDate}" Header="注文日付" Width="100"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding CustomerMasterReceive.CustNo}" Header="顧客番号" Width="60"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding CustomerMasterReceive.CustName}" Header="氏名" Width="150"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding CustomerMasterReceive.PostalCD}" Header="郵便番号" Width="40"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding CustomerMasterReceive.CityName}" Header="市町村名" Width="50"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding CustomerMasterReceive.Address1}" Header="住所１" Width="150"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding CustomerMasterReceive.Address2}" Header="住所２" Width="150"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding CustomerMasterReceive.Phone}" Header="電話番号" Width="100"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding CustomerMasterReceive.MailAddress}" Header="メールアドレス" Width="100"/>
-                        <GridViewColumn Header="ラベル１" Width="30">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <CheckBox Content="消す" IsChecked="{Binding CustomerMasterSend.Label}" IsEnabled="False" />
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                    </GridView>
-                </ListView.View>
-            </ListView>
+                <ListView ItemsSource="{Binding OrderHistories}" SelectedItem="{Binding SelectedOrderHistory}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn DisplayMemberBinding="{Binding OrderDate}" Header="注文日付" Width="100"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding CustomerMasterReceive.CustNo}" Header="顧客番号" Width="60"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding CustomerMasterReceive.CustName}" Header="氏名" Width="150"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding CustomerMasterReceive.PostalCD}" Header="郵便番号" Width="40"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding CustomerMasterReceive.CityName}" Header="市町村名" Width="50"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding CustomerMasterReceive.Address1}" Header="住所１" Width="150"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding CustomerMasterReceive.Address2}" Header="住所２" Width="150"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding CustomerMasterReceive.Phone}" Header="電話番号" Width="100"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding CustomerMasterReceive.MailAddress}" Header="メールアドレス" Width="100"/>
+                            <GridViewColumn Header="ラベル１" Width="30">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox Content="消す" IsChecked="{Binding CustomerMasterSend.Label}" IsEnabled="False" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
             </StackPanel>
         </Grid>
     </DockPanel>

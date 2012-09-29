@@ -23,6 +23,8 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("HighLandirect.Domain", "FK_OrderHistorySendCustID_Customer", "Customer", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HighLandirect.Domains.Customer), "OrderHistory", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HighLandirect.Domains.OrderHistory), true)]
 [assembly: EdmRelationshipAttribute("HighLandirect.Domain", "FK_OrderReceiveCustID_Customer", "Customer", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HighLandirect.Domains.Customer), "Order", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HighLandirect.Domains.Order), true)]
 [assembly: EdmRelationshipAttribute("HighLandirect.Domain", "FK_OrderSendCustID_Customer", "Customer", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HighLandirect.Domains.Customer), "Order", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HighLandirect.Domains.Order), true)]
+[assembly: EdmRelationshipAttribute("HighLandirect.Domain", "FK_OrderProductID_Product", "Product", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HighLandirect.Domains.Product), "Order", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HighLandirect.Domains.Order), true)]
+[assembly: EdmRelationshipAttribute("HighLandirect.Domain", "FK_OrderHistoryProductID_Product", "Product", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HighLandirect.Domains.Product), "OrderHistory", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HighLandirect.Domains.OrderHistory), true)]
 
 #endregion
 
@@ -1143,6 +1145,44 @@ namespace HighLandirect.Domains
                 }
             }
         }
+    
+        /// <summary>
+        /// 使用できるメタデータ ドキュメントはありません。
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HighLandirect.Domain", "FK_OrderProductID_Product", "Product")]
+        public Product ProductMaster
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Product>("HighLandirect.Domain.FK_OrderProductID_Product", "Product").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Product>("HighLandirect.Domain.FK_OrderProductID_Product", "Product").Value = value;
+            }
+        }
+        /// <summary>
+        /// 使用できるメタデータ ドキュメントはありません。
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Product> ProductMasterReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Product>("HighLandirect.Domain.FK_OrderProductID_Product", "Product");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Product>("HighLandirect.Domain.FK_OrderProductID_Product", "Product", value);
+                }
+            }
+        }
 
         #endregion
 
@@ -1383,6 +1423,44 @@ namespace HighLandirect.Domains
                 }
             }
         }
+    
+        /// <summary>
+        /// 使用できるメタデータ ドキュメントはありません。
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HighLandirect.Domain", "FK_OrderHistoryProductID_Product", "Product")]
+        public Product ProductMaster
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Product>("HighLandirect.Domain.FK_OrderHistoryProductID_Product", "Product").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Product>("HighLandirect.Domain.FK_OrderHistoryProductID_Product", "Product").Value = value;
+            }
+        }
+        /// <summary>
+        /// 使用できるメタデータ ドキュメントはありません。
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Product> ProductMasterReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Product>("HighLandirect.Domain.FK_OrderHistoryProductID_Product", "Product");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Product>("HighLandirect.Domain.FK_OrderHistoryProductID_Product", "Product", value);
+                }
+            }
+        }
 
         #endregion
 
@@ -1515,6 +1593,54 @@ namespace HighLandirect.Domains
         private Nullable<global::System.Boolean> _IsDefault;
         partial void OnIsDefaultChanging(Nullable<global::System.Boolean> value);
         partial void OnIsDefaultChanged();
+
+        #endregion
+
+        #region ナビゲーション プロパティ
+    
+        /// <summary>
+        /// 使用できるメタデータ ドキュメントはありません。
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HighLandirect.Domain", "FK_OrderProductID_Product", "Order")]
+        public EntityCollection<Order> Order
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Order>("HighLandirect.Domain.FK_OrderProductID_Product", "Order");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Order>("HighLandirect.Domain.FK_OrderProductID_Product", "Order", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// 使用できるメタデータ ドキュメントはありません。
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HighLandirect.Domain", "FK_OrderHistoryProductID_Product", "OrderHistory")]
+        public EntityCollection<OrderHistory> OrderHistory
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<OrderHistory>("HighLandirect.Domain.FK_OrderHistoryProductID_Product", "OrderHistory");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<OrderHistory>("HighLandirect.Domain.FK_OrderHistoryProductID_Product", "OrderHistory", value);
+                }
+            }
+        }
 
         #endregion
 
