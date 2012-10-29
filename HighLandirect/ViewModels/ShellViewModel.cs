@@ -35,27 +35,27 @@ namespace HighLandirect.ViewModels
         public ShellViewModel()
         {
             var entityService = new EntityService();
+            customerEntities = new MyDataEntities();
+            entityService.Customerentities = customerEntities;
 
             //this.entityController = new EntityController(entityService, this);
             this.productListViewModel = new ProductListViewModel(entityService.Products, entityService);
             this.customerListViewModel = new CustomerListViewModel(this, entityService.Customers, entityService);
             this.orderListViewModel = new OrderListViewModel(entityService, entityService.Orders,
                                                              entityService.Stores, entityService.ReportMemos);
-            customerEntities = new MyDataEntities();
-            entityService.Customerentities = customerEntities;
         }
 
-        private ProductListViewModel ProductListViewModel
+        public ProductListViewModel ProductListViewModel
         {
             get { return this.productListViewModel; }
         }
 
-        private CustomerListViewModel CustomerListViewModel
+        public CustomerListViewModel CustomerListViewModel
         {
             get { return this.customerListViewModel; }
         }
 
-        private OrderListViewModel OrderListViewModel
+        public OrderListViewModel OrderListViewModel
         {
             get { return this.orderListViewModel; }
         }

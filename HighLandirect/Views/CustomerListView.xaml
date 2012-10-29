@@ -53,12 +53,12 @@
                     </i:Interaction.Triggers>
                 </Button>
                 <Separator Width="10" />
-                <CheckBox Checked="{Binding ShowDeletedData}" Unchecked="{Binding HideDeletedData}" Content="削除行を表示" />
+                <CheckBox Content="削除行を表示" />
                 <Button Command="{Binding RemoveCommand}" Content="削除" Visibility="Hidden"/>
             </ToolBar>
         </ToolBarTray>
-        <DataGrid ItemsSource="{Binding CustomerViewModels}" SelectedItem="{Binding SelectedCustomer}" AutoGenerateColumns="False" CanUserAddRows="False"
-                  SelectionChanged="{Binding ListViewSelectionChanged}" FontSize="14">
+        <DataGrid ItemsSource="{Binding CustomerViewModels}" AutoGenerateColumns="False" CanUserAddRows="False"
+                  FontSize="14">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding CustNo}" Header="顧客番号" Width="70"/>
                 <DataGridTextColumn Binding="{Binding CustName}" Header="顧客名" Width="100"/>

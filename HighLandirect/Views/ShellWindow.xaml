@@ -71,7 +71,7 @@
 
         <TabControl>
             <TabItem Header="{x:Static p:Resources.Order}">
-                <v:OrderListView Grid.Row="0" Grid.Column="0" DataContext="OrderListViewModel" />
+                <v:OrderListView Grid.Row="0" Grid.Column="0" DataContext="{Binding OrderListViewModel}" />
             </TabItem>
             <TabItem Header="{x:Static p:Resources.AddressBook}">
                 <Grid>
@@ -81,7 +81,7 @@
                                           MinWidth="{Binding Content.MinWidth, ElementName=customerViewPresenter}"/>
                     </Grid.ColumnDefinitions>
 
-                    <v:OrderListView DataContext="CustomerListViewModel" />
+                    <v:CustomerListView DataContext="{Binding CustomerListViewModel}" />
 
                 </Grid>
             </TabItem>
@@ -93,7 +93,7 @@
                                           MinWidth="{Binding Content.MinWidth, ElementName=productViewPresenter}"/>
                     </Grid.ColumnDefinitions>
 
-                    <v:ProductListView DataContext="ProductListViewModel" />
+                    <v:ProductListView DataContext="{Binding ProductListViewModel}" />
 
                 </Grid>
             </TabItem>

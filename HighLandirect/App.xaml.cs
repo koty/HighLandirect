@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Windows;
+using HighLandirect.ViewModels;
+using HighLandirect.Views;
 using Livet;
 
 namespace HighLandirect
@@ -10,6 +12,11 @@ namespace HighLandirect
         {
             DispatcherHelper.UIDispatcher = Dispatcher;
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
+
+            var vm = new ShellViewModel();
+            var window = new ShellWindow();
+            window.DataContext = vm;
+            window.Show();
         }
 
         protected override void OnExit(ExitEventArgs e)
