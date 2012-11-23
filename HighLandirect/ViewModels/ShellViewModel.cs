@@ -42,7 +42,9 @@ namespace HighLandirect.ViewModels
             this.productListViewModel = new ProductListViewModel(entityService.Products, entityService);
             this.customerListViewModel = new CustomerListViewModel(this, entityService.Customers, entityService);
             this.orderListViewModel = new OrderListViewModel(entityService, entityService.Orders,
-                                                             entityService.Stores, entityService.ReportMemos);
+                                                             entityService.Stores, 
+                                                             entityService.OrderHistories,
+                                                             entityService.ReportMemos);
         }
 
         public ProductListViewModel ProductListViewModel
@@ -161,7 +163,8 @@ namespace HighLandirect.ViewModels
             throw new System.NotImplementedException();
         }
 
-        public void ShellViewModelClosing(object sender, CancelEventArgs e)
+        //public void ShellViewModelClosing(object sender, CancelEventArgs e)
+        public void ShellViewModelClosing()
         {
             if (this.HasChanges)
             {

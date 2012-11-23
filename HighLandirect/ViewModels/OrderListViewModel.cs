@@ -39,6 +39,7 @@ namespace HighLandirect.ViewModels
         public OrderListViewModel(IEntityService entityService,
                                     IEnumerable<Order> orders,
                                     IEnumerable<Store> stores,
+                                    IEnumerable<OrderHistory> histories,
                                     IEnumerable<ReportMemo> reportMemos)
         {
             if (orders == null)
@@ -56,7 +57,7 @@ namespace HighLandirect.ViewModels
             this.selectedReportMemo = this.reportMemos.FirstOrDefault(x => x.IsDefault == true);
             this.sendCustomerId = "";
             this.entityService = entityService;
-            this.OrderHistories = new ObservableCollection<OrderHistory>();
+            this.OrderHistories = new ObservableCollection<OrderHistory>(histories);
             this.Orders = new ObservableCollection<Order>(orders);
         }
 
