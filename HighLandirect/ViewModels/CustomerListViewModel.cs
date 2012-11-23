@@ -15,7 +15,7 @@ namespace HighLandirect.ViewModels
 {
     public class CustomerListViewModel : ViewModel
     {
-        private Customer selectedCustomer;
+        private CustomerViewModel selectedCustomer;
         private ViewModelCommand addNewCommand;
         private ViewModelCommand removeCommand;
         private ViewModelCommand searchCommand;
@@ -53,12 +53,13 @@ namespace HighLandirect.ViewModels
 
         public ObservableCollection<CustomerViewModel> CustomerViewModels { get; private set; }
 
-        public Customer SelectedCustomer
+        public CustomerViewModel SelectedCustomer
         {
             get { return selectedCustomer; }
             set
             {
-                if (selectedCustomer != value)
+                if (selectedCustomer == null
+                        || selectedCustomer.Customer.CustNo != value.Customer.CustNo)
                 {
                     selectedCustomer = value;
                     RaisePropertyChanged(() => SelectedCustomer);
@@ -174,13 +175,13 @@ namespace HighLandirect.ViewModels
             customer.Delete = false;
             entityService.Customers.Add(customer);
 
-            this.SelectedCustomer = customer;
+            this.SelectedCustomer = new CustomerViewModel(this, customer);
         }
 
         private bool CanRemoveCustomer() { return this.SelectedCustomer != null; }
         private void RemoveCustomer()
         {
-            this.entityService.Customers.Remove(this.SelectedCustomer);
+            this.entityService.Customers.Remove(this.SelectedCustomer.Customer);
         }
 
         private bool CanSearchCustomer() { return true; }
@@ -189,7 +190,7 @@ namespace HighLandirect.ViewModels
             //とりあえずCustNameでの検索。電話番号、ふりがなでの検索も可能とする
 
             var FoundCustomer = GetCustomerQuery(this.SearchString);
-            this.SelectedCustomer = FoundCustomer;
+            this.SelectedCustomer = new CustomerViewModel(this, FoundCustomer);
 
             //スクロールバーを移動する
             this.ScrollIntoView();
@@ -245,13 +246,13 @@ namespace HighLandirect.ViewModels
         private bool CanAddSendCustomer() { return true; }
         private void AddSendCustomer()
         {
-            this.shellVM.SetSendCustNo(this.SelectedCustomer.CustNo);
+            this.shellVM.SetSendCustNo(this.SelectedCustomer.Customer.CustNo);
         }
 
         private bool CanAddResceiveCustomer() { return true; }
         private void AddResceiveCustomer()
         {
-            this.shellVM.SetResceiveCustNo(this.SelectedCustomer.CustNo);
+            this.shellVM.SetResceiveCustNo(this.SelectedCustomer.Customer.CustNo);
         }
 
         private bool CanPrintAtenaSeal()

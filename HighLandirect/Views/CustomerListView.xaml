@@ -6,7 +6,8 @@
              xmlns:vm="clr-namespace:HighLandirect.ViewModels"
              xmlns:l="clr-namespace:Livet.Behaviors.Messaging;assembly=Livet"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-             xmlns:Messaging="clr-namespace:Livet.Messaging;assembly=Livet" xmlns:v="clr-namespace:HighLandirect.Views"
+             xmlns:Messaging="clr-namespace:Livet.Messaging;assembly=Livet"
+             xmlns:v="clr-namespace:HighLandirect.Views"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance vm:CustomerListViewModel}">
     <UserControl.Resources>
@@ -57,37 +58,40 @@
                 <Button Command="{Binding RemoveCommand}" Content="削除" Visibility="Hidden"/>
             </ToolBar>
         </ToolBarTray>
-        <DataGrid ItemsSource="{Binding CustomerViewModels}" AutoGenerateColumns="False" CanUserAddRows="False"
-                  FontSize="14" SelectedItem="{Binding SelectedCustomer}">
-            <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding CustNo}" Header="顧客番号" Width="70"/>
-                <DataGridTextColumn Binding="{Binding CustName}" Header="顧客名" Width="100"/>
-                <DataGridTextColumn Binding="{Binding PostalCD}" Header="郵便番号" Width="60"/>
-                <DataGridTextColumn Binding="{Binding CityName}" Header="市町村名" Width="70"/>
-                <DataGridTextColumn Binding="{Binding Address1}" Header="住所１" Width="150"/>
-                <DataGridTextColumn Binding="{Binding Address2}" Header="住所２" Width="150"/>
-                <DataGridTextColumn Binding="{Binding Phone}" Header="電話番号" Width="100"/>
-                <DataGridTextColumn Binding="{Binding MailAddress}" Header="メールアドレス" Width="100"/>
-                <DataGridTemplateColumn Header="" Width="30" >
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <CheckBox IsChecked="{Binding Label}" />
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTextColumn Binding="{Binding LatestSend}" Header="最終荷主日" Width="100" />
-                <DataGridTextColumn Binding="{Binding LatestResceive}" Header="最終宛先日" Width="100" />
-                <DataGridTemplateColumn Header="一覧に出さない" Width="30" >
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <CheckBox IsChecked="{Binding Delete}" />
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-            </DataGrid.Columns>
-        </DataGrid>
-        <ScrollViewer VerticalScrollBarVisibility="Auto">
-            <v:CustomerView DataContext="{Binding SelectedCustomer}" />
-        </ScrollViewer>
+        <StackPanel Orientation="Horizontal">
+            <DataGrid ItemsSource="{Binding CustomerViewModels}" AutoGenerateColumns="False" CanUserAddRows="False"
+                      FontSize="14" SelectedItem="{Binding SelectedCustomer}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding Customer.CustNo}" Header="顧客番号" Width="70"/>
+                    <DataGridTextColumn Binding="{Binding Customer.CustName}" Header="顧客名" Width="100"/>
+                    <DataGridTextColumn Binding="{Binding Customer.PostalCD}" Header="郵便番号" Width="60"/>
+                    <DataGridTextColumn Binding="{Binding Customer.CityName}" Header="市町村名" Width="70"/>
+                    <DataGridTextColumn Binding="{Binding Customer.Address1}" Header="住所１" Width="150"/>
+                    <DataGridTextColumn Binding="{Binding Customer.Address2}" Header="住所２" Width="150"/>
+                    <DataGridTextColumn Binding="{Binding Customer.Phone}" Header="電話番号" Width="100"/>
+                    <DataGridTextColumn Binding="{Binding Customer.MailAddress}" Header="メールアドレス" Width="100"/>
+                    <DataGridTemplateColumn Header="" Width="30" >
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox IsChecked="{Binding Customer.Label}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Binding="{Binding Customer.LatestSend}" Header="最終荷主日" Width="100" />
+                    <DataGridTextColumn Binding="{Binding Customer.LatestResceive}" Header="最終宛先日" Width="100" />
+                    <DataGridTemplateColumn Header="一覧に出さない" Width="30" >
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox IsChecked="{Binding Customer.Delete}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+     
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <v:CustomerView DataContext="{Binding SelectedCustomer}" />
+            </ScrollViewer>
+        </StackPanel>
     </DockPanel>
 </UserControl>

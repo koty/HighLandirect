@@ -7,7 +7,8 @@
              xmlns:ViewModels="clr-namespace:HighLandirect.ViewModels"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:l="clr-namespace:Livet.Behaviors.Messaging;assembly=Livet"
-             xmlns:Messaging="clr-namespace:Livet.Messaging;assembly=Livet" xmlns:v="clr-namespace:HighLandirect.Views"
+             xmlns:Messaging="clr-namespace:Livet.Messaging;assembly=Livet"
+             xmlns:v="clr-namespace:HighLandirect.Views"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance ViewModels:ProductListViewModel}">
 

@@ -46,7 +46,7 @@
                         ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
                  MaxLength="1" Grid.Column="2" Grid.Row="1" MinWidth="30" FontSize="16" Grid.ColumnSpan="2" Margin="11,11,0,0" Width="20" />
 
-        <Label Content="夕版番号" Grid.Column="3" />
+        <Label Content="郵便番号" Grid.Column="3" />
         <TextBox Name="PostalCD" Text="{Binding Customer.PostalCD, Converter={x:Static Converters:PostalCdConverter.Default}, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True,
                         ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
                  MaxLength="8" Grid.Column="4" HorizontalAlignment="Stretch" DataContext="{Binding}" FontSize="16" Margin="0,11,0,0" Width="129">

@@ -74,28 +74,10 @@
                 <v:OrderListView Grid.Row="0" Grid.Column="0" DataContext="{Binding OrderListViewModel}" />
             </TabItem>
             <TabItem Header="{x:Static p:Resources.AddressBook}">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="500" 
-                                          MinWidth="{Binding Content.MinWidth, ElementName=customerViewPresenter}"/>
-                    </Grid.ColumnDefinitions>
-
-                    <v:CustomerListView DataContext="{Binding CustomerListViewModel}" />
-
-                </Grid>
+                <v:CustomerListView DataContext="{Binding CustomerListViewModel}" />
             </TabItem>
             <TabItem Header="{x:Static p:Resources.Product}">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="500"
-                                          MinWidth="{Binding Content.MinWidth, ElementName=productViewPresenter}"/>
-                    </Grid.ColumnDefinitions>
-
-                    <v:ProductListView DataContext="{Binding ProductListViewModel}" />
-
-                </Grid>
+                <v:ProductListView DataContext="{Binding ProductListViewModel}" />
             </TabItem>
         </TabControl>
 
