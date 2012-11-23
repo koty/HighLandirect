@@ -312,6 +312,9 @@
       <LastGenOutput>CustomerEntity.Designer.cs</LastGenOutput>
     </EntityDeploy>
     <None Include="Domains\Resources\TableCreate.sqlce" />
+    <None Include="InfrastructureAssemblies\EULA.rtf" />
+    <None Include="InfrastructureAssemblies\YomiganaFramework\YomiganaFramework.chm" />
+    <None Include="Properties\DataSources\HighLandirect.Domains.MyDataEntities.datasource" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -347,9 +350,34 @@
     <Content Include="Domains\Resources\MyData.sdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="InfrastructureAssemblies\AsyncBridge.dll" />
-    <Content Include="InfrastructureAssemblies\AsyncBridge.pdb" />
-    <Resource Include="InfrastructureAssemblies\AsyncBridge.xml" />
+    <Resource Include="InfrastructureAssemblies\YomiganaFramework\en\JpnKanaConversion.XML" />
+    <Resource Include="InfrastructureAssemblies\YomiganaFramework\en\JpnKanaConvHelper.XML" />
+    <Resource Include="InfrastructureAssemblies\YomiganaFramework\en\Microsoft.International.Design.xml" />
+    <Resource Include="InfrastructureAssemblies\YomiganaFramework\en\SimpleRuby.XML" />
+    <Resource Include="InfrastructureAssemblies\YomiganaFramework\en\YomiganaExtender.xml" />
+    <Resource Include="InfrastructureAssemblies\YomiganaFramework\en\YomiganaFramework.xml" />
+    <Resource Include="InfrastructureAssemblies\YomiganaFramework\en\YomiganaTextBox.xml" />
+    <Resource Include="InfrastructureAssemblies\YomiganaFramework\en\YomiganaWPFTextBox.xml" />
+    <Resource Include="InfrastructureAssemblies\YomiganaFramework\ja\JpnKanaConversion.xml" />
+    <Resource Include="InfrastructureAssemblies\YomiganaFramework\ja\JpnKanaConvHelper.xml" />
+    <Resource Include="InfrastructureAssemblies\YomiganaFramework\ja\Microsoft.International.Design.xml" />
+    <Content Include="InfrastructureAssemblies\YomiganaFramework\ja\SimpleRuby.resources.dll" />
+    <Resource Include="InfrastructureAssemblies\YomiganaFramework\ja\SimpleRuby.XML" />
+    <Content Include="InfrastructureAssemblies\YomiganaFramework\ja\YomiganaExtender.resources.dll" />
+    <Resource Include="InfrastructureAssemblies\YomiganaFramework\ja\YomiganaExtender.xml" />
+    <Content Include="InfrastructureAssemblies\YomiganaFramework\ja\YomiganaFramework.resources.dll" />
+    <Resource Include="InfrastructureAssemblies\YomiganaFramework\ja\YomiganaFramework.xml" />
+    <Content Include="InfrastructureAssemblies\YomiganaFramework\ja\YomiganaTextBox.resources.dll" />
+    <Resource Include="InfrastructureAssemblies\YomiganaFramework\ja\YomiganaTextBox.xml" />
+    <Content Include="InfrastructureAssemblies\YomiganaFramework\ja\YomiganaWPFTextBox.resources.dll" />
+    <Resource Include="InfrastructureAssemblies\YomiganaFramework\ja\YomiganaWPFTextBox.xml" />
+    <Content Include="InfrastructureAssemblies\YomiganaFramework\JpnKanaConversion.dll" />
+    <Content Include="InfrastructureAssemblies\YomiganaFramework\JpnKanaConvHelper.dll" />
+    <Content Include="InfrastructureAssemblies\YomiganaFramework\SimpleRuby.dll" />
+    <Content Include="InfrastructureAssemblies\YomiganaFramework\YomiganaExtender.dll" />
+    <Content Include="InfrastructureAssemblies\YomiganaFramework\YomiganaFramework.dll" />
+    <Content Include="InfrastructureAssemblies\YomiganaFramework\YomiganaTextBox.dll" />
+    <Content Include="InfrastructureAssemblies\YomiganaFramework\YomiganaWPFTextBox.dll" />
     <Content Include="InfrastructureAssemblies\Design\Livet.Design.dll" />
     <Content Include="InfrastructureAssemblies\Design\Livet.Expression.Design.dll" />
     <Content Include="InfrastructureAssemblies\Livet.dll" />

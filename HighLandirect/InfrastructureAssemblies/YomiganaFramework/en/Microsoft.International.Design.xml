@@ -1,0 +1,181 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.International.Design</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.International.Web.UI.Design.WebControls.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Microsoft.International.Web.UI.Design.WebControls.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.International.Web.UI.Design.WebControls.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="T:Microsoft.International.Web.UI.Design.WebControls.DisplayCategory">
+            <summary>
+            Represents a class that support display localization string for group the category.
+            </summary>
+        </member>
+        <member name="M:Microsoft.International.Web.UI.Design.WebControls.DisplayCategory.GetLocalizedString(System.String)">
+            <summary>
+            Get the localization string for group the category.
+            </summary>
+            <param name="value">The identifer for the category to look up.</param>
+            <returns>The localized name of the category, or null if a localized name does not
+            exist.</returns>
+        </member>
+        <member name="T:Microsoft.International.Web.UI.Design.WebControls.AssemblyResource">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Microsoft.International.Web.UI.Design.WebControls.AssemblyResource.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.International.Web.UI.Design.WebControls.AssemblyResource.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.International.Web.UI.Design.WebControls.AssemblyResource.CancelBtn_Text">
+            <summary>
+              Looks up a localized string similar to Cancel.
+            </summary>
+        </member>
+        <member name="P:Microsoft.International.Web.UI.Design.WebControls.AssemblyResource.m_AutoFillBtn_Text">
+            <summary>
+              Looks up a localized string similar to Auto Fill.
+            </summary>
+        </member>
+        <member name="P:Microsoft.International.Web.UI.Design.WebControls.AssemblyResource.m_CancelBtn_Text">
+            <summary>
+              Looks up a localized string similar to Cancel.
+            </summary>
+        </member>
+        <member name="P:Microsoft.International.Web.UI.Design.WebControls.AssemblyResource.m_ClearBtn_Text">
+            <summary>
+              Looks up a localized string similar to Clear.
+            </summary>
+        </member>
+        <member name="P:Microsoft.International.Web.UI.Design.WebControls.AssemblyResource.m_copyBaseToolStripMenuItem_Text">
+            <summary>
+              Looks up a localized string similar to Copy Base.
+            </summary>
+        </member>
+        <member name="P:Microsoft.International.Web.UI.Design.WebControls.AssemblyResource.m_halwidthKatakanaToolStripMenuItem_Text">
+            <summary>
+              Looks up a localized string similar to Halwidth Katakana.
+            </summary>
+        </member>
+        <member name="P:Microsoft.International.Web.UI.Design.WebControls.AssemblyResource.m_hiraganaToolStripMenuItem_Text">
+            <summary>
+              Looks up a localized string similar to Hiragana.
+            </summary>
+        </member>
+        <member name="P:Microsoft.International.Web.UI.Design.WebControls.AssemblyResource.m_katakanaToolStripMenuItem_Text">
+            <summary>
+              Looks up a localized string similar to Katakana.
+            </summary>
+        </member>
+        <member name="P:Microsoft.International.Web.UI.Design.WebControls.AssemblyResource.m_MergeAllBtn_Text">
+            <summary>
+              Looks up a localized string similar to Merge All.
+            </summary>
+        </member>
+        <member name="P:Microsoft.International.Web.UI.Design.WebControls.AssemblyResource.m_NewBaseBtn_Text">
+            <summary>
+              Looks up a localized string similar to New Base String....
+            </summary>
+        </member>
+        <member name="P:Microsoft.International.Web.UI.Design.WebControls.AssemblyResource.m_OKBtn_Text">
+            <summary>
+              Looks up a localized string similar to OK.
+            </summary>
+        </member>
+        <member name="P:Microsoft.International.Web.UI.Design.WebControls.AssemblyResource.m_SplitAllBtn_Text">
+            <summary>
+              Looks up a localized string similar to Split All.
+            </summary>
+        </member>
+        <member name="P:Microsoft.International.Web.UI.Design.WebControls.AssemblyResource.m_Text">
+            <summary>
+              Looks up a localized string similar to String Yomigana Editor.
+            </summary>
+        </member>
+        <member name="P:Microsoft.International.Web.UI.Design.WebControls.AssemblyResource.OKbtn_Text">
+            <summary>
+              Looks up a localized string similar to OK.
+            </summary>
+        </member>
+        <member name="P:Microsoft.International.Web.UI.Design.WebControls.AssemblyResource.this_Text">
+            <summary>
+              Looks up a localized string similar to New Base String.
+            </summary>
+        </member>
+        <member name="P:Microsoft.International.Web.UI.Design.WebControls.AssemblyResource.TryPreserveBoundcheckBox_Text">
+            <summary>
+              Looks up a localized string similar to Try preserving boundaries.
+            </summary>
+        </member>
+        <member name="T:Microsoft.International.Web.UI.Design.WebControls.Properties.CommonResource">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Microsoft.International.Web.UI.Design.WebControls.Properties.CommonResource.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.International.Web.UI.Design.WebControls.Properties.CommonResource.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="T:Microsoft.International.Web.UI.Design.WebControls.StringAnnotationEditor">
+            <summary>
+                Provides a base class that can be used to design value editors that can provide
+                a user interface (UI) for representing and editing the values of objects
+                of the StringAnnotations types.
+            </summary>
+        </member>
+        <member name="M:Microsoft.International.Web.UI.Design.WebControls.StringAnnotationEditor.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.International.Web.UI.Design.WebControls.StringAnnotationEditor"/> class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.International.Web.UI.Design.WebControls.StringAnnotationEditor.GetEditStyle(System.ComponentModel.ITypeDescriptorContext)">
+            <summary>
+            Gets the editor style used by the <see cref="M:System.Drawing.Design.UITypeEditor.EditValue(System.IServiceProvider,System.Object)"/> method.
+            </summary>
+            <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext"/> that can be used to gain additional context information.</param>
+            <returns>
+            A <see cref="T:System.Drawing.Design.UITypeEditorEditStyle"/> value that indicates the style of editor used by the <see cref="M:System.Drawing.Design.UITypeEditor.EditValue(System.IServiceProvider,System.Object)"/> method. If the <see cref="T:System.Drawing.Design.UITypeEditor"/> does not support this method, then <see cref="M:System.Drawing.Design.UITypeEditor.GetEditStyle"/> will return <see cref="F:System.Drawing.Design.UITypeEditorEditStyle.None"/>.
+            </returns>
+        </member>
+        <member name="M:Microsoft.International.Web.UI.Design.WebControls.StringAnnotationEditor.EditValue(System.ComponentModel.ITypeDescriptorContext,System.IServiceProvider,System.Object)">
+            <summary>
+            Edits the specified object's value using the editor style indicated by the <see cref="M:System.Drawing.Design.UITypeEditor.GetEditStyle"/> method.
+            </summary>
+            <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext"/> that can be used to gain additional context information.</param>
+            <param name="provider">An <see cref="T:System.IServiceProvider"/> that this editor can use to obtain services.</param>
+            <param name="value">The object to edit.</param>
+            <returns>
+            The new value of the object. If the value of the object has not changed, this should return the same object it was passed.
+            </returns>
+        </member>
+    </members>
+</doc>

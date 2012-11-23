@@ -1,0 +1,132 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>YomiganaExtender</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.International.AjaxControl.YomiganaExtender">
+            <summary>
+             Provides Ajax extender to be attached to TextBox ASP.NET server control. 
+             It captures yomi and automatically displays the captured content on another control with specified kana kind.
+            </summary>
+        </member>
+        <member name="M:Microsoft.International.AjaxControl.YomiganaExtender.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.International.AjaxControl.YomiganaExtender"/> class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.International.AjaxControl.YomiganaExtender.OnYomiganaChanged(System.EventArgs)">
+            <summary>
+            Raises the <see cref="E:YomiganaChanged"/> event.
+            </summary>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Microsoft.International.AjaxControl.YomiganaExtender.GetScriptDescriptors(System.Web.UI.Control)">
+            <summary>
+            When overridden in a derived class, registers the <see cref="T:System.Web.UI.ScriptDescriptor"/> objects for the control.
+            </summary>
+            <param name="targetControl">The server control to which the extender is associated.</param>
+            <returns>
+            An enumeration of <see cref="T:System.Web.UI.ScriptDescriptor"/> objects.
+            </returns>
+        </member>
+        <member name="M:Microsoft.International.AjaxControl.YomiganaExtender.GetScriptReferences">
+            <summary>
+            When overridden in a derived class, registers the script libraries for the control.
+            </summary>
+            <returns>
+            An object that implements the <see cref="T:System.Collections.IEnumerable"/> interface and that contains ECMAScript (JavaScript) files that have been registered as embedded resources.
+            </returns>
+        </member>
+        <member name="E:Microsoft.International.AjaxControl.YomiganaExtender.YomiganaChanged">
+            <summary>
+            Occurs when yomigana is changed.
+            </summary>
+        </member>
+        <member name="P:Microsoft.International.AjaxControl.YomiganaExtender.TextCapturedPreferredConversion">
+            <summary>
+            Gets or sets the kana kind of the captured string.
+            </summary>
+            <value>The type of the captured string.</value>
+        </member>
+        <member name="P:Microsoft.International.AjaxControl.YomiganaExtender.TextAnnotated">
+            <summary>
+            Gets or sets the annotated embedding text.
+            </summary>
+            <value>The annotated embedding text.</value>
+        </member>
+        <member name="P:Microsoft.International.AjaxControl.YomiganaExtender.TextCaptured">
+            <summary>
+            Gets or sets the captured text.
+            </summary>
+            <value>The captured text.</value>
+        </member>
+        <member name="P:Microsoft.International.AjaxControl.YomiganaExtender.ServicePath">
+            <summary>
+            The path to the web service which defineds the services method for processing text changes.
+            </summary>
+            <value>The service path.</value>
+        </member>
+        <member name="P:Microsoft.International.AjaxControl.YomiganaExtender.TargetBindingControl">
+            <summary>
+            Gets or sets the target binding control.
+            </summary>
+            <value>The target binding control.</value>
+        </member>
+        <member name="T:Microsoft.International.AjaxControl.PreferredConversion">
+            <summary>
+            Preferred Conversion for yomigana.
+            </summary>
+        </member>
+        <member name="F:Microsoft.International.AjaxControl.PreferredConversion.None">
+            <summary>
+            No conversion. Respects the user entered kana type (do not convert). 
+            </summary>
+        </member>
+        <member name="F:Microsoft.International.AjaxControl.PreferredConversion.ToHiragana">
+            <summary>
+            ToHiragana: Covnert Katakana and Halfwidth Katakana to Hiragana.  Other characters will pass through.
+            </summary>
+        </member>
+        <member name="F:Microsoft.International.AjaxControl.PreferredConversion.ToKatakana">
+            <summary>
+             ToKatakana: Convert Hiragana and Halfwidth Katakana to Katakana.  Other characters will pass through. 
+            </summary>
+        </member>
+        <member name="F:Microsoft.International.AjaxControl.PreferredConversion.ToHalfwidthKatakana">
+            <summary>
+            ToHalfwidthKatakana: Convert Hiragana and Katakana to Halfwidth Katakana. Other char will pass through.
+            </summary>
+        </member>
+        <member name="T:Microsoft.International.AjaxControl.YomiganaService">
+            <summary>
+             Provides web service method to process text changes 
+             and returns the yomigana embedding text and yomigana with specified kana kind.
+            </summary>
+        </member>
+        <member name="M:Microsoft.International.AjaxControl.YomiganaService.ProcessTextChangeTogether(System.String[],System.String)">
+            <summary>
+            Processes the text change together and returns the yomigana embedding text and yomigana with specified kana kind.
+            </summary>
+            <param name="textArray">The text array contains all text changes.</param>
+            <param name="textCapturedPreferredConversionString"> Kana kind of the yomigana.</param>
+            <returns>Yomigana embedding text and yomigana splitted with "#VS#".</returns>
+        </member>
+        <member name="T:Microsoft.International.AjaxControl.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Microsoft.International.AjaxControl.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.International.AjaxControl.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+    </members>
+</doc>

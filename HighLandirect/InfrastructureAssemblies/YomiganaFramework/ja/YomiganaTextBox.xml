@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<doc>
+  <assembly>
+        <name>YomiganaTextBox</name>
+  </assembly>
+  <members>
+    <member name="T:Microsoft.International.Windows.Forms.YomiganaTextBox">
+      <summary>入力をキャプチャし、キャプチャした内容を別のコントロールへ指定した仮名の種別で表示する Windows フォーム TextBox を提供します。</summary>
+    </member>
+    <member name="M:Microsoft.International.Windows.Forms.YomiganaTextBox.#ctor">
+      <summary>
+        <see cref="T:Microsoft.International.Windows.Forms.YomiganaTextBox" /> クラスの新しいインスタンスを初期化します。
+      </summary>
+    </member>
+    <member name="M:Microsoft.International.Windows.Forms.YomiganaTextBox.#ctor(System.ComponentModel.IContainer)">
+      <summary>
+        <see cref="T:Microsoft.International.Windows.Forms.YomiganaTextBox" /> クラスの新しいインスタンスを初期化します。
+      </summary>
+      <param name="container">コンテナーです。</param>
+    </member>
+<member name="M:Microsoft.International.Windows.Forms.YomiganaTextBox.OnTextChanged(System.EventArgs)">
+      <summary>
+        <see cref="E:System.Windows.Forms.Control.TextChanged" /> イベントを発生させます。
+      </summary>
+      <param name="e">
+        イベント データを含む <see cref="T:System.EventArgs" /> です。
+      </param>
+    </member>
+    
+<member name="M:Microsoft.International.Windows.Forms.YomiganaTextBox.OnLostFocus(System.EventArgs)">
+      <summary>
+        <see cref="E:System.Windows.Forms.Control.LostFocus" /> イベントを発生させます。
+      </summary>
+      <param name="e">
+        イベント データを含む <see cref="T:System.EventArgs" /> です。
+      </param>
+    </member>
+    <member name="M:Microsoft.International.Windows.Forms.YomiganaTextBox.OnYomiganaChanged(System.EventArgs)">
+      <summary>
+        <see cref="E:Microsoft.International.Windows.Forms.YomiganaTextBox.YomiganaChanged"/> イベントを発生させます。
+      </summary>
+      <param name="e">イベント データを含む <see cref="T:System.EventArgs" /> のインスタンスです。</param>
+    </member>
+    <member name="M:Microsoft.International.Windows.Forms.YomiganaTextBox.WndProc(System.Windows.Forms.Message@)">
+      <summary>
+        Windows メッセージを処理します。
+      </summary>
+      <param name="m">Windows メッセージ オブジェクトです。</param>
+    </member> 
+      <member name="M:Microsoft.International.Windows.Forms.YomiganaTextBox.Dispose(System.Boolean)">
+      <summary>使用されているすべてのリソースをクリーンアップします。</summary>
+      <param name="disposing">マネージ リソースが破棄される場合には true です。それ以外は false です。</param>
+    </member>
+    <member name="M:Microsoft.International.Windows.Forms.YomiganaTextBox.InitializeComponent">
+      <summary>デザイナサポートに必要なメソッド。このメソッドの内容をコードエディタで変更しないでください。</summary>
+    </member>
+ 
+    <member name="P:Microsoft.International.Windows.Forms.YomiganaTextBox.TextAnnotated">
+      <summary>注釈が埋め込まれたテキストを取得します。</summary>
+      <value>注釈が埋め込まれたテキストです。</value>
+    </member>
+    <member name="P:Microsoft.International.Windows.Forms.YomiganaTextBox.TextCaptured">
+      <summary>
+        キャプチャした文字列を取得します。
+      </summary>
+      <value>キャプチャした文字列です。</value>
+    </member>
+    <member name="P:Microsoft.International.Windows.Forms.YomiganaTextBox.Annotations">
+      <summary>注釈を取得する。</summary>
+      <value>注釈。</value>
+    </member>
+    <member name="P:Microsoft.International.Windows.Forms.YomiganaTextBox.TextCapturedPreferredConversion">
+      <summary>キャプチャした文字列の優先的な仮名変換をする種別を取得または設定します。</summary>
+      <value>キャプチャした文字列の仮名の種別です。</value>
+    </member>
+    <member name="P:Microsoft.International.Windows.Forms.YomiganaTextBox.BindingControl">
+      <summary>バインド コントロールを取得または設定します。</summary>
+      <value>バインド コントロールです。</value>
+    </member>
+     <member name="E:Microsoft.International.Windows.Forms.YomiganaTextBox.YomiganaChanged">
+       <summary>
+         キャプチャした文字列が変更したときに発生します。
+       </summary>
+     </member>
+    <member name="T:Microsoft.International.Windows.Forms.PreferredConversion">
+      <summary>
+        キャプチャした文字列に対する優先的な変換を表します。
+      </summary>
+    </member>
+    <member name="F:Microsoft.International.Windows.Forms.PreferredConversion.None">
+      <summary>
+        変換しません。ユーザーが入力した仮名の種別を優先します。
+      </summary>
+    </member>
+    <member name="F:Microsoft.International.Windows.Forms.PreferredConversion.ToHiragana">
+      <summary>
+        カタカナ、半角カタカナをひらがなに変換します。 その他の文字は通過します。
+      </summary>
+    </member>
+    <member name="F:Microsoft.International.Windows.Forms.PreferredConversion.ToKatakana">
+      <summary>
+        ひらがな、半角カタカナをカタカナに変換します。 その他の文字が通過します。
+      </summary>
+    </member>
+    <member name="F:Microsoft.International.Windows.Forms.PreferredConversion.ToHalfwidthKatakana">
+      <summary>
+        半角カタカナには、ひらがなとカタカナに変換します。 その他の文字は通過します。
+      </summary>
+    </member>
+  </members>
+</doc>

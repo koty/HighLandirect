@@ -1,0 +1,546 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>JpnKanaConversion</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.International.Converters.TransliteralConverter">
+            <summary>
+            <see cref="T:Microsoft.International.Converters.TransliteralConverter"/> は状態マシンを提供します。xml構成ファイルに従って<see cref="P:Microsoft.International.Converters.TransliteralConverter.Input"/>プロパティに含まれた文字列から別の文字セットに変換します。            
+            <see cref="T:Microsoft.International.Converters.TransliteralConverter"/>は<see cref="P:Microsoft.International.Converters.TransliteralConverter.Output"/>プロパティに変換された文字を出力します。また、状態マシンから別状態へ遷移する時のイベントを提供します。遷移データはXML構成ファイルで管理、取得できます。
+            </summary>
+            <remarks>
+            <FONT size="8"><p><b>Transliteral Converterの構成ファイルのスキーマ</b></p></FONT>
+            <FONT size="5">
+            <p>構成ファイルはTransliteral Converterの変換ルールを決めます。</p>
+            <p>
+            <pre>&lt;AutoConverterConfig&gt;</pre><br/>
+            <pre>  &lt;StateMachineConfig&gt;</pre><br/>
+            <pre>    &lt;State&gt;</pre><br/>
+            <pre>      &lt;StateTransition&gt;</pre><br/>
+            <pre>        &lt;InputValidatiors&gt;</pre><br/>
+            <pre>          &lt;Regex&gt;</pre><br/>
+            <pre>        &lt;Actions&gt;</pre><br/>
+            <pre>          &lt;Action&gt;</pre><br/>
+            <pre>  &lt;ConversionTable&gt;</pre><br/>
+            <pre>    &lt;Conversion&gt;</pre><br/>
+            </p>
+            </FONT>
+            <p>
+            <table border="1" cellspacing="0" cellpadding="0" bordercolor="gray" width="100%">
+            <thead>
+            <tr bgcolor="gray">
+            <th>要素</th>
+            <th>説明</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>AutoConverterConfig</td>
+            <td>構成ファイルのルート要素。</td>
+            </tr>
+            <tr>
+            <td>StateMachineConfig</td>
+            <td>
+            状態マシンの構成です。<br/><br/>
+            <table align="middle" border="1" cellspacing="0" cellpadding="0" bordercolor="gray" width="80%">
+            <thead>
+            <tr bgcolor="gray">
+            <th>属性</th>
+            <th>説明</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>EntryState</td>
+            <td>エントリ状態を指定します。</td>
+            </tr>
+            <tr>
+            <td>CharSet</td>
+            <td>変換できる有効な文字を指定します。</td>
+            </tr>
+            </tbody>
+            </table>
+            <br/>
+            </td>
+            </tr>
+            <tr>
+            <td>State</td>
+            <td>状態マシンの状態です。<br/><br/>
+            <table align="middle" border="1" cellspacing="0" cellpadding="0" bordercolor="gray" width="80%">
+            <thead>
+            <tr bgcolor="gray">
+            <th>属性</th>
+            <th>説明</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>ID</td>
+            <td>状態の一意のIDを指定します。</td>
+            </tr>
+            </tbody>
+            </table>
+            <br/>
+            </td>
+            </tr>
+            <tr>
+            <td>StateTransition</td>
+            <td>
+            今の状態から別の状態へ変更します。<br/><br/>
+            <table align="middle" border="1" cellspacing="0" cellpadding="0" bordercolor="gray" width="80%">
+            <thead>
+            <tr bgcolor="gray">
+            <th>属性</th>
+            <th>説明</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>ID</td>
+            <td>次の状態の一意のIDを指定します。</td>
+            </tr>
+            </tbody>
+            </table>
+            <br/>
+            </td>
+            </tr>
+            <tr>
+            <td>InputValidators</td>
+            <td>入力チェック用正規表現はいくつがあります。設定する正規表現のいずれかに一致すれば、状態マシンは要素<b>&lt;Actions&gt;</b>で指定した動作を実行します。</td>
+            </tr>
+            <tr>
+            <td>Regex</td>
+            <td>入力チェック用正規表現です。</td>
+            </tr>
+            <tr>
+            <td>Actions</td>
+            <td>状態マシンが実行する複数の動作です。</td>
+            </tr>
+            <tr>
+            <td>Actions</td>
+            <td>
+            状態マシンが実行するひとつの動作です。 サポートしている種類は下記の通りです：<br/>
+            <list type="bullet">
+            <item>Append(char)</item>
+            <item>AppendInput</item>
+            <item>ConvertToOutput</item>
+            <item>Clear</item>
+            </list>
+            </td>
+            </tr>
+            <tr>
+            <td>ConversionTable</td>
+            <td><b>&lt;Conversion&gt;</b>要素を含んでいます。</td></tr>
+            <tr>
+            <td>Conversion</td>
+            <td>
+            変換元のユニットと変換先の文字セットを表示するペアの文字列です。<br/><br/>
+            <table align="middle" border="1" cellspacing="0" cellpadding="0" bordercolor="gray" width="80%">
+            <thead>
+            <tr bgcolor="gray">
+            <th>属性</th>
+            <th>説明</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>Input</td>
+            <td>変換元の文字列です。</td>
+            </tr>
+            <tr>
+            <td>Output</td>
+            <td>変換後の文字列です。</td>
+            </tr>
+            </tbody>
+            </table>
+            <br/>
+            </td>
+            </tr>
+            </tbody>
+            </table>
+            </p>
+            </remarks>
+            <example>
+              <!--Fix Bug 3752-->
+              英字からギリシャ文字への変換は、以下のXMLによって可能です。
+              <code source="../Code/TransliteralConverter.xml" lang="xml"></code>
+              <!--Fix Bug 3751-->
+            下記のコードは<see cref="T:Microsoft.International.Converters.TransliteralConverter"/>の動作の説明です。
+構成ファイル名は TransliteralConverter.xml にしなければなりません。また、アプリケーションと同じフォルダに置かないといけません。
+              <code source="../../ExampleJpnKanaConversion_CS/Program.cs" lang="cs"></code>
+            <code source="../../ExampleJpnKanaConversion_VB/ConverterDemo.vb" lang="vbnet"></code>
+            <code source="../../ExampleJpnKanaConversion_CPP/ExampleJpnKanaConversion_CPP.cpp" lang="cpp"></code>
+            上記のコードは下記の内容を出力します：
+            <!--Fix Bug 3753-->
+              θαεζdefg
+            </example>
+        </member>
+        <member name="F:Microsoft.International.Converters.TransliteralConverter.input">
+            <summary>
+            <see cref="T:System.IO.TextReader"/>は変換元の文字列です。
+            </summary>
+        </member>
+        <member name="F:Microsoft.International.Converters.TransliteralConverter.output">
+            <summary>
+            <see cref="T:System.IO.TextWriter"/>は変換後の文字列です。
+            </summary>
+        </member>
+        <member name="F:Microsoft.International.Converters.TransliteralConverter.stateMachine">
+            <summary>
+            文字をほかの文字へ変換用状態・マシンです。
+            </summary>
+        </member>
+        <member name="M:Microsoft.International.Converters.TransliteralConverter.#ctor">
+            <summary>
+              TransliteralConverter のインスタンスを作成します。
+              現在のフォルダを構成ファイルの既定フォルダとします。
+              また、<see cref="P:System.Console.In"/>を既定入力とし、<see cref="P:System.Console.Out"/>を既定出力とします。
+            </summary>
+            <remarks>
+            <p>既定入力は<see cref="P:System.Console.In"/>です。
+            既定出力は<see cref="P:System.Console.Out"/>です。
+              構成ファイルの既定フォルダは現在のフォルダです。 構成ファイルの名前が指定されていない場合、既定として"TransliteralConverter.xml"にします。構成ファイルのフォーマットは<see cref="T:Microsoft.International.Converters.TransliteralConverter"/>を参照してください</p>
+            <p>TransliteralConverterの使用例は<see cref="T:Microsoft.International.Converters.TransliteralConverter"/>を参照してください。</p>
+            </remarks>
+        </member>
+        <member name="M:Microsoft.International.Converters.TransliteralConverter.#ctor(System.IO.TextReader)">
+            <summary>
+            現在フォルダを既定フォルダとして、
+            <see cref="P:System.Console.Out"/>を既定出力としてインスタンスを作成します。
+            </summary>
+            <param name="input">この<see cref="T:System.IO.TextReader"/>は変換前のユーザ入力です。</param>
+            <remarks>
+            <p>既定出力は<see cref="P:System.Console.Out"/>です。
+            構成ファイルの既定フォルダは現在のフォルダです。構成ファイルのフォーマットは<see cref="T:Microsoft.International.Converters.TransliteralConverter"/>を参照してください。</p>
+            <p>TransliteralConverterの使用例は<see cref="T:Microsoft.International.Converters.TransliteralConverter"/>を参照してください。</p>
+            </remarks> 
+        </member>
+        <member name="M:Microsoft.International.Converters.TransliteralConverter.#ctor(System.IO.TextReader,System.IO.TextWriter)">
+            <summary>
+            現在フォルダを既定フォルダとして、インスタンスを作成します。
+            </summary>
+            <param name="input">この<see cref="T:System.IO.TextReader"/>は変換前のユーザ入力です。</param>
+            <param name="output">この<see cref="T:System.IO.TextWriter"/>は変換後の文字列を出力します。</param>
+            <remarks>
+            <p>構成ファイルの既定フォルダは現在のフォルダです。構成ファイルのフォーマットは<see cref="T:Microsoft.International.Converters.TransliteralConverter"/>を参照してください。</p>
+            <p>TransliteralConverterの使用例は<see cref="T:Microsoft.International.Converters.TransliteralConverter"/>を参照してください。</p>
+            </remarks>
+        </member>
+        <member name="M:Microsoft.International.Converters.TransliteralConverter.#ctor(System.IO.TextReader,System.IO.TextWriter,System.String)">
+            <summary>
+            新しいインスタンスを作成します。
+            </summary>
+            <param name="input">この<see cref="T:System.IO.TextReader"/>は変換前のユーザ入力です。</param>
+            <param name="output">この<see cref="T:System.IO.TextWriter"/>は変換後の文字列を出力します。</param>
+            <param name="configFilePath">構成ファイル名です。</param>
+            <exception cref="T:System.ArgumentNullException">
+              Input、Output、とconfigFilePathがヌル参照です。
+            </exception>
+            <exception cref="T:System.ArgumentException">
+              configFilePathの長さは0です。
+            </exception>
+            <remarks>
+            <p>構成ファイルのフォーマットは<see cref="T:Microsoft.International.Converters.TransliteralConverter"/>を参照してください。</p>
+            <p>TransliteralConverterの使用例は<see cref="T:Microsoft.International.Converters.TransliteralConverter"/>を参照してください。</p>
+            </remarks>
+        </member>
+        <member name="M:Microsoft.International.Converters.TransliteralConverter.#ctor(System.IO.TextReader,System.IO.TextWriter,System.IO.Stream)">
+            <summary>
+            新しいインスタンスを作成します。
+            </summary>
+            <param name="input">この<see cref="T:System.IO.TextReader"/>は変換前のユーザ入力です。</param>
+            <param name="output">この<see cref="T:System.IO.TextWriter"/>は変換後の文字列を出力します。</param>
+            <param name="configStream">構成ファイルのストリーム。</param>
+            <exception cref="T:System.ArgumentNullException">
+              Input、Output、とconfigFilePathがヌル参照です。
+            </exception>
+            <remarks>
+            TransliteralConverterの使用例は<see cref="T:Microsoft.International.Converters.TransliteralConverter"/>を参照してください。
+            </remarks>
+        </member>
+        <member name="M:Microsoft.International.Converters.TransliteralConverter.Step">
+            <summary>
+              データの処理と実行をユーザーが制御します。
+            </summary>
+            <returns>状態マシンの出力。</returns>
+            <remarks>
+            <p>
+              内部の状態遷移処理がまだ終ってないかもしれませんが、バッファに候補が作成された可能性があります。
+              使用可能な候補がない場合、空文字列("")を戻します。</p>
+            <p>TransliteralConverterの使用例は<see cref="T:Microsoft.International.Converters.TransliteralConverter"/>を参照してください。</p>
+            </remarks>
+        </member>
+        <member name="M:Microsoft.International.Converters.TransliteralConverter.StepWith(System.Char)">
+            <summary>
+            データの処理と実行をユーザが制御します。
+            </summary>
+            <param name="ch">変換する文字です。</param>
+            <returns>バッファの変換結果です。</returns>
+            <seealso cref="M:Microsoft.International.Converters.TransliteralConverter.Step"/>
+            <remarks>
+            TransliteralConverterの使用例は<see cref="T:Microsoft.International.Converters.TransliteralConverter"/>を参照してください。
+            </remarks>
+        </member>
+        <member name="M:Microsoft.International.Converters.TransliteralConverter.StepWith(System.String)">
+            <summary>
+            データの処理と実行はユーザが制御します。
+            </summary>
+            <param name="s">変換する文字列です。</param>
+            <returns>バッファの変換結果です。</returns>
+            <seealso cref="M:Microsoft.International.Converters.TransliteralConverter.Step"/>
+            <exception cref="T:System.ArgumentNullException">
+            s はヌル参照です。
+            </exception>
+            <remarks>
+            TransliteralConverterの使用例は<see cref="T:Microsoft.International.Converters.TransliteralConverter"/>を参照してください。
+            </remarks>
+        </member>
+        <member name="M:Microsoft.International.Converters.TransliteralConverter.Run">
+            <summary>
+            StateMachineクラスのTransit(char ch)メソッドを使って、すべてのデータを処理します。
+            </summary>
+            <remarks>
+            TransliteralConverterの使用例は<see cref="T:Microsoft.International.Converters.TransliteralConverter"/>を参照してください。
+            </remarks>
+        </member>
+        <member name="M:Microsoft.International.Converters.TransliteralConverter.OnStateChanged(Microsoft.International.Converters.StateChangedEventArgs)">
+            <summary>
+            状態が変更するとき、呼び出されます。
+            </summary>
+            <param name="e">現在状態と前状態を格納しているイベントデータです。</param>
+        </member>
+        <member name="E:Microsoft.International.Converters.TransliteralConverter.StateChanged">
+            <summary>
+            状態が変更するとき、発生します。
+            </summary>
+            <remarks>
+            TransliteralConverterの使用例は<see cref="T:Microsoft.International.Converters.TransliteralConverter"/>を参照してください。
+            </remarks>
+        </member>
+        <member name="P:Microsoft.International.Converters.TransliteralConverter.Input">
+            <summary>
+            入力文字を取得します。
+            </summary>
+            <value>
+            入力文字です。
+            </value>
+            <remarks>
+            <p><see cref="T:Microsoft.International.Converters.TransliteralConverter"/>Inputプロパティからデータを読み込み、変換しようとします。入力の既定値は<see cref="P:System.Console.In"/>となります。</p>
+            <p>TransliteralConverterの使用例は<see cref="T:Microsoft.International.Converters.TransliteralConverter"/>を参照してください。</p>
+            </remarks>
+        </member>
+        <member name="P:Microsoft.International.Converters.TransliteralConverter.Output">
+            <summary>
+            変換後の文字列を取得します。
+            </summary>
+            <value>
+            変換後の文字列です。
+            </value>
+            <remarks>
+            <p>
+              変換が可能の場合、状態マシンはOutput属性に変換後の文字列を設定します。
+              出力の既定値は<see cref="P:System.Console.Out"/>です。</p>
+            <p>TransliteralConverterの使用例は<see cref="T:Microsoft.International.Converters.TransliteralConverter"/>を参照してください。</p>
+            </remarks>
+        </member>
+        <member name="T:Microsoft.International.Converters.StateChangedEventArgs">
+            <summary>
+            StateChangedイベントのデータを提供します。
+            </summary>
+            <remarks>
+            TransliteralConverterの使用例は<see cref="T:Microsoft.International.Converters.TransliteralConverter"/>を参照してください。
+            </remarks>
+        </member>
+        <member name="P:Microsoft.International.Converters.StateChangedEventArgs.Input">
+            <summary>
+            ユーザ入力文字を取得します。
+            </summary>
+            <value>
+            ユーザ入力文字です。
+            </value>
+            <remarks>
+            TransliteralConverterの使用例は<see cref="T:Microsoft.International.Converters.TransliteralConverter"/>を参照してください。
+            </remarks>
+        </member>
+        <member name="P:Microsoft.International.Converters.StateChangedEventArgs.PreviousState">
+            <summary>
+            前の<see cref="T:Microsoft.International.Converters.State"/>を取得します。
+            </summary>
+            <value>
+            前の<see cref="T:Microsoft.International.Converters.State"/>です。
+            </value>
+            <remarks>
+            TransliteralConverterの使用例は<see cref="T:Microsoft.International.Converters.TransliteralConverter"/>を参照してください。
+            </remarks>
+        </member>
+        <member name="P:Microsoft.International.Converters.StateChangedEventArgs.NextState">
+            <summary>
+            次の<see cref="T:Microsoft.International.Converters.State"/>を取得します。
+            </summary>
+            <value>
+            次の<see cref="T:Microsoft.International.Converters.State"/>です。
+            </value>
+            <remarks>
+            TransliteralConverterの使用例は<see cref="T:Microsoft.International.Converters.TransliteralConverter"/>を参照してください。
+            </remarks>
+        </member>
+        <member name="P:Microsoft.International.Converters.StateChangedEventArgs.Transition">
+            <summary>
+            前と次の間の<see cref="T:Microsoft.International.Converters.Transition"/>を取得します。
+            </summary>
+            <value>
+            前と次の間の<see cref="T:Microsoft.International.Converters.Transition"/>です。
+            </value>
+            <remarks>
+            TransliteralConverterの使用例は<see cref="T:Microsoft.International.Converters.TransliteralConverter"/>を参照してください。
+            </remarks>
+        </member>
+        <member name="T:Microsoft.International.Converters.State">
+            <summary>
+              状態マシンの状態を表します。
+            </summary>
+            <remarks>
+            TransliteralConverterの使用例は<see cref="T:Microsoft.International.Converters.TransliteralConverter"/>を参照してください。
+            </remarks>
+        </member>
+        <member name="P:Microsoft.International.Converters.State.Id">
+            <summary>
+             状態のIDを取得します。
+            </summary>
+            <value>
+              状態のIDです。
+            </value>
+            <remarks>
+            TransliteralConverterの使用例は<see cref="T:Microsoft.International.Converters.TransliteralConverter"/>を参照してください。
+            </remarks>
+        </member>
+        <member name="P:Microsoft.International.Converters.State.IsStartState">
+             <summary>
+             状態がスタートかどうかを判断します。
+             </summary>
+            <value>
+             スタート状態フラグです。
+            </value>
+             <remarks>
+             TransliteralConverterの使用例は<see cref="T:Microsoft.International.Converters.TransliteralConverter"/>を参照してください。
+             </remarks>
+        </member>
+        <member name="P:Microsoft.International.Converters.State.Transitions">
+            <summary>
+            状態変換のリストを取得します。
+            </summary>
+            <value>
+            状態変換のリストです。
+            </value>
+            <remarks>
+            TransliteralConverterの使用例は<see cref="T:Microsoft.International.Converters.TransliteralConverter"/>を参照してください。
+            </remarks>
+        </member>
+        <member name="T:Microsoft.International.Converters.AutoConverterConfig">
+            <exclude/>
+        </member>
+        <member name="P:Microsoft.International.Converters.AutoConverterConfig.ConversionTableConfig">
+            <exclude/>
+        </member>
+        <member name="T:Microsoft.International.Converters.StateMachineConfig">
+            <exclude/>
+        </member>
+        <member name="P:Microsoft.International.Converters.StateMachineConfig.States">
+            <exclude/>
+        </member>
+        <member name="P:Microsoft.International.Converters.StateMachineConfig.EntryState">
+            <exclude/>
+        </member>
+        <member name="P:Microsoft.International.Converters.StateMachineConfig.CharSet">
+            <exclude/>
+        </member>
+        <member name="T:Microsoft.International.Converters.StateConfig">
+            <exclude/>
+        </member>
+        <member name="P:Microsoft.International.Converters.StateConfig.Transitions">
+            <exclude/>
+        </member>
+        <member name="P:Microsoft.International.Converters.StateConfig.ID">
+            <exclude/>
+        </member>
+        <member name="T:Microsoft.International.Converters.TransitionConfig">
+            <exclude/>
+        </member>
+        <member name="P:Microsoft.International.Converters.TransitionConfig.InputValidators">
+            <exclude/>
+        </member>
+        <member name="P:Microsoft.International.Converters.TransitionConfig.Actions">
+            <remarks/>
+        </member>
+        <member name="P:Microsoft.International.Converters.TransitionConfig.ID">
+            <remarks/>
+        </member>
+        <member name="T:Microsoft.International.Converters.RegexConfig">
+            <exclude/>
+        </member>
+        <member name="P:Microsoft.International.Converters.RegexConfig.Value">
+            <remarks/>
+        </member>
+        <member name="T:Microsoft.International.Converters.ActionConfig">
+            <exclude/>
+        </member>
+        <member name="P:Microsoft.International.Converters.ActionConfig.Value">
+            <remarks/>
+        </member>
+        <member name="T:Microsoft.International.Converters.ConversionTableConfig">
+            <exclude/>
+        </member>
+        <member name="P:Microsoft.International.Converters.ConversionTableConfig.Items">
+            <remarks/>
+        </member>
+        <member name="T:Microsoft.International.Converters.ConversionTableConversion">
+            <exclude/>
+        </member>
+        <member name="P:Microsoft.International.Converters.ConversionTableConversion.Input">
+            <remarks/>
+        </member>
+        <member name="P:Microsoft.International.Converters.ConversionTableConversion.Output">
+            <remarks/>
+        </member>
+        <member name="T:Microsoft.International.Converters.Transition">
+            <summary>
+            <see cref="T:Microsoft.International.Converters.State"/>から別の状態への変換遷移を表すクラスです。
+            </summary>
+            <remarks>
+            TransliteralConverterの使用例は<see cref="T:Microsoft.International.Converters.TransliteralConverter"/>を参照してください。
+            </remarks>
+        </member>
+        <member name="P:Microsoft.International.Converters.Transition.NextState">
+            <summary>
+            次の状態のIDを取得します。
+            </summary>
+            <value>
+            次の状態のIDです。
+            </value>
+            <remarks>
+            TransliteralConverterの使用例は<see cref="T:Microsoft.International.Converters.TransliteralConverter"/>を参照してください。
+            </remarks>
+        </member>
+        <member name="T:Microsoft.International.Converters.AssemblyResource">
+            <summary>
+              厳密命名のリソースクラスです。ローカライズ文字列検索用です。
+            </summary>
+        </member>
+        <member name="P:Microsoft.International.Converters.AssemblyResource.ResourceManager">
+            <summary>
+              当該クラスで利用しで、キャッシュ化したResourceManagerのインスタンスを返します。
+            </summary>
+        </member>
+        <member name="P:Microsoft.International.Converters.AssemblyResource.Culture">
+            <summary>
+              当該厳密命名のクラスのCurrentUICultureプロパティをオーバーライドして、リソースの検索を実現します。
+            </summary>
+        </member>
+        <member name="P:Microsoft.International.Converters.AssemblyResource.INVALID_CONFIG_FILE_PATH">
+            <summary>
+              無効構成ファイルパスのローカライズ文字列を探します。パスは空白してはいけません。
+            </summary>
+        </member>
+    </members>
+</doc>

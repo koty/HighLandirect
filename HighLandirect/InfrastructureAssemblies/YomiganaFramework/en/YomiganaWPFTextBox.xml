@@ -1,0 +1,146 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>YomiganaWPFTextBox</name>
+    </assembly>
+    <members>
+        <member name="T:System.Web.UI.Design.CommonResource">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:System.Web.UI.Design.CommonResource.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:System.Web.UI.Design.CommonResource.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="T:Microsoft.International.Windows.Controls.PreferredConversion">
+            <summary>
+            Preferred Conversion for yomigana.
+            </summary>
+        </member>
+        <member name="F:Microsoft.International.Windows.Controls.PreferredConversion.None">
+            <summary>
+            No conversion. Respects the user entered kana type (do not convert). 
+            </summary>
+        </member>
+        <member name="F:Microsoft.International.Windows.Controls.PreferredConversion.ToHiragana">
+            <summary>
+            ToHiragana: Covnert Katakana and Halfwidth Katakana to Hiragana.  Other characters will pass through.
+            </summary>
+        </member>
+        <member name="F:Microsoft.International.Windows.Controls.PreferredConversion.ToKatakana">
+            <summary>
+             ToKatakana: Convert Hiragana and Halfwidth Katakana to Katakana.  Other characters will pass through. 
+            </summary>
+        </member>
+        <member name="F:Microsoft.International.Windows.Controls.PreferredConversion.ToHalfwidthKatakana">
+            <summary>
+            ToHalfwidthKatakana: Convert Hiragana and Katakana to Halfwidth Katakana. Other char will pass through.
+            </summary>
+        </member>
+        <member name="T:Microsoft.International.Windows.Controls.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Microsoft.International.Windows.Controls.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.International.Windows.Controls.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="T:Microsoft.International.Windows.Controls.YomiganaWPFTextBox">
+            <summary>
+             Provides WPF TextBox, with extended support of capturing yomi
+             and automatically displays the captured content on another control with specificed kana kind.
+            </summary>
+        </member>
+        <member name="M:Microsoft.International.Windows.Controls.YomiganaWPFTextBox.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+        </member>
+        <member name="M:Microsoft.International.Windows.Controls.YomiganaWPFTextBox.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.International.Windows.Controls.YomiganaWPFTextBox"/> class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.International.Windows.Controls.YomiganaWPFTextBox.#ctor(System.ComponentModel.IContainer)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.International.Windows.Controls.YomiganaWPFTextBox"/> class.
+            </summary>
+            <param name="container">The container.</param>
+        </member>
+        <member name="M:Microsoft.International.Windows.Controls.YomiganaWPFTextBox.OnTextChanged(System.Windows.Controls.TextChangedEventArgs)">
+            <summary>
+            Raises the <see cref="E:System.Windows.Controls.Primitives.TextBoxBase.TextChanged"/> event.
+            </summary>
+            <param name="e">Provides data about the event.</param>
+        </member>
+        <member name="M:Microsoft.International.Windows.Controls.YomiganaWPFTextBox.OnKeyUp(System.Windows.Input.KeyEventArgs)">
+            <summary>
+            Invoked whenever an unhandled <see cref="E:System.Windows.Input.Keyboard.KeyUp"/> attached routed event reaches an element derived from this class in its route. Implement this method to add class handling for this event.
+            </summary>
+            <param name="e">Provides data about the event.</param>
+        </member>
+        <member name="M:Microsoft.International.Windows.Controls.YomiganaWPFTextBox.OnPreviewKeyDown(System.Windows.Input.KeyEventArgs)">
+            <summary>
+            Raises the <see cref="E:System.Windows.Input.Keyboard.PreviewKeyDown"/> event.
+            </summary>
+            <param name="e">Provides data about the event.</param>
+        </member>
+        <member name="M:Microsoft.International.Windows.Controls.YomiganaWPFTextBox.OnLostFocus(System.Windows.RoutedEventArgs)">
+            <summary>
+            Raises the <see cref="E:System.Windows.UIElement.LostFocus"/> event.
+            </summary>
+            <param name="e">Provides data about the event.</param>
+        </member>
+        <member name="M:Microsoft.International.Windows.Controls.YomiganaWPFTextBox.OnYomiganaChanged(System.Windows.RoutedEventArgs)">
+            <summary>
+            Raises the YomiganaChanged event.
+            </summary>
+            <param name="e">The <see cref="T:System.Windows.RoutedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="P:Microsoft.International.Windows.Controls.YomiganaWPFTextBox.TextAnnotated">
+            <summary>
+            Gets the annotated embedding text.
+            </summary>
+            <value>The annotated embedding text.</value>
+        </member>
+        <member name="P:Microsoft.International.Windows.Controls.YomiganaWPFTextBox.TextCaptured">
+            <summary>
+            Gets the captured text.
+            </summary>
+            <value>The captured text.</value>
+        </member>
+        <member name="P:Microsoft.International.Windows.Controls.YomiganaWPFTextBox.TextCapturedPreferredConversion">
+            <summary>
+            Gets or sets the kana kind of the captured string.
+            </summary>
+            <value>The kana kind of the captured string.</value>
+        </member>
+        <member name="P:Microsoft.International.Windows.Controls.YomiganaWPFTextBox.BindingControl">
+            <summary>
+            Gets or sets the binding control.
+            </summary>
+            <value>The binding control.</value>
+        </member>
+        <member name="E:Microsoft.International.Windows.Controls.YomiganaWPFTextBox.YomiganaChanged">
+            <summary>
+            Occurs when yomigana is changed.
+            </summary>
+        </member>
+    </members>
+</doc>

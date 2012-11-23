@@ -58,7 +58,7 @@
             </ToolBar>
         </ToolBarTray>
         <DataGrid ItemsSource="{Binding CustomerViewModels}" AutoGenerateColumns="False" CanUserAddRows="False"
-                  FontSize="14">
+                  FontSize="14" SelectedItem="{Binding SelectedCustomer}">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding CustNo}" Header="顧客番号" Width="70"/>
                 <DataGridTextColumn Binding="{Binding CustName}" Header="顧客名" Width="100"/>
@@ -71,9 +71,7 @@
                 <DataGridTemplateColumn Header="" Width="30" >
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <CheckBox IsChecked="{Binding Label}"
-                                 Checked="{Binding LabelCheckBox_Checked}"
-                                      Unchecked="{Binding LabelCheckBox_Checked}"/>
+                            <CheckBox IsChecked="{Binding Label}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -82,16 +80,14 @@
                 <DataGridTemplateColumn Header="一覧に出さない" Width="30" >
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <CheckBox IsChecked="{Binding Delete}"
-                                 Checked="{Binding DeleteCheckBox_Checked}"
-                                      Unchecked="{Binding DeleteCheckBox_Checked}"/>
+                            <CheckBox IsChecked="{Binding Delete}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
         <ScrollViewer VerticalScrollBarVisibility="Auto">
-            <v:CustomerView x:Name="customerViewPresenter" DataContext="SelectedCustomer" />
+            <v:CustomerView DataContext="{Binding SelectedCustomer}" />
         </ScrollViewer>
     </DockPanel>
 </UserControl>

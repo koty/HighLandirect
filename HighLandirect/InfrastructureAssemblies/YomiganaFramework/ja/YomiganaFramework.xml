@@ -1,0 +1,1252 @@
+<?xml version="1.0" ?>
+<doc>
+  <assembly>
+    <name> YomiganaFramework </name>
+  </assembly>
+  <members>
+    <member name="T:Microsoft.International.Collections.IMergeableSegments">
+      <summary>節のマージ操作インターフェイスです。</summary>
+    </member>
+    <member name="M:Microsoft.International.Collections.IMergeableSegments.MergeNextAt(System.Int32,System.Int32)">
+      <summary>指定されたインデックス位置からセグメントを結合する。</summary>
+      <param name="index">先頭セグメントのインデックス。</param>
+      <param name="count">結合されるセグメント数。</param>
+    </member>
+
+    <member name="T:Microsoft.International.StringAnnotationComparer">
+      <summary>2 つの StringAnnotations を比較する Comparer を表します。</summary>
+    </member>
+    <member name="M:Microsoft.International.StringAnnotationComparer.#ctor">
+      <summary>StringAnnotationComparer クラスの新しいインスタンスを初期化します。</summary>
+    </member>
+    <member name="M:Microsoft.International.StringAnnotationComparer.#ctor(System.Comparison{System.String})">
+      <summary>StringAnnotationComparer クラスの新しいインスタンスを初期化します。</summary>
+      <param name="comparison">
+        使用する比較です。
+      </param>
+    </member>
+    <member name="M:Microsoft.International.StringAnnotationComparer.Compare(Microsoft.International.Collections.StringAnnotations,Microsoft.International.Collections.StringAnnotations)">
+      <summary>
+        2 つの 指定した StringAnnotations を比較し、一方が他方より小さいか、等しいか、大きいかを示す値を返します。StringAnnotations の各節に対して、注釈を最初に、次に親文字を比較します。
+      </summary>
+      <param name="x">StringAnnotations x です。</param>
+      <param name="y">StringAnnotations y です。</param>
+      <returns>
+        <paramref name="x" />  が <paramref name="y" /> より小さい値の場合、戻り値は 0 より小です。 <paramref name="x" />  と <paramref name="y" /> が等価の場合、戻り値は 0 です。 <paramref name="x" /> が <paramref name="y" /> より大きい場合、戻り値は 0 より大です。
+      </returns>
+    </member>
+    <member name="M:Microsoft.International.StringAnnotationComparer.Compare(Microsoft.International.Collections.StringAnnotations,Microsoft.International.Collections.StringAnnotations,System.Comparison{System.String})">
+      <summary>
+        指定した StringAnnotations x と y を Comparison&lt;string&gt; を使って比較します。
+      </summary>
+      <param name="x">StringAnnotations x です。</param>
+      <param name="y">StringAnnotations y です。</param>
+      <param name="comparison">比較に使用するメソッドです。</param>
+      <returns>
+        <paramref name="x" />  が <paramref name="y" /> より小さい値の場合、戻り値は 0 より小です。 <paramref name="x" />  と <paramref name="y" /> が等価の場合、戻り値は 0 です。 <paramref name="x" /> が <paramref name="y" /> より大きい場合、戻り値は 0 より大です。
+      </returns>
+    </member>
+    <member name="M:Microsoft.International.StringAnnotationComparer.Equals(Microsoft.International.Collections.StringAnnotations,Microsoft.International.Collections.StringAnnotations)">
+      <summary>
+        指定した StringAnnotations x と y が等しいかどうかを判断します。
+      </summary>
+      <param name="x">StringAnnotations x です。</param>
+      <param name="y">StringAnnotations y です。</param>
+      <returns>
+        comparer のメソッドで使われ、等しい場合は true です。それ以外の場合は false です。
+      </returns>
+    </member>
+
+    <member name="M:Microsoft.International.StringAnnotationComparer.GetHashCode(Microsoft.International.Collections.StringAnnotations)">
+      <summary>StringAnnotations のハッシュ コードを取得します。</summary>
+      <param name="obj">
+        StringAnnotations のインスタンスです。
+      </param>
+      <returns>指定した StringAnnotations のハッシュ コードです。</returns>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="obj" />
+        が参照タイプで、
+        <paramref name="obj" />
+        の値がnull。
+      </exception>
+    </member>
+    <member name="P:Microsoft.International.StringAnnotationComparer.StringAnnotationsCompare">
+      <summary>StringAnnotationsコンパレータを取得する或いは設定する。</summary>
+      <value>StringAnnotations コンパレータ。</value>
+    </member>
+    
+    <member name="T:Microsoft.International.Collections.ISplittableByTextSegments">
+      <summary>テキスト節を分割する機能のインターフェイスを表します。</summary>
+    </member>
+    <member name="M:Microsoft.International.Collections.ISplittableByTextSegments.SplitAt(System.Int32,System.Int32,Microsoft.International.TextSegments)">
+      <summary>
+        指定したインデックスで節を分割します。
+      </summary>
+      <param name="index">分割する節のインデックスです。</param>
+      <param name="count">分割位置の要素の個数です。</param>
+      <param name="segments">カウントされる節です。</param>
+    </member>
+    <member name="T:Microsoft.International.Collections.Generic.StringAnnotations`1">
+      <summary>
+        文字列用のジェネリックの注釈を表します。
+      </summary>
+      <typeparam name="TAnnotation">注釈の型です。</typeparam>
+    </member>
+    <member name="M:Microsoft.International.Collections.Generic.StringAnnotations`1.#ctor">
+      <summary>
+        <see cref="T:Microsoft.International.Collections.Generic.StringAnnotations`1"/> クラスの新しいインスタンスを初期化します。 空になります。</summary>
+    </member>
+    <member name="M:Microsoft.International.Collections.Generic.StringAnnotations`1.#ctor(System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IEnumerable{`0})">
+      <summary>
+        <see cref="T:Microsoft.International.Collections.Generic.StringAnnotations`1"/> クラスの新しいインスタンスを初期化します。 指定した節と注釈を使います。</summary>
+      <param name="sources">節です。</param>
+      <param name="annotations">節の注釈です。</param>
+    </member>
+    <member name="M:Microsoft.International.Collections.Generic.StringAnnotations`1.#ctor(System.String)">
+      <summary>
+        <see cref="T:Microsoft.International.Collections.Generic.StringAnnotations`1"/> クラスの新しいインスタンスを初期化します。 文字列 s を 1 つの節として使います。
+      </summary>
+      <param name="s">ソース。</param>
+    </member>
+    <member name="M:Microsoft.International.Collections.Generic.StringAnnotations`1.#ctor(System.String,`0)">
+      <summary>
+        <see cref="T:Microsoft.International.Collections.Generic.StringAnnotations`1"/> クラスの新しいインスタンスを初期化します。 節と注釈のペアを使います。
+      </summary>
+      <param name="s">ソース 節です。</param>
+      <param name="annotation">節の注釈です。</param>
+    </member>
+    <member name="M:Microsoft.International.Collections.Generic.StringAnnotations`1.#ctor(Microsoft.International.TextSegments)">
+      <summary>
+        <see cref="T:Microsoft.International.Collections.Generic.StringAnnotations`1"/> クラスの新しいインスタンスを初期化します。 節をソースとして使います。
+      </summary>
+      <param name="segments">ソース 節としての TextSegments インスタンスです。</param>
+    </member>
+    <member name="M:Microsoft.International.Collections.Generic.StringAnnotations`1.op_Equality(Microsoft.International.Collections.Generic.StringAnnotations{`0},Microsoft.International.Collections.Generic.StringAnnotations{`0})">
+      <summary>
+        指定した 2 つの StringAnnotations クラスのインスタンスが等しいかどうかをテストします。
+      </summary>
+      <param name="x">
+        StringAnnotations&lt;TAnnotation&gt; x です。</param>
+      <param name="y">
+        StringAnnotations&lt;TAnnotation&gt; y です。</param>
+      <returns>等価の場合は true です。それ以外の場合は false です。</returns>
+    </member>
+    <member name="M:Microsoft.International.Collections.Generic.StringAnnotations`1.op_Inequality(Microsoft.International.Collections.Generic.StringAnnotations{`0},Microsoft.International.Collections.Generic.StringAnnotations{`0})">
+      <summary>指定した 2 つのオブジェクトの値が異なるかどうかを判断します。</summary>
+      <param name="x">
+        StringAnnotations&lt;TAnnotation&gt; x です。。</param>
+      <param name="y">
+        StringAnnotations&lt;TAnnotation&gt; y です。。</param>
+      <returns>等価の場合は false です。それ以外の場合は true です。</returns>
+    </member>
+    <member name="M:Microsoft.International.Collections.Generic.StringAnnotations`1.CompareTo(Microsoft.International.Collections.Generic.StringAnnotations{`0})">
+      <summary>
+        <see cref="T:Microsoft.International.Collections.Generic.StringAnnotations`1"/> の別なインスタンスと比較します</summary>
+      <param name="other">
+        StringAnnotations&lt;TAnnotation&gt; の別なインスタンスです。</param>
+      <returns>比較の値です。等しい場合は 0 です。</returns>
+    </member>
+    <member name="M:Microsoft.International.Collections.Generic.StringAnnotations`1.GetEnumerator">
+      <summary>
+        ソース文字列の注釈を反復処理する列挙子を返します。
+      </summary>
+      <returns>
+        コレクションを反復処理するための <see cref="T:System.Collections.Generic.IEnumerator"/> です。
+      </returns>
+    </member>
+    <member name="M:Microsoft.International.Collections.Generic.StringAnnotations`1.Equals(Microsoft.International.Collections.Generic.StringAnnotations{`0})">
+      <summary>現在のオブジェクトが同じ型の別のオブジェクトに等しいかどうかを示します。</summary>
+      <param name="other">このオブジェクトと比較するオブジェクト。</param>
+      <returns>
+        現在のオブジェクトが他のパラメーターと等しい場合は true です。それ以外の場合は false です。
+      </returns>
+    </member>
+  
+    <member name="M:Microsoft.International.Collections.Generic.StringAnnotations`1.SplitAt(System.Int32,System.Int32,Microsoft.International.TextSegments)">
+      <summary>指定インデックスにある節を分割します。</summary>
+      <param name="index">分割する節のインデックスです。</param>
+      <param name="count">分割位置の要素の個数です。</param>
+      <param name="segments">カウントされる節です。</param>
+    </member>
+
+    <member name="M:Microsoft.International.Collections.Generic.StringAnnotations`1.SplitAt(System.Int32)">
+      <summary>インデックス位置で分割します。</summary>
+      <param name="index">インデックスです。</param>
+    </member>
+
+    <member name="M:Microsoft.International.Collections.Generic.StringAnnotations`1.SplitAt(System.Int32,System.Int32)">
+      <summary>指定インデックスにある節を分割します。</summary>
+      <param name="index">分割する節のインデックスです。</param>
+      <param name="count">分割位置の要素の個数です。</param>
+    </member>
+    <member name="P:Microsoft.International.Collections.Generic.StringAnnotations`1.Count">
+      <summary>
+        <see cref="T:Microsoft.International.Collections.Generic.StringAnnotations`1"/> の注釈の個数を取得します。
+      </summary>
+      <value>要素の個数です。</value>
+    </member>
+    <member name="P:Microsoft.International.Collections.Generic.StringAnnotations`1.Source">
+      <summary>
+        注釈のソースを取得します。
+      </summary>
+    </member>
+    <member name="P:Microsoft.International.Collections.Generic.StringAnnotations`1.Item(System.Int32)">
+      <summary>
+        指定インデックスの注釈を取得または設定します。
+      </summary>
+      <param name="index">注釈のインデックスです。</param>
+      <returns>インデックス位置の注釈です。</returns>
+    </member>
+    <member name="P:Microsoft.International.Collections.Generic.StringAnnotations`1.SegmentsCollection">
+      <summary>StringAnnotations中の全てのセグメントを取得する。</summary>
+      <value>セグメント　コレクション。</value>
+    </member>
+    <member name="P:Microsoft.International.Collections.Generic.StringAnnotations`1.AnnotationCollection">
+      <summary>StringAnnotations中の全ての注釈を取得する。</summary>
+    </member>
+    <member name="M:Microsoft.International.Collections.Generic.Source.Equals(Microsoft.International.Collections.Generic.Source)">
+      <summary>当該対象は同じタイプの他の対象と一致するかどうかを判断する。</summary>
+      <param name="other">当該対象と比較する対象。</param>
+      <returns>
+        当該対象が引数
+        <paramref name="other" />
+        と一致する場合、trueを返却する, 逆の場合、falseを返却する。
+      </returns>
+    </member>
+    <member name="T:Microsoft.International.Collections.StringAnnotations">
+      <summary>文字列やその注釈を含むクラスを表します。</summary>
+    </member>
+    <member name="M:Microsoft.International.Collections.StringAnnotations.#ctor">
+      <summary>
+        StringAnnotations  クラスの新しいインスタンスを初期化します。 空になります。
+      </summary>
+    </member>
+    <member name="M:Microsoft.International.Collections.StringAnnotations.#ctor(System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IEnumerable{System.String})">
+      <summary>
+        StringAnnotations  クラスの新しいインスタンスを初期化します。 ソースと注釈を使います。
+      </summary>
+      <param name="sources">節です。</param>
+      <param name="annotations">節の注釈です。</param>
+    </member>
+    <member name="M:Microsoft.International.Collections.StringAnnotations.#ctor(System.String)">
+      <summary>
+        StringAnnotations  クラスの新しいインスタンスを初期化します。1 つの文字列を 1 の節として使います。
+      </summary>
+      <param name="s">ソースの文字列です。</param>
+    </member>
+    <member name="M:Microsoft.International.Collections.StringAnnotations.#ctor(System.String,System.String)">
+      <summary>
+        StringAnnotations  クラスの新しいインスタンスを初期化します。 文字列とその注釈を使います。
+      </summary>
+      <param name="s">ソースの文字列です。</param>
+      <param name="annotation">注釈文字列です。</param>
+    </member>
+    <member name="M:Microsoft.International.Collections.StringAnnotations.#ctor(Microsoft.International.TextSegments)">
+      <summary>
+        StringAnnotations  クラスの新しいインスタンスを初期化します。 TextSegments のインスタンスを使います。
+      </summary>
+      <param name="segments">ソースの TextSegments のインスタンスです。</param>
+    </member>
+    <member name="M:Microsoft.International.Collections.StringAnnotations.Parse(System.String)">
+      <summary>Unicode の行間注釈文字を使った文字列を解析します。</summary>
+      <param name="s">文字列です。Unicode の行間注釈文字列が含まれている、もくしは含まれていない場合があります。</param>
+      <returns>解析した StringAnnotations です。</returns>
+    </member>
+    <member name="M:Microsoft.International.Collections.StringAnnotations.Parse(System.String,System.IFormatProvider)">
+      <summary>
+        指定したプロバイダーによる書式指定を使い、文字列を解析します。
+      </summary>
+      <param name="s">指定した形式の文字列です。Unicode の行間注釈文字が含まれている、もしくは含まれていない場合があります。</param>
+      <param name="provider">書式プロバイダーです。 以下のプロバイダーをサポートします。</param>
+      <returns>解析した StringAnnotations です。</returns>
+    </member>
+    <member name="M:Microsoft.International.Collections.StringAnnotations.Parse(System.String,System.String[])">
+      <summary>
+        括弧を使い文字列を解析します。 注釈の境界は CJK 表意文字の開始位置です。
+      </summary>
+      <param name="s">ソースとなる文字列です。</param>
+      <param name="brakets">解析に使われる、括弧の一覧です。</param>
+      <returns>解析した StringAnnotations です。</returns>
+    </member>
+    <member name="M:Microsoft.International.Collections.StringAnnotations.MergeAll">
+      <summary>すべての要素をマージします。</summary>
+    </member>
+    <member name="M:Microsoft.International.Collections.StringAnnotations.MergePreviousAt(System.Int32,System.Int32)">
+      <summary>
+        インデックスで指定した節の前に、指定した数の節をマージします。
+      </summary>
+      <param name="index">マージする節の開始インデックスです。</param>
+      <param name="count">マージする節の数です。</param>
+    </member>
+    <member name="M:Microsoft.International.Collections.StringAnnotations.MergePreviousAt(System.Int32)">
+      <summary>インデックスで指定した節とその直前の節をマージします。</summary>
+      <param name="index">マージする節の開始インデックスです。</param>
+    </member>
+    <member name="M:Microsoft.International.Collections.StringAnnotations.MergeNextAt(System.Int32,System.Int32)">
+      <summary>
+        指定インデックス後の節を指定した個数だけマージします。
+      </summary>
+      <param name="index">マージする節の開始インデックスです。</param>
+      <param name="count">マージする節の数です。</param>
+    </member>
+    <member name="M:Microsoft.International.Collections.StringAnnotations.MergeNextAt(System.Int32)">
+      <summary>インデックスと、その直後に指定した節をマージします。</summary>
+      <param name="index">マージする節の開始インデックスです。</param>
+    </member>
+    <member name="M:Microsoft.International.Collections.StringAnnotations.SplitAt(System.Int32,System.Int32)">
+      <summary>指定したインデックスの指定した個数の節を分割します。</summary>
+      <param name="index">分割する節の開始インデックスです。</param>
+      <param name="count">最初の節が含む要素の個数です。</param>
+    </member>
+    <member name="M:Microsoft.International.Collections.StringAnnotations.SplitAt(System.Int32)">
+      <summary>指定したインデックスの指定した個数の節を分割します。</summary>
+      <param name="index">要素のインデックスです。</param>
+    </member>
+    <member name="M:Microsoft.International.Collections.StringAnnotations.SplitAt(System.Int32,System.Int32,Microsoft.International.TextSegments)">
+      <summary>指定したインデックスの指定した個数の節を分割します。</summary>
+      <param name="index">要素のインデックスです。</param>
+      <param name="count">最初の節の数です。</param>
+      <param name="textSegments">列挙子を提供する TextSegments です。</param>
+    </member>
+    <member name="M:Microsoft.International.Collections.StringAnnotations.op_Equality(Microsoft.International.Collections.StringAnnotations,Microsoft.International.Collections.StringAnnotations)">
+      <summary>
+        指定した 2 つの StringAnnotations クラスのインスタンスが等しいかどうかをテストします。
+      </summary>
+      <param name="x">StringAnnotations x です。</param>
+      <param name="y">StringAnnotations y です。</param>
+      <returns>等価の場合は true です。それ以外の場合は false です。</returns>
+    </member>
+    <member name="M:Microsoft.International.Collections.StringAnnotations.op_Inequality(Microsoft.International.Collections.StringAnnotations,Microsoft.International.Collections.StringAnnotations)">
+      <summary>指定した 2 つのオブジェクトの値が異なるかどうかを判断します。</summary>
+      <param name="x">StringAnnotations x です。</param>
+      <param name="y">StringAnnotations y です。</param>
+      <returns>等価の場合は false です。それ以外の場合は true です。</returns>
+    </member>
+    <member name="M:Microsoft.International.Collections.StringAnnotations.ToString(System.String,System.IFormatProvider)">
+      <summary>指定した formatProvider で StringAnnotations の書式を設定します。</summary>
+      <param name="format">書式です。</param>
+      <param name="formatProvider">期待される StringAnnotationsFormatProvider オブジェクトです。</param>
+      <returns>書式指定した文字列です。</returns>
+    </member>
+    <member name="M:Microsoft.International.Collections.StringAnnotations.CompareTo(Microsoft.International.Collections.StringAnnotations)">
+      <summary>StringAnnotations の別なインスタンスと比較します。</summary>
+      <param name="other">もうひとつの StringAnnotations のインスタンスです。</param>
+      <returns>比較の値です。等しい場合は 0 です。</returns>
+    </member>
+    <member name="M:Microsoft.International.Collections.StringAnnotations.GetEnumerator">
+      <summary>コレクションを反復処理する列挙子を返します。</summary>
+      <returns>
+        <see cref="T:System.Collections.IEnumerator" /> オブジェクトです。コレクションを反復処理できます。
+      </returns>
+    </member>
+    <member name="M:Microsoft.International.Collections.StringAnnotations.Equals(Microsoft.International.Collections.StringAnnotations)">
+      <summary>
+        現在の StringAnnotations オブジェクトが、別の StringAnnotations オブジェクトと等しいかどうかを示します。
+      </summary>
+      <param name="other">この StringAnnotations オブジェクトと比較する StringAnnotations オブジェクトです</param>
+      <returns>
+        現在のオブジェクトが other パラメータと等しい場合は true です。それ以外の場合は false です。
+      </returns>
+    </member>
+    <member name="P:Microsoft.International.Collections.StringAnnotations.Annotations">
+      <summary>StringAnnotationsの注釈を取得する。</summary>
+      <value>注釈。</value>
+    </member>
+    <member name="P:Microsoft.International.Collections.StringAnnotations.AllAnnotations">
+      <summary>StringAnnotationsの全ての注釈を取得する、セグメントに注釈をつけられない場合、テキストで代わる。</summary>
+      <value>全ての注釈。.</value>
+    </member>
+    <member name="P:Microsoft.International.Collections.StringAnnotations.AllAnnotationsCollection">
+      <summary>StringAnnotationsの注釈を取得する。セグメントに注釈がない場合、セグメントのテキストを注釈にする。</summary>
+      <value>全ての注釈のコレクション。</value>
+    </member>
+    <member name="T:Microsoft.International.InterlinearAnnotationComparer">
+      <summary>Unicode の行間注釈文字を認識し、文字列を比較します。</summary>
+    </member>
+    <member name="M:Microsoft.International.InterlinearAnnotationComparer.#ctor(System.StringComparer)">
+      <summary>        
+        <see cref="T:Microsoft.International.InterlinearAnnotationComparer" /> クラスの新しいインスタンスを初期化します。
+      </summary>
+      <param name="comparer">指定した comparer です。</param>
+    </member>
+    <member name="M:Microsoft.International.InterlinearAnnotationComparer.Compare(System.String,System.String)">
+      <summary>Unicode の行間注釈文字を含む2 つの文字列を比較し、相対的な並べ替え順序を表す値を返します。</summary>
+      <param name="x">y と比較する文字列です。</param>
+      <param name="y">x と比較する文字列です。</param>
+      <returns>
+        <paramref name="x" />  が <paramref name="y" /> より小さい値の場合、戻り値は 0 より小です。 <paramref name="x" />  と <paramref name="y" /> が等価の場合、戻り値は 0 です。 <paramref name="x" /> が <paramref name="y" /> より大きい場合、戻り値は 0 より大です。
+      </returns>
+    </member>
+    <member name="M:Microsoft.International.InterlinearAnnotationComparer.Equals(System.String,System.String)">
+      <summary>2 つの文字列が等しいかどうかを示します。 </summary>
+      <param name="x">y と比較する文字列です。</param>
+      <param name="y">x と比較する文字列です。</param>
+      <returns>
+        <paramref name="x" /> と <paramref name="y" /> が同じオブジェクトを参照している場合、または <paramref name="x" /> と <paramref name="y" /> が等しい場合は true です。それ以外の場合は false です。
+      </returns>
+    </member>
+    <member name="M:Microsoft.International.InterlinearAnnotationComparer.GetHashCode(System.String)">
+      <summary>指定した文字列からハッシュ コードを取得します。 </summary>
+      <param name="obj">指定した文字列です。</param>
+      <returns>
+        <paramref name="obj" /> パラメータの値から計算した 32 ビットの符号付きハッシュコードです。
+      </returns>
+    </member>
+    
+    <member name="T:Microsoft.International.StringAnnotationsFormatProvider">
+      <summary>
+        StringAnnotations の書式を設定をする抽象クラスです。
+      </summary>
+    </member>
+    <member name="M:Microsoft.International.StringAnnotationsFormatProvider.#ctor">
+      <summary>
+        StringAnnotationsFormatProvider クラスの新しいインスタンスを初期化します。
+      </summary>
+    </member>
+    <member name="M:Microsoft.International.StringAnnotationsFormatProvider.GetFormat(System.Type)">
+      <summary>
+        指定した型の書式指定サービスを提供するオブジェクトを返します。
+      </summary>
+      <param name="formatType">返す書式オブジェクトの型を指定するオブジェクトです。</param>
+      <returns>IFormatProvider の実装が formatType で指定した型のオブジェクトを提供できる場合は、そのオブジェクトのインスタンスです。それ以外の場合は null 参照 (Visual Basic では Nothing)です。</returns>
+    </member>
+    <member name="M:Microsoft.International.StringAnnotationsFormatProvider.Format(System.String,System.Object,System.IFormatProvider)">
+      <summary>
+        指定した書式を使用して、指定したオブジェクトの値をそれと等価な文字列形式に変換します。
+      </summary>
+      <param name="format">StringAnnotations に対する書式を格納している書式指定文字列です。</param>
+      <param name="arg">StringAnnotations のインスタンスです。</param>
+      <param name="formatProvider">フォーマット提供者。</param>
+      <returns>書式指定した文字列です。</returns>
+    </member>
+    <member name="P:Microsoft.International.StringAnnotationsFormatProvider.FormatString">
+      <summary>
+        formatProvider を指定する文字列です。
+      </summary>
+      <value>書式指定の文字列</value>
+    </member>
+    <member name="T:Microsoft.International.StringAnnotationInterLinearAnnotationFormatProvider">
+      <summary>Unicode の行間注釈文字形式を使用し、StringAnnotations の書式を設定します。</summary>
+    </member>
+    <member name="M:Microsoft.International.StringAnnotationInterLinearAnnotationFormatProvider.#ctor">
+      <summary>
+        <see cref="T:Microsoft.International.StringAnnotationInterLinearAnnotationFormatProvider"/> クラスの新しいインスタンスを初期化します。</summary>
+    </member>
+    <member name="M:Microsoft.International.StringAnnotationsFormatProvider.#ctor">
+      <summary>
+        <see cref="T:Microsoft.International.StringAnnotationsFormatProvider"/> クラスの新しいインスタンスを初期化します。</summary>
+    </member>
+    <member name="M:Microsoft.International.StringAnnotationInterLinearAnnotationFormatProvider.GetFormat(System.Type)">
+      <summary>指定した型の書式指定サービスを提供するオブジェクトを返します。</summary>
+      <param name="formatType">書式指定オブジェクトの型を指定するオブジェクトを戻すオブジェクトです。</param>
+      <returns>IFormatProvider の実装が formatType で指定した型のオブジェクトを提供できる場合は、そのオブジェクトのインスタンスです。それ以外の場合は null 参照 (Visual Basic では Nothing)です。</returns>
+    </member>
+    <member name="M:Microsoft.International.StringAnnotationInterLinearAnnotationFormatProvider.Format(System.String,System.Object,System.IFormatProvider)">
+      <summary>StringAnnotations のインスタンスを Unicode の行間注釈形式に書式指定します。</summary>
+      <param name="format">書式指定文字列です。</param>
+      <param name="arg">StringAnnotations のインスタンスです。</param>
+      <param name="formatProvider">このフォーマット プロバイダーです。</param>
+      <returns>書式指定した文字列です。</returns>
+    </member>
+    <member name="P:Microsoft.International.StringAnnotationInterLinearAnnotationFormatProvider.FormatString">
+      <summary>StringAnnotationInterLinearAnnotationFormatProvider を表す文字列です。</summary>
+      <value>書式指定の文字列。</value>
+    </member>
+    <member name="T:Microsoft.International.StringAnnotationJisX4052FormatProvider">
+      <summary>JIS X 4052 形式を使用し、StringAnnotations の書式を設定します。</summary>
+    </member>
+    <member name="M:Microsoft.International.StringAnnotationJisX4052FormatProvider.#ctor">
+      <summary>
+        StringAnnotationJisX4052FormatProvider クラスの新しいインスタンスを初期化します。
+      </summary>
+    </member>
+    <member name="M:Microsoft.International.StringAnnotationJisX4052FormatProvider.GetFormat(System.Type)">
+      <summary>指定した型の書式指定サービスを提供するオブジェクトを返します。</summary>
+      <param name="formatType">書式指定オブジェクトの型を指定するオブジェクトを戻すオブジェクトです。</param>
+      <returns>このフォーマット プロバイダーです。</returns>
+    </member>
+    <member name="M:Microsoft.International.StringAnnotationJisX4052FormatProvider.Format(System.String,System.Object,System.IFormatProvider)">
+      <summary>StringAnnotations のインスタンスを JIS X 4052の形式に書式指定します。</summary>
+      <param name="format">書式指定文字列です。</param>
+      <param name="arg">StringAnnotations のインスタンスです。</param>
+      <param name="formatProvider">このフォーマット プロバイダーです。</param>
+      <returns>書式指定した文字列です。</returns>
+    </member>
+    <member name="P:Microsoft.International.StringAnnotationJisX4052FormatProvider.FormatString">
+      <summary>StringAnnotationInterOpenCloseBracketsFormatProvider を表す、指定した文字列です。</summary>
+      <value>書式指定の文字列。</value>
+    </member>
+    <member name="T:Microsoft.International.StringAnnotationInterOpenCloseBracketsFormatProvider">
+      <summary>括弧形式を使用し、StringAnnotations の書式を設定します。</summary>
+    </member>
+    <member name="M:Microsoft.International.StringAnnotationInterOpenCloseBracketsFormatProvider.#ctor">
+      <summary>
+        StringAnnotationInterOpenCloseBracketsFormatProvider クラスの新しいインスタンスを初期化します。
+      </summary>
+    </member>
+    <member name="M:Microsoft.International.StringAnnotationInterOpenCloseBracketsFormatProvider.GetFormat(System.Type)">
+      <summary>指定した型の書式指定サービスを提供するオブジェクトを返します。</summary>
+      <param name="formatType">書式指定オブジェクトの型を指定するオブジェクトを戻すオブジェクトです。</param>
+      <returns>IFormatProvider の実装が formatType で指定した型のオブジェクトを提供できる場合は、そのオブジェクトのインスタンスです。それ以外の場合は null 参照 (Visual Basic では Nothing)です。</returns>
+    </member>
+    <member name="M:Microsoft.International.StringAnnotationInterOpenCloseBracketsFormatProvider.Format(System.String,System.Object,System.IFormatProvider)">
+      <summary>StringAnnotations のインスタンスを括弧形式に書式指定します。</summary>
+      <param name="format">書式指定文字列です。</param>
+      <param name="arg">StringAnnotations のインスタンスです。</param>
+      <param name="formatProvider">この書式指定プロバイダーです。</param>
+      <returns>書式指定した文字列です。</returns>
+    </member>
+    <member name="P:Microsoft.International.StringAnnotationInterOpenCloseBracketsFormatProvider.OpenBracket">
+      <summary>
+        注釈の開き括弧です。
+      </summary>
+      <value>開き括弧です。</value>
+    </member>
+    <member name="P:Microsoft.International.StringAnnotationInterOpenCloseBracketsFormatProvider.CloseBracket">
+      <summary>
+        注釈の閉じ括弧です。
+      </summary>
+      <value>閉じ括弧です。</value>
+    </member>
+    <member name="P:Microsoft.International.StringAnnotationInterOpenCloseBracketsFormatProvider.FormatString">
+      <summary>StringAnnotationsFormatProvider を表す、指定した文字列です。</summary>
+      <value>書式指定の文字列です。</value>
+    </member>
+    <member name="T:Microsoft.International.TextSegments">
+      <summary>
+        テキストの節を表す抽象クラスです。
+      </summary>
+    </member>
+    <member name="M:Microsoft.International.TextSegments.#ctor">
+      <summary>
+        <see cref="T:Microsoft.International.TextElements"/> クラスの新しいインスタンスを初期化します。
+      </summary>
+    </member>
+    <member name="M:Microsoft.International.TextSegments.#ctor(System.String)">
+      <summary>
+        <see cref="T:Microsoft.International.TextElements"/> クラスの新しいインスタンスを初期化します。 指定したソースを使います。
+      </summary>
+      <param name="source">ソースの文字列です。</param>
+    </member>
+    <member name="M:Microsoft.International.TextSegments.GetEnumerator">
+      <summary>コレクションを反復処理する列挙子を返します。 </summary>
+      <returns>
+        ソース文字列を反復処理に使用できる IEnumerator&lt;string&gt; です。
+      </returns>
+    </member>
+    <member name="M:Microsoft.International.TextSegments.System#Collections#IEnumerable#GetEnumerator">
+      <summary>注釈された文字列のセグメントを例挙することで、文字列を取得する。</summary>
+      <returns> IEnumeratorの対象で，コレクションを繰り返してアクセルできる。</returns>
+    </member>
+    <member name="M:Microsoft.International.TextSegments.System#Collections#Generic#IEnumerable{System#String}#GetEnumerator">
+      <summary>列挙のコレクションを返却する。</summary>
+      <returns>
+        コレクションを列挙する用の
+        <see cref="T:System.Collections.IEnumerator" />
+        対象。
+      </returns>
+    </member>
+    <member name="P:Microsoft.International.TextSegments.Source">
+      <summary>節のソース文字列を取得または設定します。</summary>
+      <value>ソースです。</value>
+    </member>
+    <member name="P:Microsoft.International.TextSegments.Count">
+      <summary>
+        節の個数を取得します。
+      </summary>
+      <value>節の個数です。</value>
+    </member>
+    <member name="P:Microsoft.International.TextSegments.Item(System.Int32)">
+      <summary>
+        現在の TextSegments オブジェクトで指定した節の位置の文字列を取得します。
+      </summary>
+      <param name="index">節の位置です。</param>
+      <returns>節です。</returns>
+    </member>
+    <member name="T:Microsoft.International.TextElements">
+      <summary>TextSegments の具象クラスです。 書記素のクラスターを表します。TextElement を使用して、ソース文字列を反復処理します。</summary>
+    </member>
+    <member name="M:Microsoft.International.TextElements.#ctor">
+      <summary>
+        <see cref="T:Microsoft.International.TextElements"/> を初期化します。
+      </summary>
+    </member>
+    <member name="M:Microsoft.International.TextElements.#ctor(System.String)">
+      <summary>
+        <see cref="T:Microsoft.International.TextElements"/> を初期化します。 文字列を使います。
+      </summary>
+      <param name="s">ソースの文字列です。</param>
+    </member>
+    <member name="M:Microsoft.International.TextElements.GetEnumerator">
+      <summary>ソース文字列内の要素に反復処理を行うための列挙子を返します。</summary>
+      <returns>
+        コレクションの反復処理を行うための IEnumerator オブジェクトです。
+      </returns>
+    </member>
+    <member name="T:Microsoft.International.IAcceptInterlinearAnnotation">
+      <summary>このインターフェイスを実装するコントロールは、Unicode の行間注釈文字を含む文字列の値を受け入れます。</summary>
+    </member>
+    <member name="T:Microsoft.International.HanIdeographSequenceBoundaries">
+      <summary>
+        CJKV 表意文字とその他の文字のシーケンスとの境界を表します。このクラスは、Unicode カテゴリーに基づいて CJKV 表意文字とその他の文字のシーケンスとを区切ります。 また、それらを列挙する IEnumerable インターフェイスも実装されています。
+      </summary>
+    </member>
+    <member name="M:Microsoft.International.HanIdeographSequenceBoundaries.#ctor">
+      <summary>HanIdeographSequenceBoundaries クラスの新しいインスタンスを初期化します。</summary>
+    </member>
+    <member name="M:Microsoft.International.HanIdeographSequenceBoundaries.#ctor(System.String)">
+      <summary>
+        指定した文字列を使用して、HanIdeographSequenceBoundaries クラスの新しいインスタンスを初期化します。
+      </summary>
+      <param name="s">インスタンスの値を初期化するために使用する文字列です。 値が null 参照 (Visual Basic では Nothing) の場合は、ArgumentNullException をスローします。</param>
+    </member>
+    <member name="M:Microsoft.International.HanIdeographSequenceBoundaries.GetEnumerator">
+      <summary>ソース文字列で節を反復処理を行うための列挙子を返します。</summary>
+      <returns>コレクションを反復処理を行うために使用する IEnumerator オブジェクトです。</returns>
+    </member>
+    <member name="T:Microsoft.International.Collections.Generic.CollectionAnnotationCollection`2">
+      <summary>
+        CollectionAnnotation のコレクションを表します。
+      </summary>
+      <typeparam name="TSourceElement">
+        IEnumerable&lt;TSourceElement&gt;
+          IEquatable&lt;TSourceElement&gt;
+            および IComparable&lt;TSourceElement&gt; を実装する型です。
+      </typeparam>
+      <typeparam name="TAnnotation">
+        IEquatable &lt;TAnnotation&gt;
+          および IComparable&lt;TAnnotation&gt; を実装する型です。
+      </typeparam>
+    </member>
+    <member name="M:Microsoft.International.Collections.Generic.CollectionAnnotationCollection`2.#ctor">
+      <summary>
+        <see cref="T:Microsoft.International.Collections.Generic.CollectionAnnotationCollection`2"/> クラスの新しいインスタンスを初期化します。 ソース要素を使います。
+      </summary>
+    </member>
+    <member name="M:Microsoft.International.Collections.Generic.CollectionAnnotationCollection`2.#ctor(`0)">
+      <summary>
+        <see cref="T:Microsoft.International.Collections.Generic.CollectionAnnotationCollection`2"/> クラスの新しいインスタンスを初期化します。 ソース要素を使います。
+      </summary>
+      <param name="onlyOneSourceElement">唯一のソース要素です。</param>
+    </member>
+    <member name="M:Microsoft.International.Collections.Generic.CollectionAnnotationCollection`2.#ctor(`0,`1)">
+      <summary>
+        <see cref="T:Microsoft.International.Collections.Generic.CollectionAnnotationCollection`2"/> クラスの新しいインスタンスを初期化します。
+      </summary>
+      <param name="onlyOneSourceElement">1 つだけの要素としてのソースです。</param>
+      <param name="onlyOneAnnotation">1 つだけの要素としての注釈です。</param>
+    </member>
+    <member name="M:Microsoft.International.Collections.Generic.CollectionAnnotationCollection`2.#ctor(System.Collections.Generic.IEnumerable{`0})">
+      <summary>
+        <see cref="T:Microsoft.International.Collections.Generic.CollectionAnnotationCollection`2"/> の新しいインスタンスをソースになる要素を使って初期化します。
+      </summary>
+      <param name="sources">ソースです。</param>
+    </member>
+    <member name="M:Microsoft.International.Collections.Generic.CollectionAnnotationCollection`2.#ctor(System.Collections.Generic.IEnumerable{`0},System.Collections.Generic.IEnumerable{`1})">
+      <summary>
+        <see cref="T:Microsoft.International.Collections.Generic.CollectionAnnotationCollection`2"/> の新しいインスタンスをソースになる要素と注釈を使って初期化します。
+      </summary>
+      <param name="sources">ソースです。</param>
+      <param name="annotations">注釈です。</param>
+    </member>
+    <member name="M:Microsoft.International.Collections.Generic.CollectionAnnotationCollection`2.ForEach(System.Action{System.Collections.Generic.IEnumerable{`0},`1})">
+      <summary>各コレクションの要素で指定したアクションを実行します。</summary>
+      <param name="action">アクションです。</param>
+    </member>
+    <member name="M:Microsoft.International.Collections.Generic.CollectionAnnotationCollection`2.RemoveAt(System.Int32)">
+      <summary>指定した CollectionAnnotationCollection のインデックスの要素を削除します。</summary>
+      <param name="index">インデックスです。</param>
+    </member>
+    <member name="M:Microsoft.International.Collections.Generic.CollectionAnnotationCollection`2.RemoveAll">
+      <summary>CollectionAnnotationCollection のすべての要素を削除します。</summary>
+    </member>
+    <member name="M:Microsoft.International.Collections.Generic.CollectionAnnotationCollection`2.InsertAt(System.Int32,Microsoft.International.Collections.Generic.CollectionAnnotation{`0,`1})">
+      <summary>要素を CollectionAnnotationCollection の指定したインデックス位置に挿入します。</summary>
+      <param name="index">インデックスです。</param>
+      <param name="collectionAnnotation">1 つの注釈のコレクションです。</param>
+    </member>
+    <member name="M:Microsoft.International.Collections.Generic.CollectionAnnotationCollection`2.Add(Microsoft.International.Collections.Generic.CollectionAnnotation{`0,`1})">
+      <summary>CollectionAnnotationCollection の末尾に、collectionAnnotation を追加します。</summary>
+      <param name="collectionAnnotation">1 つの注釈のコレクションです。</param>
+    </member>
+    <member name="M:Microsoft.International.Collections.Generic.CollectionAnnotationCollection`2.Add(`0,`1)">
+      <summary>
+        CollectionAnnotationCollection の末尾に 節と注釈を含む、collectionAnnotation を追加します。
+      </summary>
+      <param name="segment">節の親テキストです。</param>
+      <param name="annotation">注釈です。</param>
+    </member>
+    <member name="M:Microsoft.International.Collections.Generic.CollectionAnnotationCollection`2.GetEnumerator">
+      <summary>コレクションを反復処理する列挙子を返します。</summary>
+      <returns>CollectionAnnotations のコレクションを列挙する列挙子。</returns>
+    </member>
+    <member name="M:Microsoft.International.Collections.Generic.CollectionAnnotationCollection`2.System#Collections#IEnumerable#GetEnumerator">
+      <summary>列挙のコレクションを返却する。</summary>
+      <returns> CollectionAnnotationsのコレクションを列挙する。</returns>
+    </member>
+    <member name="M:Microsoft.International.Collections.Generic.CollectionAnnotationCollection`2.System#Collections#Generic#IEnumerable{Microsoft#International#Collections#Generic#CollectionAnnotation{TSourceElement@TAnnotation}}#GetEnumerator">
+      <summary>列挙のコレクションを返却する。</summary>
+      <returns> CollectionAnnotationsのコレクションを列挙する。</returns>
+    </member>
+    <member name="P:Microsoft.International.Collections.Generic.CollectionAnnotationCollection`2.Annotations">
+      <summary>
+        注釈のコレクションを取得または設定します。 注釈の設定の前に、SourceElements を設定する必要があります。
+      </summary>
+      <value>注釈です。</value>
+    </member>
+    <member name="P:Microsoft.International.Collections.Generic.CollectionAnnotationCollection`2.AnnotationsAtSource">
+      <summary>ソース要素の列挙に注釈を取得または設定します。 注釈の設定の前に、SourceElements を設定する必要があります。</summary>
+      <value>ソースの注釈です。</value>
+    </member>
+    <member name="P:Microsoft.International.Collections.Generic.CollectionAnnotationCollection`2.CollectionAnnotations">
+      <summary>CollectionAnnotation のコレクションを取得または 設定します。</summary>
+      <value>ソースの注釈です。</value>
+    </member>
+    <member name="P:Microsoft.International.Collections.Generic.CollectionAnnotationCollection`2.CollectionAnnotationsAtSource">
+      <summary>
+        ソースのインデックスにある CollectionAnnotation のコレクションを設定、または取得します。
+      </summary>
+      <value>ソースの注釈です。</value>
+    </member>
+    <member name="P:Microsoft.International.Collections.Generic.CollectionAnnotationCollection`2.SourceElements">
+      <summary>節のコレクションを取得または設定します。</summary>
+      <!--<value>The annotations.</value>-->
+    </member>
+    <member name="P:Microsoft.International.Collections.Generic.CollectionAnnotationCollection`2.SourceElementsAtSource">
+      <summary>要素の列挙に要素のコレクションを取得または設定します。</summary>
+      <!--<value>The annotations.</value>-->
+    </member>
+    <member name="P:Microsoft.International.Collections.Generic.CollectionAnnotationCollection`2.Sources">
+      <summary>
+        ソース コレクションを取得または設定します。
+      </summary>
+      <!--<value>The annotations.</value>-->
+    </member>
+    <member name="P:Microsoft.International.Collections.Generic.CollectionAnnotationCollection`2.Count">
+      <summary>コレクションの個数を取得します。</summary>
+      <value>要素の個数です。</value>
+    </member>
+    <member name="P:Microsoft.International.Collections.Generic.CollectionAnnotationCollection`2.Item(System.Int32)">
+      <summary>CollectionAnnotations のインデクサーです。</summary>
+      <param name="index">要素のインデックスです。</param>
+      <returns>インデックスの要素です。</returns>
+    </member>
+
+    <member name="T:Microsoft.International.Collections.Generic.StringAnnotationComparer`1">
+      <summary>
+        StringAnnotations&lt;TAnnotation&gt; を比較する comparer です。
+      </summary>
+      <typeparam name="TAnnotation">注釈です。</typeparam>
+    </member>
+    <member name="M:Microsoft.International.Collections.Generic.StringAnnotationComparer`1.#ctor">
+      <summary>
+        <see cref="T:Microsoft.International.Collections.Generic.StringAnnotationComparer`1"/> クラスの新しいインスタンスを初期化します。
+      </summary>
+    </member>
+    <member name="M:Microsoft.International.Collections.Generic.StringAnnotationComparer`1.#ctor(System.Comparison{`0})">
+      <summary>
+        <see cref="T:Microsoft.International.Collections.Generic.StringAnnotationComparer`1"/> クラスの新しいインスタンスを初期化します。
+      </summary>
+      <param name="comparison">Comparisonクラスの例。</param>
+    </member>    
+    <member name="M:Microsoft.International.Collections.Generic.StringAnnotationComparer`1.Equals(Microsoft.International.Collections.Generic.StringAnnotations{`0},Microsoft.International.Collections.Generic.StringAnnotations{`0})">
+      <summary>
+        指定したオブジェクトが等しいかどうかを判断します。
+      </summary>
+      <param name="x">
+        StringAnnotations&lt;TAnnotation&gt; 型の比較のための最初のオブジェクトです。</param>
+      <param name="y">
+        StringAnnotations&lt;TAnnotation&gt; 型の比較のための 2 番目のオブジェクトです。</param>
+      <returns>
+        指定したオブジェクトが等しい場合は true です。 それ以外の場合は false です。
+      </returns>
+    </member>
+    <member name="M:Microsoft.International.Collections.Generic.StringAnnotationComparer`1.GetHashCode(Microsoft.International.Collections.Generic.StringAnnotations{`0})">
+      <summary>
+        指定したオブジェクトのハッシュ コードを返します。
+      </summary>
+      <param name="obj">
+        <see cref="T:System.Object"/> のハッシュ コードを返します。
+      </param>
+      <returns>指定したオブジェクトのハッシュ コードです。</returns>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="obj"/> の型は参照型であり、<paramref name="obj"/> が null です。
+      </exception>
+    </member>
+    <member name="M:Microsoft.International.Collections.Generic.StringAnnotationComparer`1.Compare(Microsoft.International.Collections.Generic.StringAnnotations{`0},Microsoft.International.Collections.Generic.StringAnnotations{`0})">
+      <summary>
+        2 つのオブジェクトを比較し、いずれかより、等しいか、他のより小さいかどうかを示す値を返します。
+      </summary>
+      <param name="x">比較する最初のオブジェクトです。</param>
+      <param name="y">比較する2 番目のオブジェクトです。</param>
+      <returns>
+        <paramref name="x"/> が <paramref name="y"/> より小さい値の場合、戻り値は 0 より小です。 <paramref name="x"/> と <paramref name="y"/> が等価の場合、戻り値は 0 です。 <paramref name="x"/> が <paramref name="y"/> より大きい場合、戻り値は 0 より大です。
+      </returns>
+    </member>
+    <member name="P:Microsoft.International.Collections.Generic.StringAnnotationComparer`1.StringAnnotationsCompare">
+      <summary>
+        stringAnnotations の comparer を取得または 設定します。
+      </summary>
+      <value>文字列注釈の comparer です。</value>
+    </member>
+    
+    <member name="T:Microsoft.International.JapaneseComparison">
+      <summary>StringComparer を装飾する日本語の比較オプションための抽象クラスです。 </summary>
+    </member>
+    <member name="F:Microsoft.International.JapaneseComparison.comparer">
+      <summary>
+        プロテクトの comparer です。
+      </summary>
+    </member>
+    <member name="M:Microsoft.International.JapaneseComparison.#ctor(System.StringComparer)">
+      <summary>JapaneseComparison クラスのプロテクト コンストラクタです。</summary>
+      <param name="comparer">日本語の比較オプションを修飾するために使います。</param>
+      <remarks>
+        この抽象クラスの派生クラスでは、ctor (StringComparer compare): base(compare) として、コンストラクターを実装する必要があります。
+      </remarks>
+    </member>
+    <member name="M:Microsoft.International.JapaneseComparison.GetComparison">
+      <summary>
+        比較に使う Comparison&lt;string&gt; ジェネリック デリゲートを取得します。</summary>
+      <returns>
+        Comparison&lt;string&gt; ジェネリック デリゲートです。
+      </returns>
+    </member>
+    <member name="M:Microsoft.International.JapaneseComparison.Compare(System.String,System.String)">
+      <summary>
+        継承クラスでこの方法を書き直し、二つの文字列を比較し、ソートを指示する戻り値を返却する。
+      </summary>
+      <param name="x">y と比較する文字列です。</param>
+      <param name="y">x と比較する文字列です。</param>
+      <returns>
+        <paramref name="x" />  が <paramref name="y" /> より小さい値の場合、戻り値は 0 より小です。 <paramref name="x" />  と <paramref name="y" /> が等価の場合、戻り値は 0 です。 <paramref name="x" /> が <paramref name="y" /> より大きい場合、戻り値は 0 より大です。
+      </returns>
+    </member>
+    <member name="M:Microsoft.International.JapaneseComparison.Equals(System.String,System.String)">
+      <summary>継承クラスでこの方法を書き直し。 両方の文字列が一致する。するかどうかを判断する。</summary>
+      <param name="x">y と比較する文字列です。</param>
+      <param name="y">x と比較する文字列です。</param>
+      <returns>
+        <paramref name="x" /> と <paramref name="y" /> が同じオブジェクトを参照している場合、または <paramref name="x" /> と <paramref name="y" /> が等しい場合は true です。それ以外の場合は false です。
+      </returns>
+    </member>
+    <member name="M:Microsoft.International.JapaneseComparison.GetHashCode(System.String)">
+      <summary>継承クラスでこの方法を書き直し, 指定された文字列のハッシュコードを取得する。</summary>
+      <param name="obj">文字列。</param>
+      <returns>
+        引数
+        <paramref name="obj" />
+        の値から算出した32進数の符号付きのハッシュコード。
+      </returns>
+    </member>
+    <member name="T:Microsoft.International.IgnoreKanaKindComparison">
+      <summary>
+        仮名の種別を無視する日本語の比較オプションです。 比較がカタカナとひらがなの違いを無視することを示します。 詳細については、<see cref="T:System.Globalization.CompareOptions"/> を参照してください。
+      </summary>
+    </member>
+    <member name="M:Microsoft.International.IgnoreKanaKindComparison.#ctor(System.StringComparer)">
+      <summary>
+        <see cref="T:Microsoft.International.IgnoreKanaKindComparison" /> クラスの新しいインスタンスを初期化します。
+      </summary>
+      <param name="comparer">日本語の比較オプションを修飾するために使います。</param>
+      <remarks>この抽象クラスの派生クラスでは、ctor (StringComparer compare): base(compare) として、コンストラクターを実装する必要があります。</remarks>
+    </member>
+    <member name="M:Microsoft.International.IgnoreKanaKindComparison.GetComparison">
+      <summary>
+        比較に使う Comparison&lt;string&gt; ジェネリック デリゲートを取得します。
+      </summary>
+      <returns>
+        Comparison&lt;string&gt; ジェネリック デリゲートです。
+      </returns>
+    </member>
+    <member name="M:Microsoft.International.IgnoreKanaKindComparison.Compare(System.String,System.String)">
+      <summary>仮名の種別を無視した文字列を比較し、相対的な並べ替え順序を表す値を返します。</summary>
+      <param name="x">y と比較する文字列です。</param>
+      <param name="y">x と比較する文字列です。</param>
+      <returns>
+        <paramref name="x" />  が <paramref name="y" /> より小さい値の場合、戻り値は 0 より小です。 <paramref name="x" />  と <paramref name="y" /> が等価の場合、戻り値は 0 です。 <paramref name="x" /> が <paramref name="y" /> より大きい場合、戻り値は 0 より大です。
+      </returns>
+    </member>
+    <member name="M:Microsoft.International.IgnoreKanaKindComparison.GetHashCode(System.String)">
+      <summary>指定した文字列から仮名の種別を無視したハッシュ コードを取得します。</summary>
+      <param name="obj">指定した文字列です。</param>
+      <returns>
+        <paramref name="obj" /> パラメータの値から計算した 32 ビットの符号付きハッシュコードです。
+      </returns>
+    </member>
+    <member name="M:Microsoft.International.IgnoreKanaKindComparison.Equals(System.String,System.String)">
+      <summary>2 つの文字列が仮名の種別を無視して等しいかどうかを示します。</summary>
+      <param name="x">y と比較する文字列です。</param>
+      <param name="y">x と比較する文字列です。</param>
+      <returns>
+        <paramref name="x" /> と <paramref name="y" /> が同じオブジェクトを参照している場合、または <paramref name="x" /> と <paramref name="y" /> が等しい場合は true です。それ以外の場合は false です。
+      </returns>
+    </member>
+    <member name="T:Microsoft.International.IgnoreSmallKanaLetterComparison">
+      <summary>
+        小書きの仮名文字の違いを無視する日本語の比較オプションです。 以下の組み合わせを無視します。
+        <br />
+        ("ァ", "ア"),
+        <br />
+        ("ィ", "イ"),
+        <br />
+        ("ゥ", "ウ"),
+        <br />
+        ("ェ", "エ"),
+        <br />
+        ("ォ", "オ"),
+        <br />
+        ("ッ", "ツ"),
+        <br />
+        ("ャ", "ヤ"),
+        <br />
+        ("ュ", "ユ"),
+        <br />
+        ("ョ", "ヨ"),
+        <br />
+        ("ヮ", "ワ"),
+        <br />
+        ("ヵ", "カ"),
+        <br />
+        ("ヶ", "ケ"),
+        <br />
+        ("ぁ", "あ"),
+        <br />
+        ("ぃ", "い"),
+        <br />
+        ("ぅ", "う"),
+        <br />
+        ("ぇ", "え"),
+        <br />
+        ("ぉ", "お"),
+        <br />
+        ("っ", "つ"),
+        <br />
+        ("ゃ", "や"),
+        <br />
+        ("ゅ", "ゆ"),
+        <br />
+        ("ょ", "よ"),
+        <br />
+        ("ゎ", "わ"),
+        <br />
+        "\u3095", "か"),
+        <br />
+        ("\u3096", "け").
+      </summary>
+    </member>
+    <member name="M:Microsoft.International.IgnoreSmallKanaLetterComparison.#ctor(System.StringComparer)">
+      <summary>
+        <see cref="T:Microsoft.International.IgnoreSmallKanaLetterComparison" /> クラスの新しいインスタンスを初期化します。
+      </summary>
+      <param name="comparer">日本語の比較オプションを修飾するために使います。</param>
+      <remarks>この抽象クラスの派生クラスでは、ctor (StringComparer compare): base(compare) として、コンストラクターを実装する必要があります。</remarks>
+    </member>
+    <member name="M:Microsoft.International.IgnoreSmallKanaLetterComparison.GetComparison">
+      <summary>
+        比較に使う Comparison&lt;string&gt; ジェネリック デリゲートを取得します。
+      </summary>
+      <returns>
+        Comparison&lt;string&gt; ジェネリック デリゲートです。
+      </returns>
+    </member>
+    <member name="M:Microsoft.International.IgnoreSmallKanaLetterComparison.Compare(System.String,System.String)">
+      <summary>2 つの文字列を小書きの違いを無視して比較し、相対的な並べ替え順序を表す値を返します。</summary>
+      <param name="x">y と比較する文字列です。</param>
+      <param name="y">x と比較する文字列です。</param>
+      <returns>
+        <paramref name="x" />  が <paramref name="y" /> より小さい値の場合、戻り値は 0 より小です。 <paramref name="x" />  と <paramref name="y" /> が等価の場合、戻り値は 0 です。 <paramref name="x" /> が <paramref name="y" /> より大きい場合、戻り値は 0 より大です。
+      </returns>
+    </member>
+    <member name="M:Microsoft.International.IgnoreSmallKanaLetterComparison.GetHashCode(System.String)">
+      <summary>指定した文字列から小書きを無視した比較のハッシュ コードを取得します。</summary>
+      <param name="obj">指定した文字列です。</param>
+      <returns>        
+        <paramref name="obj" /> パラメータの値から計算した 32 ビットの符号付きハッシュコードです。
+      </returns>
+    </member>
+    <member name="M:Microsoft.International.IgnoreSmallKanaLetterComparison.Equals(System.String,System.String)">
+      <summary>仮名の小書きの違いを無視して2つの文字列が等しいかを示します。 </summary>
+      <param name="x">y と比較する文字列です。</param>
+      <param name="y">x と比較する文字列です。</param>
+      <returns>
+        <paramref name="x" /> と <paramref name="y" /> が同じオブジェクトを参照している場合、または <paramref name="x" /> と <paramref name="y" /> が等しい場合は true です。それ以外の場合は false です。
+      </returns>
+    </member>
+    <member name="T:Microsoft.International.IgnoreVoicedSemiVoicedSoundMarksComparison">
+      <summary>
+        濁音や半濁音と清音の違いを無視する日本語の比較オプションです。 以下の組み合わせを無視します。
+        <br />
+        ("が", "か"),
+        <br />
+        ("ぎ", "き"),
+        <br />
+        ("ぐ", "く"),
+        <br />
+        ("げ", "け"),
+        <br />
+        ("ご", "こ"),
+        <br />
+        ("ざ", "さ"),
+        <br />
+        ("じ", "し"),
+        <br />
+        ("ず", "す"),
+        <br />
+        ("ぜ", "せ"),
+        <br />
+        ("ぞ", "そ"),
+        <br />
+        ("だ", "た"),
+        <br />
+        ("ぢ", "ち"),
+        <br />
+        ("づ", "つ"),
+        <br />
+        ("で", "て"),
+        <br />
+        ("ど", "と"),
+        <br />
+        ("ば", "は"),
+        <br />
+        ("び", "ひ"),
+        <br />
+        ("ぶ", "ふ"),
+        <br />
+        ("べ", "へ"),
+        <br />
+        ("ぼ", "ほ"),
+        <br />
+        ("ぱ", "は"),
+        <br />
+        ("ぴ", "ひ"),
+        <br />
+        ("ぷ", "ふ"),
+        <br />
+        ("ぺ", "へ"),
+        <br />
+        ("ぽ", "ほ"),
+        <br />
+        ("ガ", "カ"),
+        <br />
+        ("ギ", "キ"),
+        <br />
+        ("グ", "ク"),
+        <br />
+        ("ゲ", "ケ"),
+        <br />
+        ("ゴ", "コ"),
+        <br />
+        ("ザ", "サ"),
+        <br />
+        ("ジ", "シ"),
+        <br />
+        ("ズ", "ス"),
+        <br />
+        ("ゼ", "セ"),
+        <br />
+        ("ゾ", "ソ"),
+        <br />
+        ("ダ", "タ"),
+        <br />
+        ("ヂ", "チ"),
+        <br />
+        ("ヅ", "ツ"),
+        <br />
+        ("デ", "テ"),
+        <br />
+        ("ド", "ト"),
+        <br />
+        ("バ", "ハ"),
+        <br />
+        ("ビ", "ヒ"),
+        <br />
+        ("ブ", "フ"),
+        <br />
+        ("ベ", "ヘ"),
+        <br />
+        ("ボ", "ホ"),
+        <br />
+        ("パ", "ハ"),
+        <br />
+        ("ピ", "ヒ"),
+        <br />
+        ("プ", "フ"),
+        <br />
+        ("ペ", "ヘ"),
+        <br />
+        ("ポ", "ホ"),
+        <br />
+        ("\u3099", string.Empty),
+        <br />
+        ("\u309A", string.Empty).
+      </summary>
+    </member>
+    <member name="M:Microsoft.International.IgnoreVoicedSemiVoicedSoundMarksComparison.#ctor(System.StringComparer)">
+      <summary>
+        <see cref="T:Microsoft.International.IgnoreVoicedSemiVoicedSoundMarksComparison" /> クラスの新しいインスタンスを初期化します。
+      </summary>
+      <param name="comparer">日本語の比較オプションを修飾するために使います。</param>
+      <remarks>この抽象クラスの派生クラスでは、ctor (StringComparer compare): base(compare) として、コンストラクタ を実装する必要があります。</remarks>
+    </member>
+    <member name="M:Microsoft.International.IgnoreVoicedSemiVoicedSoundMarksComparison.GetComparison">
+      <summary>
+        比較に使う Comparison&lt;string&gt; ジェネリック デリゲートを取得します。</summary>
+      <returns>
+        Comparison&lt;string&gt; ジェネリック デリゲートです。
+      </returns>
+    </member>
+    <member name="M:Microsoft.International.IgnoreVoicedSemiVoicedSoundMarksComparison.Compare(System.String,System.String)">
+      <summary>2つの文字列を濁音や半濁音と清音の違いを無視して比較をし、相対的な並べ替え順序を表す値を返します。 </summary>
+      <param name="x">y と比較する文字列です。</param>
+      <param name="y">x と比較する文字列です。</param>
+      <returns>
+        <paramref name="x" />  が <paramref name="y" /> より小さい値の場合、戻り値は 0 より小です。 <paramref name="x" />  と <paramref name="y" /> が等価の場合、戻り値は 0 です。 <paramref name="x" /> が <paramref name="y" /> より大きい場合、戻り値は 0 より大です。
+      </returns>
+    </member>
+    <member name="M:Microsoft.International.IgnoreVoicedSemiVoicedSoundMarksComparison.GetHashCode(System.String)">
+      <summary>指定した文字列から濁音や半濁音と清音の違いを無視した比較のハッシュ コードを取得します。</summary>
+      <param name="obj">指定した文字列です。</param>
+      <returns>
+        <paramref name="obj" /> パラメータの値から計算した 32 ビットの符号付きハッシュコードです。
+      </returns>
+    </member>
+    <member name="M:Microsoft.International.IgnoreVoicedSemiVoicedSoundMarksComparison.Equals(System.String,System.String)">
+      <summary>濁音や半濁音と清音の違いを無視した2つの文字列が等しいかを示します。</summary>
+      <param name="x">y と比較する文字列です。</param>
+      <param name="y">x と比較する文字列です。</param>
+      <returns>
+        <paramref name="x" /> と <paramref name="y" /> が同じオブジェクトを参照している場合、または <paramref name="x" /> と <paramref name="y" /> が等しい場合は true です。それ以外の場合は false です。
+      </returns>
+    </member>
+    <member name="T:Microsoft.International.Collections.CustomTextSegments">
+      <summary>カスタムのテキスト節を表します。</summary>
+    </member>
+    <member name="M:Microsoft.International.Collections.CustomTextSegments.#ctor(System.String)">
+      <summary>
+        CustomTextSegments を初期化します。
+      </summary>
+      <param name="s">ソースの文字列です。</param>
+    </member>
+    <member name="M:Microsoft.International.Collections.CustomTextSegments.#ctor(System.Collections.Generic.IEnumerable{System.String})">
+      <summary>
+        CustomTextSegments を初期化します。
+      </summary>
+      <param name="sources">節の一覧です。</param>
+    </member>
+    <member name="M:Microsoft.International.Collections.CustomTextSegments.#ctor(System.String[])">
+      <summary>
+        CustomTextSegments を初期化します。
+      </summary>
+      <param name="list">節の一覧です。</param>
+    </member>
+    <member name="M:Microsoft.International.Collections.CustomTextSegments.MergeAll">
+      <summary>すべての節をマージします。</summary>
+    </member>
+    <member name="M:Microsoft.International.Collections.CustomTextSegments.MergeNextAt(System.Int32,System.Int32)">
+      <summary>
+        指定したインデックスの節を指定の個数マージします。
+      </summary>
+      <param name="index">マージの開始位置です。</param>
+      <param name="count">マージを行う個数です。</param>
+    </member>
+    <member name="M:Microsoft.International.Collections.CustomTextSegments.MergeNextAt(System.Int32)">
+      <summary>
+        指定したインデックスの 2 つの節をマージします。
+      </summary>
+      <param name="index">マージの開始位置です。</param>
+    </member>
+    <member name="M:Microsoft.International.Collections.CustomTextSegments.MergePreviousAt(System.Int32,System.Int32)">
+      <summary>
+        指定したインデックスの前に指定した個数の節をマージします。
+      </summary>
+      <param name="index">マージの開始位置です。</param>
+      <param name="count">マージを行う個数です。</param>
+    </member>
+    <member name="M:Microsoft.International.Collections.CustomTextSegments.MergePreviousAt(System.Int32)">
+      <summary>
+        指定したインデックスとその前の節をマージします。
+      </summary>
+      <param name="index">マージの開始位置です。</param>
+    </member>
+    <member name="M:Microsoft.International.Collections.CustomTextSegments.SplitAt(System.Int32,System.Int32)">
+      <summary>指定インデックスの指定した個数の節を分割します。</summary>
+      <param name="index">指定した要素のインデックスです。</param>
+      <param name="count">最初の節の数です。</param>
+    </member>
+    <member name="M:Microsoft.International.Collections.CustomTextSegments.SplitAt(System.Int32)">
+      <summary>指定インデックス直後の節を分割します。</summary>
+      <param name="index">要素のインデックスです。</param>
+    </member>
+    <member name="M:Microsoft.International.Collections.CustomTextSegments.GetEnumerator">
+      <summary>ソース文字列で節を反復処理を行うための列挙子を返します。</summary>
+      <returns>コレクションの反復処理を行うためのオブジェクト。</returns>
+    </member>
+    <member name="M:Microsoft.International.Collections.CustomTextSegments.System#Collections#IEnumerable#GetEnumerator">
+      <summary>列挙クレクションを返却する。</summary>
+      <returns>
+        クレクションを列挙する用の
+        <see cref="T:System.Collections.IEnumerator" />
+        対象。
+      </returns>
+    </member>
+    <member name="M:Microsoft.International.Collections.CustomTextSegments.SplitAt(System.Int32,System.Int32,Microsoft.International.TextSegments)">
+      <summary>
+        指定インデックスの節を分割します。
+      </summary>
+      <param name="index">要素のインデックスです。</param>
+      <param name="count">最初の節が含む数です。</param>
+      <param name="sourceSegments">列挙子を提供する TextSegments です。</param>
+    </member>
+    <member name="T:Microsoft.International.Collections.Generic.CollectionAnnotation`2">
+      <summary>ソース要素のコレクションに注釈を付ける構造体を表します。</summary>
+      <typeparam name="TSourceElement">
+        IEnumerable&lt;TSourceElement&gt;
+          、IEquatable&lt;TSourceElement&gt;
+            および IComparable&lt;TSourceElement&gt; を実装する型です。</typeparam>
+      <typeparam name="TAnnotation">
+        IEquatable&lt;TAnnotation&gt;
+          および IComparable&lt;TAnnotation&gt; を実装する型です。
+      </typeparam>
+    </member>
+    <member name="M:Microsoft.International.Collections.Generic.CollectionAnnotation`2.#ctor(`0,`1)">
+      <summary>
+        <see cref="T:Microsoft.International.Collections.Generic.CollectionAnnotation`2"/> 構造体をソース要素としてコレクションとその注釈の新しいインスタンスを初期化します。
+      </summary>
+      <param name="sourceElement">ソース要素としてのコレクションです。</param>
+      <param name="annotation">注釈です。</param>
+    </member>
+    <member name="M:Microsoft.International.Collections.Generic.CollectionAnnotation`2.#ctor(System.Collections.Generic.IEnumerable{`0},`1)">
+      <summary>
+        <see cref="T:Microsoft.International.Collections.Generic.CollectionAnnotation`2"/> 構造体をコレクションとその注釈で初期化します。
+      </summary>
+      <param name="sourceElement">ソース要素のコレクションです。</param>
+      <param name="annotation">注釈です。</param>
+    </member>
+    <member name="M:Microsoft.International.Collections.Generic.CollectionAnnotation`2.#ctor(System.Collections.Generic.IEnumerable{`0})">
+      <summary>
+        <see cref="T:Microsoft.International.Collections.Generic.CollectionAnnotation`2"/> 構造体の新しいインスタンスをコレクションを使って初期化します。
+      </summary>
+      <param name="sourceElement">ソース要素のコレクションです。</param>
+    </member>
+    <member name="M:Microsoft.International.Collections.Generic.CollectionAnnotation`2.#ctor(`0)">
+      <summary>
+        <see cref="T:Microsoft.International.Collections.Generic.CollectionAnnotation`2"/> 構造体の新しいインスタンスをソース要素をコレクションとして初期化します。
+      </summary>
+      <param name="sourceElement">ソース要素としてのコレクションです。</param>
+    </member>
+    <member name="P:Microsoft.International.Collections.Generic.CollectionAnnotation`2.SourceElements">
+      <summary>
+        ソース要素のコレクションを設定または取得します。
+      </summary>
+      <value>ソース要素です。</value>
+    </member>
+    <member name="P:Microsoft.International.Collections.Generic.CollectionAnnotation`2.Annotation">
+      <summary>
+        注釈を取得または設定します。
+      </summary>
+      <value>注釈です。</value>
+    </member>
+  </members>
+</doc>
+

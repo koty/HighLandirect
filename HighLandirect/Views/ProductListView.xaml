@@ -40,7 +40,7 @@
             </ToolBar>
         </ToolBarTray>
 
-        <ListView ItemsSource="{Binding ProductViewModels}" SelectedItem="{Binding SelectedProductViewModel}" 
+        <ListView ItemsSource="{Binding ProductViewModels}" SelectedItem="{Binding SelectedProduct}" 
                   FontSize="16">
             <ListView.View>
                 <GridView>
@@ -51,7 +51,7 @@
             </ListView.View>
         </ListView>
         <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="0" Grid.Column="1">
-            <v:ProductView DataContext="SelectedProduct" />
+            <v:ProductView DataContext="{Binding SelectedProduct}" />
         </ScrollViewer>
     </DockPanel>
 

@@ -1,0 +1,1323 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>YomiganaFramework</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.International.Collections.Generic.StringAnnotationComparer`1">
+            <summary>
+            A comparer to compare StringAnnotations&lt;TAnnotation&gt;.
+            </summary>
+            <typeparam name="TAnnotation">annotation</typeparam>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:Microsoft.International.Collections.Generic.StringAnnotationComparer`1.#ctor" -->
+        <!-- Badly formed XML comment ignored for member "M:Microsoft.International.Collections.Generic.StringAnnotationComparer`1.#ctor(System.Comparison{`0})" -->
+        <member name="M:Microsoft.International.Collections.Generic.StringAnnotationComparer`1.Equals(Microsoft.International.Collections.Generic.StringAnnotations{`0},Microsoft.International.Collections.Generic.StringAnnotations{`0})">
+            <summary>
+            Determines whether the specified objects are equal.
+            </summary>
+            <param name="x">The first object of type StringAnnotations&lt;TAnnotation&gt; to compare.</param>
+            <param name="y">The second object of type StringAnnotations&lt;TAnnotation&gt; to compare.</param>
+            <returns>
+            <c>true</c> if the specified objects are equal; otherwise <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Microsoft.International.Collections.Generic.StringAnnotationComparer`1.GetHashCode(Microsoft.International.Collections.Generic.StringAnnotations{`0})">
+            <summary>
+            Returns a hash code for the specified object.
+            </summary>
+            <param name="obj">The <see cref="T:System.Object"/> for which a hash code is to be returned.</param>
+            <returns>A hash code for the specified object.</returns>
+            <exception cref="T:System.ArgumentNullException">The type of <paramref name="obj"/> is a reference type and <paramref name="obj"/> is null.</exception>
+        </member>
+        <member name="M:Microsoft.International.Collections.Generic.StringAnnotationComparer`1.Compare(Microsoft.International.Collections.Generic.StringAnnotations{`0},Microsoft.International.Collections.Generic.StringAnnotations{`0})">
+            <summary>
+            Compares two objects and returns a value indicating whether one is less than, equal to, or greater than the other.
+            </summary>
+            <param name="x">The first object to compare.</param>
+            <param name="y">The second object to compare.</param>
+            <returns>
+            A value less than zero means <paramref name="x"/> is less than <paramref name="y"/>; 
+            A value of zero means <paramref name="x"/> equals to <paramref name="y"/>; 
+            A value greater than zero means <paramref name="x"/> is greater than <paramref name="y"/>.
+            </returns>
+        </member>
+        <member name="P:Microsoft.International.Collections.Generic.StringAnnotationComparer`1.StringAnnotationsCompare">
+            <summary>
+            Gets or sets the stringAnnotations comparer.
+            </summary>
+            <value>The string annotations comparer.</value>
+        </member>
+        <member name="T:Microsoft.International.IAcceptInterlinearAnnotation">
+            <summary>
+            The controls implemented this interface accept string value with interlinear annotation.
+            </summary>
+        </member>
+        <member name="T:System.Web.UI.Design.CommonResource">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:System.Web.UI.Design.CommonResource.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:System.Web.UI.Design.CommonResource.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="T:Microsoft.International.Collections.Generic.StringAnnotations`1">
+            <summary>
+            Represents a generic annotation for a string.
+            </summary>
+            <typeparam name="TAnnotation">An annotation type.</typeparam>
+        </member>
+        <member name="T:Microsoft.International.Collections.ISplittableByTextSegments">
+            <summary>
+            Represents an interface for splitting capability on text segments.
+            </summary>
+        </member>
+        <member name="M:Microsoft.International.Collections.ISplittableByTextSegments.SplitAt(System.Int32,System.Int32,Microsoft.International.TextSegments)">
+            <summary>
+            Split a segment at certain index.
+            </summary>
+            <param name="index">The index of the segment to be split.</param>
+            <param name="count">The number of elements where the split occurs.</param>
+            <param name="segments">A segment to be counted.</param>
+        </member>
+        <member name="M:Microsoft.International.Collections.Generic.StringAnnotations`1.#ctor">
+            <summary>
+            Initializes a new instance of the StringAnnotations class that is empty.
+            </summary>
+        </member>
+        <member name="M:Microsoft.International.Collections.Generic.StringAnnotations`1.#ctor(System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Initializes a new instance of the StringAnnotations class with specified segments and annotations. 
+            </summary>
+            <param name="sources">The segments.</param>
+            <param name="annotations">The annotations of segments.</param>
+        </member>
+        <member name="M:Microsoft.International.Collections.Generic.StringAnnotations`1.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the StringAnnotations class with a string <paramref name="s"/> as one segment.
+            </summary>
+            <param name="s">The source segment.</param>
+        </member>
+        <member name="M:Microsoft.International.Collections.Generic.StringAnnotations`1.#ctor(System.String,`0)">
+            <summary>
+            Initializes a new instance of the StringAnnotations class with a pair of segment and annotation.
+            </summary>
+            <param name="s">The source segment.</param>
+            <param name="annotation">The annotation of the segment.</param>
+        </member>
+        <member name="M:Microsoft.International.Collections.Generic.StringAnnotations`1.#ctor(Microsoft.International.TextSegments)">
+            <summary>
+            Initializes a new instance of the StringAnnotations class with <paramref name="segments"/> as source segments.
+            </summary>
+            <param name="segments">The instance of TextSegments as the source segments.</param>
+        </member>
+        <member name="M:Microsoft.International.Collections.Generic.StringAnnotations`1.op_Equality(Microsoft.International.Collections.Generic.StringAnnotations{`0},Microsoft.International.Collections.Generic.StringAnnotations{`0})">
+            <summary>
+            Implements the operator ==.
+            </summary>
+            <param name="x">The StringAnnotations&lt; TAnnotation &gt;x.</param>
+            <param name="y">The StringAnnotations&lt; TAnnotation &gt; y.</param>
+            <returns>The result of the operator.</returns>
+        </member>
+        <member name="M:Microsoft.International.Collections.Generic.StringAnnotations`1.op_Inequality(Microsoft.International.Collections.Generic.StringAnnotations{`0},Microsoft.International.Collections.Generic.StringAnnotations{`0})">
+            <summary>
+            Implements the operator !=.
+            </summary>
+            <param name="x">The StringAnnotations&lt; TAnnotation &gt; x.</param>
+            <param name="y">The StringAnnotations&lt; TAnnotation &gt; y.</param>
+            <returns>The result of the operator.</returns>
+        </member>
+        <member name="M:Microsoft.International.Collections.Generic.StringAnnotations`1.CompareTo(Microsoft.International.Collections.Generic.StringAnnotations{`0})">
+            <summary>
+            Compares to the other instance of StringAnnotations&lt; TAnnotation &gt;.
+            </summary>
+            <param name="other">The other instance of StringAnnotations&lt; TAnnotation &gt;.</param>
+            <returns>The value of compare,0 if equal.</returns>
+        </member>
+        <member name="M:Microsoft.International.Collections.Generic.StringAnnotations`1.GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through the annotations in the source string.
+            </summary>
+            <returns>
+            A <see cref="T:System.Collections.Generic.IEnumerator"/> that can be used to iterate through the collection.
+            </returns>
+        </member>
+        <member name="M:Microsoft.International.Collections.Generic.StringAnnotations`1.System#Collections#IEnumerable#GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through a collection.
+            </summary>
+            <returns>
+            An <see cref="T:System.Collections.IEnumerator"/> object that can be used to iterate through the collection.
+            </returns>
+        </member>
+        <member name="M:Microsoft.International.Collections.Generic.StringAnnotations`1.Equals(Microsoft.International.Collections.Generic.StringAnnotations{`0})">
+            <summary>
+            Indicates whether the current object is equal to another object of the same type.
+            </summary>
+            <param name="other">An object to compare with this object.</param>
+            <returns>
+            <c>true</c> if the current object is equal to the <paramref name="other"/> parameter; otherwise <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Microsoft.International.Collections.Generic.StringAnnotations`1.SplitAt(System.Int32,System.Int32,Microsoft.International.TextSegments)">
+            <summary>
+            Split a segment at certain index.
+            </summary>
+            <param name="index">The index of the segment to be split.</param>
+            <param name="count">The number of elements where the split occurs.</param>
+            <param name="segments">A segment to be counted.</param>
+        </member>
+        <member name="M:Microsoft.International.Collections.Generic.StringAnnotations`1.SplitAt(System.Int32)">
+            <summary>
+            Splits at the index.
+            </summary>
+            <param name="index">The index.</param>
+        </member>
+        <member name="M:Microsoft.International.Collections.Generic.StringAnnotations`1.SplitAt(System.Int32,System.Int32)">
+            <summary>
+            Split a segment at certain index.
+            </summary>
+            <param name="index">The index of the segment to be split.</param>
+            <param name="count">The number of elements where the split occurs.</param>
+        </member>
+        <member name="P:Microsoft.International.Collections.Generic.StringAnnotations`1.Count">
+            <summary>
+            Gets the count of annotations in StringAnnotations&lt;TAnnotation&gt;.
+            </summary>
+            <value>The count.</value>
+        </member>
+        <member name="P:Microsoft.International.Collections.Generic.StringAnnotations`1.Source">
+            <summary>
+            Gets the source of annotaions.
+            </summary>
+        </member>
+        <member name="P:Microsoft.International.Collections.Generic.StringAnnotations`1.Item(System.Int32)">
+            <summary>
+            Gets or sets the annotations at the specified index
+            </summary>
+            <param name="index">Index of annotations</param>
+            <returns>Annotation at the index</returns>
+        </member>
+        <member name="P:Microsoft.International.Collections.Generic.StringAnnotations`1.SegmentsCollection">
+            <summary>
+            Gets all segments in the StringAnnotations.
+            </summary>
+            <value>The segments collection.</value>
+        </member>
+        <member name="P:Microsoft.International.Collections.Generic.StringAnnotations`1.AnnotationCollection">
+            <summary>
+            Gets all annotations in the StringAnnotations.
+            </summary>
+        </member>
+        <member name="M:Microsoft.International.Collections.Generic.Source.Equals(Microsoft.International.Collections.Generic.Source)">
+            <summary>
+            Indicates whether the current object is equal to another object of the same type.
+            </summary>
+            <param name="other">An object to compare with this object.</param>
+            <returns>
+            <c>true</c> if the current object is equal to the <paramref name="other"/> parameter; otherwise <c>false</c>.
+            </returns>
+        </member>
+        <member name="T:Microsoft.International.InterlinearAnnotationComparer">
+            <summary>
+            Compare stirngs with recognizing the interlinear annotation character for comparison.
+            </summary>
+        </member>
+        <member name="M:Microsoft.International.InterlinearAnnotationComparer.#ctor(System.StringComparer)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.International.InterlinearAnnotationComparer"/> class.
+            </summary>
+            <param name="comparer">The comparer.</param>
+        </member>
+        <member name="M:Microsoft.International.InterlinearAnnotationComparer.Compare(System.String,System.String)">
+            <summary>
+            Override the Compare method from StringComparer.
+            </summary>
+            <param name="x">A string to be compared.</param>
+            <param name="y">A string to be compared.</param>
+            <returns>
+            A value less than zero means <paramref name="x"/> is less than <paramref name="y"/>; 
+            a value of zero means <paramref name="x"/> equals to <paramref name="y"/>; 
+            a value greater than zero means <paramref name="x"/> is greater than <paramref name="y"/>.
+            </returns>
+        </member>
+        <member name="M:Microsoft.International.InterlinearAnnotationComparer.Equals(System.String,System.String)">
+            <summary>
+            When overridden in a derived class, indicates whether two strings are equal.
+            </summary>
+            <param name="x">A string to be compared.</param>
+            <param name="y">A string to be compared.</param>
+            <returns>
+            <c>true</c> if <paramref name="x"/> and <paramref name="y"/> refer to the same object, or <paramref name="x"/> and <paramref name="y"/> are equal; otherwise <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Microsoft.International.InterlinearAnnotationComparer.GetHashCode(System.String)">
+            <summary>
+            When overridden in a derived class, gets the hash code for the specified string.
+            </summary>
+            <param name="obj">A string.</param>
+            <returns>
+            A 32-bit signed hash code calculated from the value of the <paramref name="obj"/> parameter.
+            </returns>
+        </member>
+        <member name="T:Microsoft.International.Collections.StringAnnotations">
+            <summary>
+            Represents a class that contains string texts and its string annotations.  
+            </summary>
+        </member>
+        <member name="M:Microsoft.International.Collections.StringAnnotations.#ctor">
+            <summary>
+            Initializes a new instance of the StringAnnotations class that is empty.
+            </summary>
+        </member>
+        <member name="M:Microsoft.International.Collections.StringAnnotations.#ctor(System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Initializes a new instance of the StringAnnotations class with sources and annotations. 
+            </summary>
+            <param name="sources">The segments.</param>
+            <param name="annotations">The annotations of segments.</param>
+        </member>
+        <member name="M:Microsoft.International.Collections.StringAnnotations.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the StringAnnotations class with a string as one segment.
+            </summary>
+            <param name="s">The source string.</param>
+        </member>
+        <member name="M:Microsoft.International.Collections.StringAnnotations.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of the StringAnnotations class with a string and its annotation.
+            </summary>
+            <param name="s">The source string.</param>
+            <param name="annotation">The annotation string.</param>
+        </member>
+        <member name="M:Microsoft.International.Collections.StringAnnotations.#ctor(Microsoft.International.TextSegments)">
+            <summary>
+            Initializes a new instance of the StringAnnotations class with an instance of TextSegments.
+            </summary>
+            <param name="segments">The instance of TextSegments with source.</param>
+        </member>
+        <member name="M:Microsoft.International.Collections.StringAnnotations.Parse(System.String)">
+            <summary>
+            Parse a string with the interlinear annotation characters.
+            </summary>
+            <param name="s">A string that may or may not contain a sequence of the interlinear annotation characters for Unicode.</param>
+            <returns>A StringAnnotations parsed.</returns>
+        </member>
+        <member name="M:Microsoft.International.Collections.StringAnnotations.Parse(System.String,System.IFormatProvider)">
+            <summary>
+            Parse a string with format provided by the specified <paramref name="provider"/>.
+            </summary>
+            <param name="s">A string that in specified format and may or may not contain a sequence of the interlinear annotation characters for Unicode.</param>
+            <param name="provider">The format provider. These providers are supported:<br/>
+            <see cref="T:Microsoft.International.StringAnnotationInterLinearAnnotationFormatProvider"/>, <br/>
+            <see cref="T:Microsoft.International.StringAnnotationJisX4052FormatProvider"/>, <br/>
+            <see cref="T:Microsoft.International.StringAnnotationInterOpenCloseBracketsFormatProvider"/>.</param>
+            <returns>A StringAnnotations parsed.</returns>
+        </member>
+        <member name="M:Microsoft.International.Collections.StringAnnotations.Parse(System.String,System.String[])">
+            <summary>
+            Parse a string with brackets. The annotation boundary begins at the immediate boundary where a CJK ideographic character begin.
+            </summary>
+            <param name="s">A source string.</param>
+            <param name="brakets">A list of brackets for parsing.</param>
+            <returns>A StringAnnotations parsed.</returns>
+        </member>
+        <member name="M:Microsoft.International.Collections.StringAnnotations.MergeAll">
+            <summary>
+            Merge all elements.
+            </summary>
+        </member>
+        <member name="M:Microsoft.International.Collections.StringAnnotations.MergePreviousAt(System.Int32,System.Int32)">
+            <summary>
+            Merge a <paramref name="count"/> of segments before the specified segment at <paramref name="index"/>.  
+            </summary>
+            <param name="index">The start index of the segment to merge.</param>
+            <param name="count">The number of segments merging.</param>
+        </member>
+        <member name="M:Microsoft.International.Collections.StringAnnotations.MergePreviousAt(System.Int32)">
+            <summary>
+            Merge the specified segments at index and the one before it.
+            </summary>
+            <param name="index">The start index of the segment to merge.</param>
+        </member>
+        <member name="M:Microsoft.International.Collections.StringAnnotations.MergeNextAt(System.Int32,System.Int32)">
+            <summary>
+            Merge a <paramref name="count"/> of segments after the specified segment at <paramref name="index"/>. 
+            </summary>
+            <param name="index">The start index of the segment to merge.</param>
+            <param name="count">The number of segments merging.</param>
+        </member>
+        <member name="M:Microsoft.International.Collections.StringAnnotations.MergeNextAt(System.Int32)">
+            <summary>
+            Merge the specified segment at the index and the one after it.
+            </summary>
+            <param name="index">The start index of the segment to merge.</param>
+        </member>
+        <member name="M:Microsoft.International.Collections.StringAnnotations.SplitAt(System.Int32,System.Int32)">
+            <summary>
+            Split the specified segment at a certain <paramref name="index"/>. 
+            </summary>
+            <param name="index">The start index of the segment to split.</param>
+            <param name="count">The count of elements the first segment contains.</param>
+        </member>
+        <member name="M:Microsoft.International.Collections.StringAnnotations.SplitAt(System.Int32)">
+            <summary>
+            Split the specified segment a certain <paramref name="index"/>. 
+            </summary>
+            <param name="index">The index of the element.</param>
+        </member>
+        <member name="M:Microsoft.International.Collections.StringAnnotations.SplitAt(System.Int32,System.Int32,Microsoft.International.TextSegments)">
+            <summary>
+            Split the specified segment at the <paramref name="index"/>.
+            </summary>
+            <param name="index">The index of the element.</param>
+            <param name="count">The count in first segment.</param>
+            <param name="textSegments">The textSegment that provide enumerator.</param>
+        </member>
+        <member name="M:Microsoft.International.Collections.StringAnnotations.op_Equality(Microsoft.International.Collections.StringAnnotations,Microsoft.International.Collections.StringAnnotations)">
+            <summary>
+            Implements the operator ==.
+            </summary>
+            <param name="x">The StringAnnotations x.</param>
+            <param name="y">The StringAnnotations y.</param>
+            <returns>The result of the operator.</returns>
+        </member>
+        <member name="M:Microsoft.International.Collections.StringAnnotations.op_Inequality(Microsoft.International.Collections.StringAnnotations,Microsoft.International.Collections.StringAnnotations)">
+            <summary>
+            Implements the operator !=.
+            </summary>
+            <param name="x">The StringAnnotations x.</param>
+            <param name="y">The StringAnnotations y.</param>
+            <returns>The result of the operator.</returns>
+        </member>
+        <member name="M:Microsoft.International.Collections.StringAnnotations.ToString(System.String,System.IFormatProvider)">
+            <summary>
+            Format the StringAnnotations with the specified formatProvider.
+            </summary>
+            <param name="format">Format.</param>
+            <param name="formatProvider">StringAnnotationsFormatProvider object is expected.</param>
+            <returns>The formatted string.</returns>
+        </member>
+        <member name="M:Microsoft.International.Collections.StringAnnotations.CompareTo(Microsoft.International.Collections.StringAnnotations)">
+            <summary>
+            Compares to the other instance of StringAnnotations.
+            </summary>
+            <param name="other">The other instance of StringAnnotations.</param>
+            <returns>The value of compare,0 if equal.</returns>
+        </member>
+        <member name="M:Microsoft.International.Collections.StringAnnotations.System#Collections#IEnumerable#GetEnumerator">
+            <summary>
+            An <see cref="T:System.Collections.IEnumerator"/> object that can be used to iterate through the collection.
+            </summary>
+            <returns>IEnumerator</returns>
+        </member>
+        <member name="M:Microsoft.International.Collections.StringAnnotations.GetEnumerator">
+            <summary>
+              Returns an enumerator that iterates through the collection.
+            </summary>
+            <returns>
+            An <see cref="T:System.Collections.IEnumerator"/> object that can be used to iterate through the collection.
+            </returns>
+        </member>
+        <member name="M:Microsoft.International.Collections.StringAnnotations.Equals(Microsoft.International.Collections.StringAnnotations)">
+            <summary>
+            Equalses the specified other.
+            </summary>
+            <param name="other">The other.</param>
+            <returns><c>true</c> if the objects are equal; otherwise <c>false</c>.</returns>
+        </member>
+        <member name="P:Microsoft.International.Collections.StringAnnotations.Annotations">
+            <summary>
+            Gets the annotations in the StringAnnotations.
+            </summary>
+            <value>The annotations.</value>
+        </member>
+        <member name="P:Microsoft.International.Collections.StringAnnotations.AllAnnotations">
+            <summary>
+            Gets the annotations in the StringAnnotations.
+            if there is no annotation for a segment, use segment to replace it.
+            </summary>
+            <value>All annotations.</value>
+        </member>
+        <member name="P:Microsoft.International.Collections.StringAnnotations.AllAnnotationsCollection">
+            <summary>
+            Gets the list of annotations in the StringAnnotations.
+            If there is no annotation for a segment, use segment to replace it.
+            </summary>
+            <value>All annotations collection.</value>
+        </member>
+        <member name="T:Microsoft.International.Collections.CustomTextSegments">
+            <summary>
+            Represents custom text segments.
+            </summary>
+        </member>
+        <member name="T:Microsoft.International.TextSegments">
+            <summary>
+            An abstract class for text segments.
+            </summary>
+        </member>
+        <member name="M:Microsoft.International.TextSegments.#ctor">
+            <summary>
+            Initializes a new instance of the TextSegments class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.International.TextSegments.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the TextSegments class from the source specified.
+            </summary>
+            <param name="source">The string to become the source of this enumerable.</param>
+        </member>
+        <member name="M:Microsoft.International.TextSegments.GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through a collection.
+            </summary>
+            <returns>A IEnumerator&lt;string&gt; that can be used to iterate through the source string.</returns>
+        </member>
+        <member name="M:Microsoft.International.TextSegments.System#Collections#IEnumerable#GetEnumerator">
+            <summary>
+            Returns an enumerator that iterate through the segments in the source string.
+            </summary>
+            <returns>
+            An IEnumerator object that can be used to iterate through the collection.
+            </returns>
+        </member>
+        <member name="M:Microsoft.International.TextSegments.System#Collections#Generic#IEnumerable{System#String}#GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through a collection.
+            </summary>
+            <returns>
+            An <see cref="T:System.Collections.Generic.IEnumerator`1"/> that can be used to iterate through the collection.
+            </returns>
+        </member>
+        <member name="P:Microsoft.International.TextSegments.Source">
+            <summary>
+            Gets or sets the source string for segments.
+            </summary>
+            <value>The source</value>
+        </member>
+        <member name="P:Microsoft.International.TextSegments.Count">
+            <summary>
+            Gets the number of segments
+            </summary>
+            <value>The count.</value>
+        </member>
+        <member name="P:Microsoft.International.TextSegments.Item(System.Int32)">
+            <summary>
+            Gets the string at a specified segment position in the current TextSegments object.
+            </summary>
+            <param name="index">A segment position</param>
+            <returns>Segment</returns>
+        </member>
+        <member name="T:Microsoft.International.Collections.IMergeableSegments">
+            <summary>
+            Interface for merge operations on segments.
+            </summary>
+        </member>
+        <member name="M:Microsoft.International.Collections.IMergeableSegments.MergeNextAt(System.Int32,System.Int32)">
+            <summary>
+            Merges segments at a certain index.
+            </summary>
+            <param name="index">The start index of the segment to merge.</param>
+            <param name="count">The number of segment merging.</param>
+        </member>
+        <member name="M:Microsoft.International.Collections.CustomTextSegments.#ctor(System.String)">
+            <summary>
+            Initializes CustomTextSegments.
+            </summary>
+            <param name="s">The source string.</param>
+        </member>
+        <member name="M:Microsoft.International.Collections.CustomTextSegments.#ctor(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Initializes CustomTextSegments.
+            </summary>
+            <param name="sources">A list of segments.</param>
+        </member>
+        <member name="M:Microsoft.International.Collections.CustomTextSegments.#ctor(System.String[])">
+            <summary>
+            Initializes CustomTextSegments.
+            </summary>
+            <param name="list">A list of segments.</param>
+        </member>
+        <member name="M:Microsoft.International.Collections.CustomTextSegments.MergeAll">
+            <summary>
+            Merge all segments.
+            </summary>
+        </member>
+        <member name="M:Microsoft.International.Collections.CustomTextSegments.MergeNextAt(System.Int32,System.Int32)">
+            <summary>
+            Merge a <paramref name="count"/> of segments at a certain <paramref name="index"/>.
+            </summary>
+            <param name="index">The position that begin to merge.</param>
+            <param name="count">The count that will be merged.</param>
+        </member>
+        <member name="M:Microsoft.International.Collections.CustomTextSegments.MergeNextAt(System.Int32)">
+            <summary>
+            Merge two segments at a certain <paramref name="index"/>.
+            </summary>
+            <param name="index">The position that begin to merge.</param>
+        </member>
+        <member name="M:Microsoft.International.Collections.CustomTextSegments.MergePreviousAt(System.Int32,System.Int32)">
+            <summary>
+            Merge a <paramref name="count"/> of segments before certain <paramref name="index"/>.
+            </summary>
+            <param name="index">The position that begin to merge.</param>
+            <param name="count">The count that will be merged.</param>
+        </member>
+        <member name="M:Microsoft.International.Collections.CustomTextSegments.MergePreviousAt(System.Int32)">
+            <summary>
+            Merge the segments at the specified <paramref name="index"/> and the one before it.
+            </summary>
+            <param name="index">the position that begin to merge.</param>
+        </member>
+        <member name="M:Microsoft.International.Collections.CustomTextSegments.SplitAt(System.Int32,System.Int32)">
+            <summary>
+            Splits the specified segment at the specified <paramref name="index"/>. 
+            </summary>
+            <param name="index">The index of the specified element</param>
+            <param name="count">The count in first segment</param>
+        </member>
+        <member name="M:Microsoft.International.Collections.CustomTextSegments.SplitAt(System.Int32)">
+            <summary>
+            Splits the specified segment at <paramref name="index"/> after first position.
+            </summary>
+            <param name="index">The index of the element.</param>
+        </member>
+        <member name="M:Microsoft.International.Collections.CustomTextSegments.GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through the segments in the source string.
+            </summary>
+            <returns>An object that can be used to iterate through the collection.</returns>
+        </member>
+        <member name="M:Microsoft.International.Collections.CustomTextSegments.System#Collections#IEnumerable#GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through a collection.
+            </summary>
+            <returns>
+            An <see cref="T:System.Collections.IEnumerator"/> object that can be used to iterate through the collection.
+            </returns>
+        </member>
+        <member name="M:Microsoft.International.Collections.CustomTextSegments.SplitAt(System.Int32,System.Int32,Microsoft.International.TextSegments)">
+            <summary>
+            Splits the specified segment at <paramref name="index"/>.
+            </summary>
+            <param name="index">The index of the element.</param>
+            <param name="count">The count of the first segment contains.</param>
+            <param name="sourceSegments">The TextSegment that provide enumerator.</param>
+        </member>
+        <member name="T:Microsoft.International.HanIdeographSequenceBoundaries">
+            <summary>
+            Represents boundaries between CJKV ideograph sequences and others characters.
+            The class separates CJKV ideograph sequences with other characters according to Unicode categories. IEnumerable interface is also implemented to enumerate them.
+            
+            </summary>
+        </member>
+        <member name="M:Microsoft.International.HanIdeographSequenceBoundaries.#ctor">
+            <summary>
+            Initializes a new instance of the HanIdeographSequenceBoundaries class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.International.HanIdeographSequenceBoundaries.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the HanIdeographSequenceBoundaries class using the specified string.
+            </summary>
+            <param name="s">The string used to initialize the value of the instance. If value is null reference (Nothing in Visual Basic), an ArgumentNullException will be threw. </param>
+        </member>
+        <member name="M:Microsoft.International.HanIdeographSequenceBoundaries.GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through the segments in the source string.
+            </summary>
+            <returns>
+            An IEnumerator object that can be used to iterate through the collection.
+            </returns>
+        </member>
+        <member name="T:Microsoft.International.StringAnnotationsFormatProvider">
+            <summary>
+            Defines a method to format StringAnnotations.
+            </summary>
+        </member>
+        <member name="M:Microsoft.International.StringAnnotationsFormatProvider.GetFormat(System.Type)">
+            <summary>
+            The method from interface "IFormatProvider".
+            </summary>
+            <param name="formatType">Format type.</param>
+            <returns>The format provider.</returns>
+        </member>
+        <member name="M:Microsoft.International.StringAnnotationsFormatProvider.Format(System.String,System.Object,System.IFormatProvider)">
+            <summary>
+            The method from the interface "ICustomFormatter" format the StringAnnotations.
+            </summary>
+            <param name="format">The format that StringAnnotations will be formatted to.</param>
+            <param name="arg">The instance of StringAnnotations.</param>
+            <param name="formatProvider">Format Provider.</param>
+            <returns>The formatted string.</returns>
+        </member>
+        <member name="P:Microsoft.International.StringAnnotationsFormatProvider.FormatString">
+            <summary>
+            The specified string of the formatProvider.
+            </summary>
+            <value>The format string.</value>
+        </member>
+        <member name="T:Microsoft.International.StringAnnotationInterLinearAnnotationFormatProvider">
+            <summary>
+            Formats the StringAnnotations with InterLinearAnnotationFormat.
+            </summary>
+        </member>
+        <member name="M:Microsoft.International.StringAnnotationInterLinearAnnotationFormatProvider.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.International.StringAnnotationInterLinearAnnotationFormatProvider"/> class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.International.StringAnnotationInterLinearAnnotationFormatProvider.GetFormat(System.Type)">
+            <summary>
+            Implements the method from interface "IFormatProvider".
+            </summary>
+            <param name="formatType">Format type.</param>
+            <returns>The formatProvider.</returns>
+        </member>
+        <member name="M:Microsoft.International.StringAnnotationInterLinearAnnotationFormatProvider.Format(System.String,System.Object,System.IFormatProvider)">
+            <summary>
+            Formats the instance of StringAnnotations with InterLinearAnnotation format.
+            </summary>
+            <param name="format">Format string.</param>
+            <param name="arg">The instance of StringAnnotations.</param>
+            <param name="formatProvider">This format provider.</param>
+            <returns>The formatted string.</returns>
+        </member>
+        <member name="P:Microsoft.International.StringAnnotationInterLinearAnnotationFormatProvider.FormatString">
+            <summary>
+            The specified string represent the StringAnnotationInterLinearAnnotationFormatProvider.
+            </summary>
+            <value>The format string.</value>
+        </member>
+        <member name="T:Microsoft.International.StringAnnotationJisX4052FormatProvider">
+            <summary>
+            Formats the StringAnnotations with JisX4052 format.
+            </summary>
+        </member>
+        <member name="M:Microsoft.International.StringAnnotationJisX4052FormatProvider.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.International.StringAnnotationJisX4052FormatProvider"/> class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.International.StringAnnotationJisX4052FormatProvider.GetFormat(System.Type)">
+            <summary>
+            Implements the method from interface "IFormatProvider".
+            </summary>
+            <param name="formatType">Format type.</param>
+            <returns>The formatProvider.</returns>
+        </member>
+        <member name="M:Microsoft.International.StringAnnotationJisX4052FormatProvider.Format(System.String,System.Object,System.IFormatProvider)">
+            <summary>
+            Formats the instance of StringAnnotations with InterLinearAnnotation format.
+            </summary>
+            <param name="format">Format string.</param>
+            <param name="arg">The instance of StringAnnotations.</param>
+            <param name="formatProvider">The format provider.</param>
+            <returns>The formatted string.</returns>
+        </member>
+        <member name="P:Microsoft.International.StringAnnotationJisX4052FormatProvider.FormatString">
+            <summary>
+            The specified string represent the StringAnnotationJisX4052FormatProvider.
+            </summary>
+            <value>The format string.</value>
+        </member>
+        <member name="T:Microsoft.International.StringAnnotationInterOpenCloseBracketsFormatProvider">
+            <summary>
+            Formats the StringAnnotations with InterOpenCloseBrackets format.
+            </summary>
+        </member>
+        <member name="M:Microsoft.International.StringAnnotationInterOpenCloseBracketsFormatProvider.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.International.StringAnnotationInterOpenCloseBracketsFormatProvider"/> class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.International.StringAnnotationInterOpenCloseBracketsFormatProvider.GetFormat(System.Type)">
+            <summary>
+            Implements the method from interface "IFormatProvider".
+            </summary>
+            <param name="formatType">Format type.</param>
+            <returns>The formatProvider.</returns>
+        </member>
+        <member name="M:Microsoft.International.StringAnnotationInterOpenCloseBracketsFormatProvider.Format(System.String,System.Object,System.IFormatProvider)">
+            <summary>
+            Formats the instance of StringAnnotations with  InterOpenCloseBrackets format.
+            </summary>
+            <param name="format">Format string.</param>
+            <param name="arg">The instance of StringAnnotations.</param>
+            <param name="formatProvider">The format provider.</param>
+            <returns>The formatted string.</returns>
+        </member>
+        <member name="P:Microsoft.International.StringAnnotationInterOpenCloseBracketsFormatProvider.OpenBracket">
+            <summary>
+            The start bracket of the annotation.
+            </summary>
+            <value>The open bracket.</value>
+        </member>
+        <member name="P:Microsoft.International.StringAnnotationInterOpenCloseBracketsFormatProvider.CloseBracket">
+            <summary>
+            The close bracket of the annotation.
+            </summary>
+            <value>The close bracket.</value>
+        </member>
+        <member name="P:Microsoft.International.StringAnnotationInterOpenCloseBracketsFormatProvider.FormatString">
+            <summary>
+            The specified string represent the StringAnnotationInterOpenCloseBracketsFormatProvider.
+            </summary>
+            <value>The format string.</value>
+        </member>
+        <member name="T:Microsoft.International.Collections.Generic.CollectionAnnotation`2">
+            <summary>
+            Represents a structure to annotate a collection of source elements with an annotation.
+            </summary>
+            <typeparam name="TSourceElement">The type that implement IEnumerable&lt;TSourceElement&gt;, IEquatable&lt;TSourceElement&gt; and  IComparable&lt;TSourceElement&gt;.</typeparam>
+            <typeparam name="TAnnotation">The type that implement IEquatable&lt;TAnnotation&gt; and  IComparable&lt;TAnnotation&gt;.</typeparam>
+        </member>
+        <member name="F:Microsoft.International.Collections.Generic.CollectionAnnotation`2.sourceElements">
+            <summary>
+            The source elements
+            </summary>
+        </member>
+        <member name="M:Microsoft.International.Collections.Generic.CollectionAnnotation`2.#ctor(`0,`1)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.International.Collections.Generic.CollectionAnnotation`2"/> struct with a source element as collection and its annotation.
+            </summary>
+            <param name="sourceElement">The source element as a collection.</param>
+            <param name="annotation">The annotation.</param>
+        </member>
+        <member name="M:Microsoft.International.Collections.Generic.CollectionAnnotation`2.#ctor(System.Collections.Generic.IEnumerable{`0},`1)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.International.Collections.Generic.CollectionAnnotation`2"/> struct with a collection and its annotation.
+            </summary>
+            <param name="sourceElement">The collection of source element.</param>
+            <param name="annotation">The annotation.</param>
+        </member>
+        <member name="M:Microsoft.International.Collections.Generic.CollectionAnnotation`2.#ctor(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.International.Collections.Generic.CollectionAnnotation`2"/> struct with a collection.
+            </summary>
+            <param name="sourceElement">The collection of source element.</param>
+        </member>
+        <member name="M:Microsoft.International.Collections.Generic.CollectionAnnotation`2.#ctor(`0)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.International.Collections.Generic.CollectionAnnotation`2"/> struct with a source element as collection.
+            </summary>
+            <param name="sourceElement">The source element as a collection.</param>
+        </member>
+        <member name="P:Microsoft.International.Collections.Generic.CollectionAnnotation`2.SourceSegment">
+            <summary>
+            Sets the base collection.
+            </summary>
+            <value>The source element.</value>
+        </member>
+        <member name="P:Microsoft.International.Collections.Generic.CollectionAnnotation`2.SourceElements">
+            <summary>
+            Gets or sets a collection of source elements
+            </summary>
+            <value>The source elements.</value>
+        </member>
+        <member name="P:Microsoft.International.Collections.Generic.CollectionAnnotation`2.Annotation">
+            <summary>
+            Gets or sets the annotation.
+            </summary>
+            <value>The annotation.</value>
+        </member>
+        <member name="T:Microsoft.International.JapaneseComparison">
+            <summary>
+            An abstract class to decorate StringComparer for Japanese comparison options.
+            </summary>
+        </member>
+        <member name="F:Microsoft.International.JapaneseComparison.comparer">
+            <summary>
+             Protected comparer.
+            </summary>
+        </member>
+        <member name="M:Microsoft.International.JapaneseComparison.#ctor(System.StringComparer)">
+            <summary>
+            Protected constructor of JapaneseComparison class.
+            </summary>
+            <param name="comparer">To be decorated with an Japanese comparison option.</param>
+            <remarks>A derived class for this abstract class must implements ctor(StringComparer compare):base(compare) as its constructor.</remarks>
+        </member>
+        <member name="M:Microsoft.International.JapaneseComparison.GetComparison">
+            <summary>
+            Gets Comparison &lt;string&gt; for the generic delegate used for comparison.
+            </summary>
+            <returns>A Comparison&lt;string&gt; generic delegate.</returns>
+        </member>
+        <member name="T:Microsoft.International.IgnoreKanaKindComparison">
+            <summary>
+            An Japanese comparison option to ignore Kana types. 
+            It indicates that the comparison must ignore the difference between Katakana and Hiragana.
+            See <see cref="T:System.Globalization.CompareOptions"/> for more information.
+            </summary>
+        </member>
+        <member name="M:Microsoft.International.IgnoreKanaKindComparison.#ctor(System.StringComparer)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.International.IgnoreKanaKindComparison"/> class.
+            </summary>
+            <param name="comparer">To be decorated with an Japanese comparison option.</param>
+            <remarks>A derived class for this abstract class must implements ctor(StringComparer compare):base(compare) as its constructor.</remarks>
+        </member>
+        <member name="M:Microsoft.International.IgnoreKanaKindComparison.GetComparison">
+            <summary>
+            Gets Comparison&lt;string&gt;for the generic delegate used for comparison.
+            </summary>
+            <returns>A Comparison&lt;string&gt; generic delegate.</returns>
+        </member>
+        <member name="M:Microsoft.International.IgnoreKanaKindComparison.Compare(System.String,System.String)">
+            <summary>
+            When overridden in a derived class, compares two strings after ignore Kana types and returns an indication of their relative sort order.
+            </summary>
+            <param name="x">A string to be compared.</param>
+            <param name="y">A string to be compared.</param>
+            <returns>
+            A value less than zero means <paramref name="x"/> is less than <paramref name="y"/>; 
+            a value of zero means <paramref name="x"/> equals to <paramref name="y"/>; 
+            a value greater than zero means <paramref name="x"/> is greater than <paramref name="y"/>.
+            </returns>
+        </member>
+        <member name="M:Microsoft.International.IgnoreKanaKindComparison.GetHashCode(System.String)">
+            <summary>
+            When overridden in a derived class, gets the hash code for the specified string after ignore Kana types.
+            </summary>
+            <param name="obj">A string.</param>
+            <returns>
+            A 32-bit signed hash code calculated from the value of the <paramref name="obj"/> parameter.
+            </returns>
+        </member>
+        <member name="M:Microsoft.International.IgnoreKanaKindComparison.Equals(System.String,System.String)">
+            <summary>
+            When overridden in a derived class, indicates whether two strings are equal if ignore Kana types.
+            </summary>
+            <param name="x">A string to be compared.</param>
+            <param name="y">A string to be compared.</param>
+            <returns>
+            <c>true</c> if <paramref name="x"/> and <paramref name="y"/> refer to the same object, or <paramref name="x"/> and <paramref name="y"/> are equal; otherwise <c>false</c>.
+            </returns>
+        </member>
+        <member name="T:Microsoft.International.IgnoreSmallKanaLetterComparison">
+            <summary>
+            An Japanese comparison option to ignore kana small letters. Following pairs will be ignored.<br/>
+            ("ァ", "ア"),<br/>
+            ("ィ", "イ"),<br/>
+            ("ゥ", "ウ"),<br/>
+            ("ェ", "エ"),<br/>
+            ("ォ", "オ"),<br/>
+            ("ッ", "ツ"),<br/>
+            ("ャ", "ヤ"),<br/>
+            ("ュ", "ユ"),<br/>
+            ("ョ", "ヨ"),<br/>
+            ("ヮ", "ワ"),<br/>
+            ("ヵ", "カ"),<br/>
+            ("ヶ", "ケ"),<br/>
+            ("ぁ", "あ"),<br/>
+            ("ぃ", "い"),<br/>
+            ("ぅ", "う"),<br/>
+            ("ぇ", "え"),<br/>
+            ("ぉ", "お"),<br/>
+            ("っ", "つ"),<br/>
+            ("ゃ", "や"),<br/>
+            ("ゅ", "ゆ"),<br/>
+            ("ょ", "よ"),<br/>
+            ("ゎ", "わ"),<br/>
+            "\u3095", "か"),<br/>   
+            ("\u3096", "け").
+            </summary>
+        </member>
+        <member name="M:Microsoft.International.IgnoreSmallKanaLetterComparison.#ctor(System.StringComparer)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.International.IgnoreSmallKanaLetterComparison"/> class.
+            </summary>
+            <param name="comparer">To be decorated with an Japanese comparison option.</param>
+            <remarks>A derived class for this abstract class must implements ctor(StringComparer compare):base(compare) as its constructor.</remarks>
+        </member>
+        <member name="M:Microsoft.International.IgnoreSmallKanaLetterComparison.GetComparison">
+            <summary>
+            Gets Comparison&lt;string&gt;for the generic delegate used for comparison.
+            </summary>
+            <returns>A Comparison&lt;string&gt; generic delegate.</returns>
+        </member>
+        <member name="M:Microsoft.International.IgnoreSmallKanaLetterComparison.Compare(System.String,System.String)">
+            <summary>
+            When overridden in a derived class, compares two  strings after ignore kana small letters and returns an indication of their relative sort order.
+            </summary>
+            <param name="x">A string to be compared.</param>
+            <param name="y">A string to be compared.</param>
+            <returns>
+            A value less than zero means <paramref name="x"/> is less than <paramref name="y"/>; 
+            a value of zero means <paramref name="x"/> equals to <paramref name="y"/>; 
+            a value greater than zero means <paramref name="x"/> is greater than <paramref name="y"/>.
+            </returns>
+        </member>
+        <member name="M:Microsoft.International.IgnoreSmallKanaLetterComparison.GetHashCode(System.String)">
+            <summary>
+            When overridden in a derived class, gets the hash code for the specified string after ignore kana small letters.
+            </summary>
+            <param name="obj">A string.</param>
+            <returns>
+            A 32-bit signed hash code calculated from the value of the <paramref name="obj"/> parameter.
+            </returns>
+        </member>
+        <member name="M:Microsoft.International.IgnoreSmallKanaLetterComparison.Equals(System.String,System.String)">
+            <summary>
+            When overridden in a derived class, indicates whether two strings are equal if ignore kana small letters.
+            </summary>
+            <param name="x">A string to be compared.</param>
+            <param name="y">A string to be compared.</param>
+            <returns>
+            <c>true</c> if <paramref name="x"/> and <paramref name="y"/> refer to the same object, or <paramref name="x"/> and <paramref name="y"/> are equal; otherwise <c>false</c>.
+            </returns>
+        </member>
+        <member name="T:Microsoft.International.IgnoreVoicedSemiVoicedSoundMarksComparison">
+            <summary>
+            An Japanese comparison option to ignore voiced and semi-voiced soundmarks. Following pairs will be ignored.<br/>
+            ("が", "か"),<br/>
+            ("ぎ", "き"),<br/>
+            ("ぐ", "く"),<br/>
+            ("げ", "け"),<br/>
+            ("ご", "こ"),<br/>
+            ("ざ", "さ"),<br/>
+            ("じ", "し"),<br/>
+            ("ず", "す"),<br/>
+            ("ぜ", "せ"),<br/>
+            ("ぞ", "そ"),<br/>
+            ("だ", "た"),<br/>
+            ("ぢ", "ち"),<br/>
+            ("づ", "つ"),<br/>
+            ("で", "て"),<br/>
+            ("ど", "と"),<br/>
+            ("ば", "は"),<br/>
+            ("び", "ひ"),<br/>
+            ("ぶ", "ふ"),<br/>
+            ("べ", "へ"),<br/>
+            ("ぼ", "ほ"),<br/>
+            ("ぱ", "は"),<br/>
+            ("ぴ", "ひ"),<br/>
+            ("ぷ", "ふ"),<br/>
+            ("ぺ", "へ"),<br/>
+            ("ぽ", "ほ"),<br/>
+            ("ガ", "カ"),<br/>
+            ("ギ", "キ"),<br/>
+            ("グ", "ク"),<br/>
+            ("ゲ", "ケ"),<br/>
+            ("ゴ", "コ"),<br/>
+            ("ザ", "サ"),<br/>
+            ("ジ", "シ"),<br/>
+            ("ズ", "ス"),<br/>
+            ("ゼ", "セ"),<br/>
+            ("ゾ", "ソ"),<br/>
+            ("ダ", "タ"),<br/>
+            ("ヂ", "チ"),<br/>
+            ("ヅ", "ツ"),<br/>
+            ("デ", "テ"),<br/>
+            ("ド", "ト"),<br/>
+            ("バ", "ハ"),<br/>
+            ("ビ", "ヒ"),<br/>
+            ("ブ", "フ"),<br/>
+            ("ベ", "ヘ"),<br/>
+            ("ボ", "ホ"),<br/>
+            ("パ", "ハ"),<br/>
+            ("ピ", "ヒ"),<br/>
+            ("プ", "フ"),<br/>
+            ("ペ", "ヘ"),<br/>
+            ("ポ", "ホ"),<br/>
+            ("\u3099", string.Empty),<br/>
+            ("\u309A", string.Empty).
+            </summary>
+        </member>
+        <member name="M:Microsoft.International.IgnoreVoicedSemiVoicedSoundMarksComparison.#ctor(System.StringComparer)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.International.IgnoreVoicedSemiVoicedSoundMarksComparison"/> class.
+            </summary>
+            <param name="comparer">To be decorated with an Japanese comparison option.</param>
+            <remarks>A derived class for this abstract class must implements ctor(StringComparer compare):base(compare) as its constructor.</remarks>
+        </member>
+        <member name="M:Microsoft.International.IgnoreVoicedSemiVoicedSoundMarksComparison.GetComparison">
+            <summary>
+            Gets Comparison&lt;string&gt;for the generic delegate used for comparison.
+            </summary>
+            <returns>A Comparison&lt;string&gt; generic delegate.</returns>
+        </member>
+        <member name="M:Microsoft.International.IgnoreVoicedSemiVoicedSoundMarksComparison.Compare(System.String,System.String)">
+            <summary>
+            When overridden in a derived class, compares two  strings after ignore voiced and semi-voiced soundmarksand returns an indication of their relative sort order.
+            </summary>
+            <param name="x">A string to be compared.</param>
+            <param name="y">A string to be compared.</param>
+            <returns>
+            A value less than zero means <paramref name="x"/> is less than <paramref name="y"/>; 
+            a value of zero means <paramref name="x"/> equals to <paramref name="y"/>; 
+            a value greater than zero means <paramref name="x"/> is greater than <paramref name="y"/>.
+            </returns>
+        </member>
+        <member name="M:Microsoft.International.IgnoreVoicedSemiVoicedSoundMarksComparison.GetHashCode(System.String)">
+            <summary>
+            When overridden in a derived class, gets the hash code for the specified string after ignore voiced and semi-voiced soundmarks.
+            </summary>
+            <param name="obj">A string.</param>
+            <returns>
+            A 32-bit signed hash code calculated from the value of the <paramref name="obj"/> parameter.
+            </returns>
+        </member>
+        <member name="M:Microsoft.International.IgnoreVoicedSemiVoicedSoundMarksComparison.Equals(System.String,System.String)">
+            <summary>
+            When overridden in a derived class, indicates whether two strings are equal if ignore voiced and semi-voiced soundmarks.
+            </summary>
+            <param name="x">A string to be compared.</param>
+            <param name="y">A string to be compared.</param>
+            <returns>
+            <c>true</c> if <paramref name="x"/> and <paramref name="y"/> refer to the same object, or <paramref name="x"/> and <paramref name="y"/> are equal; otherwise <c>false</c>.
+            </returns>
+        </member>
+        <member name="T:Microsoft.International.TextElements">
+            <summary>
+            A concrete class of TextSegments that represents grapheme clusters.  Uses TextElement Enumerator to iterate through the source string.
+            </summary>
+        </member>
+        <member name="M:Microsoft.International.TextElements.#ctor">
+            <summary>
+            Initializes TextElements.
+            </summary>
+        </member>
+        <member name="M:Microsoft.International.TextElements.#ctor(System.String)">
+            <summary>
+            Initializes TextElements.
+            </summary>
+            <param name="s">The source string.</param>
+        </member>
+        <member name="M:Microsoft.International.TextElements.GetEnumerator">
+            <summary>
+            Returns an enumerator that iterate through the elements in the source string.
+            </summary>
+            <returns>An IEnumerator object that can be used to iterate through the collection.</returns>
+        </member>
+        <member name="T:Microsoft.International.StringAnnotationComparer">
+            <summary>
+            Represents a comparer to compare two StringAnnotations.
+            </summary>
+        </member>
+        <member name="M:Microsoft.International.StringAnnotationComparer.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.International.StringAnnotationComparer"/> class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.International.StringAnnotationComparer.#ctor(System.Comparison{System.String})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.International.StringAnnotationComparer"/> class.
+            </summary>
+            <param name="comparison">The comparison.</param>
+        </member>
+        <member name="M:Microsoft.International.StringAnnotationComparer.Compare(Microsoft.International.Collections.StringAnnotations,Microsoft.International.Collections.StringAnnotations)">
+            <summary>
+            Compares the specified StringAnnotations x with the other y, compare annotation first and then base for each segment in StringAnnotations.
+            </summary>
+            <param name="x">The StringAnnotations x.</param>
+            <param name="y">The StringAnnotations y.</param>
+            <returns>
+            A value less than zero means <paramref name="x"/> is less than <paramref name="y"/>; 
+            a value of zero means <paramref name="x"/> equals to <paramref name="y"/>; 
+            a value greater than zero means <paramref name="x"/> is greater than <paramref name="y"/>.
+            </returns>
+        </member>
+        <member name="M:Microsoft.International.StringAnnotationComparer.Compare(Microsoft.International.Collections.StringAnnotations,Microsoft.International.Collections.StringAnnotations,System.Comparison{System.String})">
+            <summary>
+            Compares the specified StringAnnotations x with the other y use <paramref name="comparison"/>comparison.
+            </summary>
+            <param name="x">The StringAnnotations x.</param>
+            <param name="y">The StringAnnotations y.</param>
+            <param name="comparison">The comparison method used to compare.</param>
+            <returns>
+            A value less than zero means <paramref name="x"/> is less than <paramref name="y"/>; 
+            a value of zero means <paramref name="x"/> equals to <paramref name="y"/>; 
+            a value greater than zero means <paramref name="x"/> is greater than <paramref name="y"/>.
+            </returns>
+        </member>
+        <member name="M:Microsoft.International.StringAnnotationComparer.Equals(Microsoft.International.Collections.StringAnnotations,Microsoft.International.Collections.StringAnnotations)">
+            <summary>
+            Equalses the specified StringAnnotations x with the other y.
+            </summary>
+            <param name="x">The StringAnnotations x.</param>
+            <param name="y">The StringAnnotations y.</param>
+            <returns><c>true</c> if equals, used this comparer method; otherwise <c>false</c>. </returns>
+        </member>
+        <member name="M:Microsoft.International.StringAnnotationComparer.GetHashCode(Microsoft.International.Collections.StringAnnotations)">
+            <summary>
+            Gets the hash code of StringAnnotations.
+            </summary>
+            <param name="obj">The instance of StringAnnotations.</param>
+            <returns>The hashCode of the object.</returns>
+        </member>
+        <member name="F:Microsoft.International.YomiganaCommon.InputProcessor.PreferredConversion.None">
+            <summary>
+            No conversion. Respects the user entered kana type (do not convert). 
+            </summary>
+        </member>
+        <member name="F:Microsoft.International.YomiganaCommon.InputProcessor.PreferredConversion.ToKatakana">
+            <summary>
+            ToHiragana: Covnert Katakana and Halfwidth Katakana to Hiragana.  Other characters will pass through.
+            </summary>
+        </member>
+        <member name="F:Microsoft.International.YomiganaCommon.InputProcessor.PreferredConversion.ToHiragana">
+            <summary>
+             ToKatakana: Convert Hiragana and Halfwidth Katakana to Katakana.  Other characters will pass through. 
+            </summary>
+        </member>
+        <member name="F:Microsoft.International.YomiganaCommon.InputProcessor.PreferredConversion.ToHalfwidthKatakana">
+            <summary>
+            ToHalfwidthKatakana: Convert Hiragana and Katakana to Halfwidth Katakana. Other char will pass through.
+            </summary>
+        </member>
+        <member name="T:Microsoft.International.Collections.Generic.CollectionAnnotationCollection`2">
+            <summary>
+            Represents a collction of CollectionAnnotation.
+            </summary>
+            <typeparam name="TSourceElement">The type that implement IEnumerable &lt;TSourceElement&gt; IEquatable &lt;TSourceElement&gt; and  IComparable&lt;TSourceElement&gt;. </typeparam>
+            <typeparam name="TAnnotation">The type that implement IEquatable &lt;TAnnotation&gt; and  IComparable&lt;TAnnotation&gt;.</typeparam>
+        </member>
+        <member name="M:Microsoft.International.Collections.Generic.CollectionAnnotationCollection`2.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.International.Collections.Generic.CollectionAnnotationCollection`2"/> class that is empty.
+            </summary>
+        </member>
+        <member name="M:Microsoft.International.Collections.Generic.CollectionAnnotationCollection`2.#ctor(`0)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.International.Collections.Generic.CollectionAnnotationCollection`2"/> class with one source element.
+            </summary>
+            <param name="onlyOneSourceElement">OnlyOneSourceElement</param>
+        </member>
+        <member name="M:Microsoft.International.Collections.Generic.CollectionAnnotationCollection`2.#ctor(`0,`1)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.International.Collections.Generic.CollectionAnnotationCollection`2"/> class.
+            </summary>
+            <param name="onlyOneSourceElement">The source as only one element.</param>
+            <param name="onlyOneAnnotation">The annotation as only one element.</param>
+        </member>
+        <member name="M:Microsoft.International.Collections.Generic.CollectionAnnotationCollection`2.#ctor(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.International.Collections.Generic.CollectionAnnotationCollection`2"/> with source elements.
+            </summary>
+            <param name="sources">Sources.</param>
+        </member>
+        <member name="M:Microsoft.International.Collections.Generic.CollectionAnnotationCollection`2.#ctor(System.Collections.Generic.IEnumerable{`0},System.Collections.Generic.IEnumerable{`1})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.International.Collections.Generic.CollectionAnnotationCollection`2"/> with source elements and annotations.
+            </summary>
+            <param name="sources">Source.</param>
+            <param name="annotations">Annotations.</param>
+        </member>
+        <member name="M:Microsoft.International.Collections.Generic.CollectionAnnotationCollection`2.ForEach(System.Action{System.Collections.Generic.IEnumerable{`0},`1})">
+            <summary>
+            Performs the specifriecd action on each elemenmt of the collection.
+            </summary>
+            <param name="action">Action.</param>
+        </member>
+        <member name="M:Microsoft.International.Collections.Generic.CollectionAnnotationCollection`2.RemoveAt(System.Int32)">
+            <summary>
+            Remove the element at the specified index of CollectionAnnotationCollection
+            </summary>
+            <param name="index">Index.</param>
+        </member>
+        <member name="M:Microsoft.International.Collections.Generic.CollectionAnnotationCollection`2.RemoveAll">
+            <summary>
+            Remove all elements of CollectionAnnotationCollection
+            </summary>
+        </member>
+        <member name="M:Microsoft.International.Collections.Generic.CollectionAnnotationCollection`2.InsertAt(System.Int32,Microsoft.International.Collections.Generic.CollectionAnnotation{`0,`1})">
+            <summary>
+            Insert an element into the CollectionAnnotationCollection at the specified index.
+            </summary>
+            <param name="index">Index.</param>
+            <param name="collectionAnnotation">A collection for one annotation.</param>
+        </member>
+        <member name="M:Microsoft.International.Collections.Generic.CollectionAnnotationCollection`2.Add(Microsoft.International.Collections.Generic.CollectionAnnotation{`0,`1})">
+            <summary>
+            Add a collectionAnnotation to the end of CollectionAnnotationCollection
+            </summary>
+            <param name="collectionAnnotation">A collection for one annotation.</param>
+        </member>
+        <member name="M:Microsoft.International.Collections.Generic.CollectionAnnotationCollection`2.Add(`0,`1)">
+            <summary>
+            Add a collectionAnnotation that contains <paramref name="segment"/>segment and <paramref name="annotation"/>annotation to the end of CollectionAnnotationCollection
+            </summary>
+            <param name="segment">The base text of the segment</param>
+            <param name="annotation">The annotation.</param>
+        </member>
+        <member name="M:Microsoft.International.Collections.Generic.CollectionAnnotationCollection`2.GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through the collection.
+            </summary>
+            <returns>An enumerator to enumerate throught the collection of CollectionAnnotations.</returns>
+        </member>
+        <member name="M:Microsoft.International.Collections.Generic.CollectionAnnotationCollection`2.System#Collections#IEnumerable#GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through the collection.
+            </summary>
+            <returns>An enumerator to enumerate throught the collection of CollectionAnnotations.</returns>
+        </member>
+        <member name="M:Microsoft.International.Collections.Generic.CollectionAnnotationCollection`2.System#Collections#Generic#IEnumerable{Microsoft#International#Collections#Generic#CollectionAnnotation{TSourceElement@TAnnotation}}#GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through the collection.
+            </summary>
+            <returns>An enumerator to enumerate throught the collection of CollectionAnnotations.</returns>
+        </member>
+        <member name="P:Microsoft.International.Collections.Generic.CollectionAnnotationCollection`2.Annotations">
+            <summary>
+            Gets or sets a collection of annotations.
+            Before set annotations you must have set SourceElements.
+            </summary>
+            <value>The annotations.</value>
+        </member>
+        <member name="P:Microsoft.International.Collections.Generic.CollectionAnnotationCollection`2.AnnotationsAtSource">
+            <summary>
+            Gets or sets annotations at enumeratrion of the source elements.
+            Before set annotations you must have set SourceElements.
+            </summary>
+            <value>The annotations at source.</value>
+        </member>
+        <member name="P:Microsoft.International.Collections.Generic.CollectionAnnotationCollection`2.CollectionAnnotations">
+            <summary>
+            Gets or sets a collection of CollectionAnnotation.
+            </summary>
+        </member>
+        <member name="P:Microsoft.International.Collections.Generic.CollectionAnnotationCollection`2.CollectionAnnotationsAtSource">
+            <summary>
+            Gets or sets a collection of CollectionAnnotation at the source index.
+            </summary>
+        </member>
+        <member name="P:Microsoft.International.Collections.Generic.CollectionAnnotationCollection`2.SourceElements">
+            <summary>
+            Gets or sets a collection of segments.
+            </summary>
+        </member>
+        <member name="P:Microsoft.International.Collections.Generic.CollectionAnnotationCollection`2.SourceElementsAtSource">
+            <summary>
+            Gets or sets a collection of elements at enumeration of the elements.
+            </summary>
+        </member>
+        <member name="P:Microsoft.International.Collections.Generic.CollectionAnnotationCollection`2.Sources">
+            <summary>
+            Gets or sets the source collection.
+            </summary>
+        </member>
+        <member name="P:Microsoft.International.Collections.Generic.CollectionAnnotationCollection`2.Count">
+            <summary>
+            Gets the Count of the collection.
+            </summary>
+        </member>
+        <member name="P:Microsoft.International.Collections.Generic.CollectionAnnotationCollection`2.Item(System.Int32)">
+            <summary>
+            Indexer to CollectionAnnotations.
+            </summary>
+            <param name="index">The index of the element.</param>
+            <returns>The element at the index.</returns>
+        </member>
+    </members>
+</doc>

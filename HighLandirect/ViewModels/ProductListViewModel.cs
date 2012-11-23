@@ -28,18 +28,19 @@ namespace HighLandirect.ViewModels
 
         public ObservableCollection<ProductViewModel> ProductViewModels { get; private set; }
 
-        private ProductViewModel selectedProductViewModel;
+        private ProductViewModel selectedProduct;
 
-        public ProductViewModel SelectedProductViewModel
+        public ProductViewModel SelectedProduct
         {
-            get { return this.selectedProductViewModel; }
+            get { return this.selectedProduct; }
             set
             {
-                if (this.selectedProductViewModel.Product.ProductID != value.Product.ProductID)
+                if (this.selectedProduct == null 
+                        || this.selectedProduct.Product.ProductID != value.Product.ProductID)
                 {
-                    this.RaisePropertyChanged(() => SelectedProductViewModel);
+                    this.selectedProduct = value;
+                    this.RaisePropertyChanged(() => SelectedProduct);
                 }
-                this.selectedProductViewModel = value;
             }
         }
 
@@ -80,14 +81,14 @@ namespace HighLandirect.ViewModels
             entityService.Products.Add(product);
             var productViewModel = new ProductViewModel(this, product);
 
-            this.selectedProductViewModel = productViewModel;
+            this.SelectedProduct = productViewModel;
         }
 
-        private bool CanRemoveProduct() { return this.SelectedProductViewModel != null; }
+        private bool CanRemoveProduct() { return this.SelectedProduct != null; }
 
         private void RemoveProduct()
         {
-            entityService.Products.Remove(this.SelectedProductViewModel.Product);
+            entityService.Products.Remove(this.SelectedProduct.Product);
         }
 
 
