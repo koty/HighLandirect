@@ -8,6 +8,8 @@
         xmlns:v="clr-namespace:HighLandirect.Views"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:b="clr-namespace:Livet.Behaviors;assembly=Livet"
+        xmlns:l="clr-namespace:Livet.Behaviors.Messaging;assembly=Livet"
+        xmlns:messaging="clr-namespace:Livet.Messaging;assembly=Livet"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance vm:ShellViewModel}"
         Title="{Binding Title}"
@@ -26,7 +28,18 @@
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="データ">
                 <MenuItem Command="{Binding SaveCommand}" Header="保存" Icon="{StaticResource SaveImage}" 
-                          InputGestureText="{x:Static p:Resources.ControlS}"/>
+                          InputGestureText="{x:Static p:Resources.ControlS}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <l:ConfirmationDialogInteractionMessageAction>
+                                <l:DirectInteractionMessage CallbackMethodName="SaveIfYouWant" CallbackMethodTarget="{Binding}" >
+                                    <messaging:ConfirmationMessage
+                                        Text="保存しますか？" Caption="確認" Button="YesNo" Image="Question"/>
+                                </l:DirectInteractionMessage>
+                            </l:ConfirmationDialogInteractionMessageAction>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </MenuItem>
                 <Separator/>
                 <MenuItem Command="{Binding GetBackUpDataCommand}" Header="バックアップ用データ取得" Icon="{StaticResource DownLoadImage}">
                 </MenuItem>

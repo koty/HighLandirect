@@ -9,6 +9,7 @@ using HighLandirect.Domains;
 using HighLandirect.Services;
 using Livet;
 using Livet.Commands;
+using Livet.Messaging;
 
 namespace HighLandirect.ViewModels
 {
@@ -75,7 +76,7 @@ namespace HighLandirect.ViewModels
             get
             {
                 return this.saveCommand
-                       ?? (this.saveCommand = new ViewModelCommand(this.SaveIfYouWant));
+                       ?? (this.saveCommand = new ViewModelCommand(this.SaveCore));
             }
         }
 
@@ -211,16 +212,10 @@ namespace HighLandirect.ViewModels
             */ 
         }
 
-        private void SaveIfYouWant()
+        public void SaveIfYouWant(ConfirmationMessage message)
         {
-            if (this.customerEntities.HasChanges)
-            {
-                var SaveQuestionResult = questionService.ShowQuestion("変更があります。処理の前にその変更を保存しますか？");
-                if (SaveQuestionResult)
-                {
-                    this.customerEntities.SaveChanges();
-                }
-            }
+            if(message.Response)
+                this.Save();
         }
 
         private void SetBackUpData()
@@ -339,7 +334,7 @@ namespace HighLandirect.ViewModels
             }
             try
             {
-                customerEntities.SaveChanges();
+                this.SaveCore();
                 return true;
             }
             catch (ValidationException e)
@@ -356,6 +351,11 @@ namespace HighLandirect.ViewModels
                 Debug.Assert(false, e.Message);
                 return false;
             }
+        }
+
+        private void SaveCore()
+        {
+            this.customerEntities.SaveChanges();
         }
 
         public bool HasChanges
