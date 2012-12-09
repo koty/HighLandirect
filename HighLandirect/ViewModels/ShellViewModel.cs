@@ -213,19 +213,14 @@ namespace HighLandirect.ViewModels
 
         private void SaveIfYouWant()
         {
-            /*
-            if (entityController.HasChanges)
+            if (this.customerEntities.HasChanges)
             {
-                if (shellViewModel.IsValid)
+                var SaveQuestionResult = questionService.ShowQuestion("変更があります。処理の前にその変更を保存しますか？");
+                if (SaveQuestionResult)
                 {
-                    var SaveQuestionResult = questionService.ShowQuestion("変更があります。処理の前にその変更を保存しますか？");
-                    if (SaveQuestionResult == true)
-                    {
-                        this.entityController.Save();
-                    }
+                    this.customerEntities.SaveChanges();
                 }
             }
-            */ 
         }
 
         private void SetBackUpData()
