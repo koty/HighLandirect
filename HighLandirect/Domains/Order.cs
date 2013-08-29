@@ -49,8 +49,13 @@ namespace HighLandirect.Domains
 
         public string ToString(string format, IFormatProvider formatProvider)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
             //return string.Format(formatProvider, Resources.PersonToString, Firstname, Lastname);
+            if (this.CustomerMasterSend == null || this.CustomerMasterReceive == null)
+            {
+                return "";
+            }
+            return this.CustomerMasterSend.CustName + " → " + this.CustomerMasterReceive.CustName;
         }
 
 

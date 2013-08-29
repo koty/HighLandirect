@@ -27,10 +27,12 @@ namespace HighLandirect.ViewModels
         private ReportMemo selectedReportMemo;
         private ViewModelCommand printCommand;
         private ViewModelCommand removeCommand;
-        private ViewModelCommand addNewCommand;
+        //private ViewModelCommand addNewCommand;
         private ViewModelCommand addOrderFromSelectedHistoryCommand;
         //private ICommand filterOrderHistoryCommand;
         private ViewModelCommand showOrderHistoryBySendCustomerCommand;
+
+        private int SendCustNo;
 
         public OrderListViewModel()
         {
@@ -55,10 +57,14 @@ namespace HighLandirect.ViewModels
 
             this.selectedStore = this.stores.FirstOrDefault(x => x.IsDefault == true);
             this.selectedReportMemo = this.reportMemos.FirstOrDefault(x => x.IsDefault == true);
-            this.sendCustomerId = "";
+
             this.entityService = entityService;
             this.OrderHistories = new ObservableCollection<OrderHistory>(histories);
             this.Orders = new ObservableCollection<Order>(orders);
+            if (this.Orders.Any())
+            {
+                this.SendCustNo = this.Orders.First().SendCustID;
+            }
         }
 
         public ObservableCollection<Order> Orders { get; private set; }
@@ -135,7 +141,8 @@ namespace HighLandirect.ViewModels
             }
         }
 
-        public ViewModelCommand AddNewCommand
+        /*
+        public ViewModelCommand AddNewCommanda
         {
             get
             {
@@ -143,6 +150,7 @@ namespace HighLandirect.ViewModels
                        ?? (this.addNewCommand = new ViewModelCommand(this.AddNewOrder));
             }
         }
+        */
 
         public ViewModelCommand RemoveCommand
         {
@@ -184,49 +192,30 @@ namespace HighLandirect.ViewModels
         //    }
         //}
 
-        private string sendCustomerId;
-        public string SendCustomerId
+        /**
+         * 顧客一覧で依頼主顧客を選択したときのイベント
+         */
+        internal void AddSendCustomer(object sender, CustomerListEventArgs e)
         {
-            get { return sendCustomerId; }
-            set
-            {
-                if (sendCustomerId != value)
-                {
-                    sendCustomerId = value;
-                    this.RaisePropertyChanged(() => SendCustomerId);
-                }
-            }
+            this.SendCustNo = e.CustNo;
         }
 
-        private int sendCustNo;
-        public int SendCustNo
+        /**
+         * 顧客一覧で受け取り先顧客を選択した時のイベント
+         */
+        internal void AddResceiveCustomer(object sender, CustomerListEventArgs e)
         {
-            get { return this.sendCustNo; }
-            set
-            {
-                this.sendCustNo = value;
-                this.SendCustomerId = this.sendCustNo.ToString();
-                this.ShowOrderHistoryBySendCustomer();
-                if (this.ResceiveCustNo > 0)
-                {
-                    this.AddNewOrder();
-                }
-            }
+            this.AddNewOrderCore(e.CustNo);
         }
 
-        private int resceiveCustNo;
-        public int ResceiveCustNo
-        {
-            get { return this.resceiveCustNo; }
-            set
-            {
-                this.resceiveCustNo = value;
-                if (this.SendCustNo > 0)
-                    this.AddNewOrder();
-            }
-        }
-
+        /*
         private void AddNewOrder()
+        {
+            this.AddNewOrderCore();
+        }
+        */
+
+        private void AddNewOrderCore(int ResceiveCustNo)
         {
             //テンポラリにOrderテーブル使っちゃったら同時実行はできんな。。。
 
@@ -249,12 +238,10 @@ namespace HighLandirect.ViewModels
                 //二件目以降は画面のデータを使う
                 OrderID = this.entityService.Orders.Max(x => x.OrderID) + 1;
             }
-            var order = Order.CreateOrder(OrderID, DateTime.Now, this.ResceiveCustNo, this.SendCustNo, 2);
+            var order = Order.CreateOrder(OrderID, DateTime.Now, ResceiveCustNo, this.SendCustNo, 2);
 
             this.entityService.Orders.Add(order);
-
-            this.resceiveCustNo = 0;
-            this.sendCustNo = 0;
+            this.Orders.Add(order);
 
             this.SelectedOrder = order;
         }
@@ -262,7 +249,7 @@ namespace HighLandirect.ViewModels
         private bool CanRemoveOrder() { return this.SelectedOrder != null; }
         private void RemoveOrder()
         {
-            this.entityService.Orders.Remove(this.selectedOrder);
+            this.Orders.Remove(this.selectedOrder);
         }
 
         private void ShowOrderHistoryBySendCustomer()
@@ -270,29 +257,19 @@ namespace HighLandirect.ViewModels
             //新しい注文履歴50件を表示する
             this.OrderHistories.Clear();
             this.OrderHistories = new ObservableCollection<OrderHistory>(entityService.OrderHistories.Where(
-                x => x.CustomerMasterSend.CustNo.ToString() == this.SendCustomerId)
+                x => x.CustomerMasterSend.CustNo == this.SendCustNo)
                                            .OrderByDescending(x => x.OrderDate)
                                            .Take(50));
         }
 
         private void AddOrderFromSelectedHistory()
         {
-            int intCustomerId;
-            if (!int.TryParse(this.SendCustomerId, out intCustomerId))
+            
+            foreach (var ResceiveCustomer in this.OrderHistories.Where(x => x.IsSelected))
             {
-                return;
+                this.AddNewOrderCore(ResceiveCustomer.ReceiveCustID);
             }
-            /*
-            foreach (var ResceiveCustomer in this.SelectedOrderHistories)
-            {
-                this.resceiveCustNo = ResceiveCustomer.ReceiveCustID;
-                this.sendCustNo = intCustomerId;
-                this.AddNewOrder();
-            }
-            */ 
-            this.resceiveCustNo = this.selectedOrderHistory.ReceiveCustID;
-            this.sendCustNo = intCustomerId;
-            this.AddNewOrder();
+             
         }
 
         //private bool CanFilterOrderHistory(object CustomerIdText) { return true; }
@@ -368,7 +345,7 @@ namespace HighLandirect.ViewModels
                 }
 
                 //最終発送を更新
-                this.entityService.Customers.First(x => x.CustNo.ToString() == this.SendCustomerId)
+                this.entityService.Customers.First(x => x.CustNo == this.SendCustNo)
                     .LatestSend = DateTime.Now;
                 //最終宛先を更新
                 foreach (var order in this.entityService.Orders)
@@ -386,7 +363,7 @@ namespace HighLandirect.ViewModels
 
         private void UpdateCommands()
         {
-            addNewCommand.RaiseCanExecuteChanged();
+            //addNewCommand.RaiseCanExecuteChanged();
             removeCommand.RaiseCanExecuteChanged();
         }
 
@@ -407,6 +384,7 @@ namespace HighLandirect.ViewModels
                 UpdateCommands();
             }
         }
-        */ 
+        */
+
     }
 }

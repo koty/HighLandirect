@@ -42,10 +42,14 @@ namespace HighLandirect.ViewModels
             //this.entityController = new EntityController(entityService, this);
             this.productListViewModel = new ProductListViewModel(entityService.Products, entityService);
             this.customerListViewModel = new CustomerListViewModel(this, entityService.Customers, entityService);
-            this.orderListViewModel = new OrderListViewModel(entityService, entityService.Orders,
+            this.orderListViewModel = new OrderListViewModel(entityService,
+                                                             entityService.Orders,
                                                              entityService.Stores, 
                                                              entityService.OrderHistories,
                                                              entityService.ReportMemos);
+
+            this.CustomerListViewModel.OnResceiveCustomerAdded += this.OrderListViewModel.AddResceiveCustomer;
+            this.CustomerListViewModel.OnSendCustomerAdded += this.OrderListViewModel.AddSendCustomer;
         }
 
         public ProductListViewModel ProductListViewModel
@@ -154,16 +158,6 @@ namespace HighLandirect.ViewModels
             //    ApplicationInfo.ProductName, ApplicationInfo.Version));
         }
 
-        public void SetSendCustNo(int custNo)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        internal void SetResceiveCustNo(int custNo)
-        {
-            throw new System.NotImplementedException();
-        }
-
         //public void ShellViewModelClosing(object sender, CancelEventArgs e)
         public void ShellViewModelClosing()
         {
@@ -214,7 +208,7 @@ namespace HighLandirect.ViewModels
 
         public void SaveIfYouWant(ConfirmationMessage message)
         {
-            if(message.Response)
+            //if(message.Response)
                 this.Save();
         }
 

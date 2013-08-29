@@ -24,7 +24,6 @@
                 <Button Command="{Binding PrintCommand}" Content="印刷" Width="100" Background="#FFC6D2F5"/>
                 <Button Command="{Binding RemoveCommand}" Content="削除"/>
                 <Separator />
-                <TextBox Width="60" Text="{Binding SendCustomerId}"/>
                 <Button Command="{Binding ShowOrderHistoryBySendCustomerCommand}" Width="80" Content="履歴を抽出"/>
                 
             </ToolBar>
@@ -104,6 +103,11 @@
                     </ToolBar>
                 </ToolBarTray>
                 <ListView ItemsSource="{Binding OrderHistories}" SelectedItem="{Binding SelectedOrderHistory}">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListViewItem}">
+                            <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+                        </Style>
+                    </ListView.ItemContainerStyle>
                     <ListView.View>
                         <GridView>
                             <GridViewColumn DisplayMemberBinding="{Binding OrderDate}" Header="注文日付" Width="100"/>

@@ -243,16 +243,26 @@ namespace HighLandirect.ViewModels
             }
         }
         */
+
+        public EventHandler<CustomerListEventArgs> OnSendCustomerAdded;
+        public EventHandler<CustomerListEventArgs> OnResceiveCustomerAdded;
+
         private bool CanAddSendCustomer() { return true; }
         private void AddSendCustomer()
         {
-            this.shellVM.SetSendCustNo(this.SelectedCustomer.Customer.CustNo);
+            var arg = new CustomerListEventArgs();
+            arg.CustNo = this.SelectedCustomer.Customer.CustNo;
+
+            this.OnSendCustomerAdded(this, arg);
         }
 
         private bool CanAddResceiveCustomer() { return true; }
         private void AddResceiveCustomer()
         {
-            this.shellVM.SetResceiveCustNo(this.SelectedCustomer.Customer.CustNo);
+            var arg = new CustomerListEventArgs();
+            arg.CustNo = this.SelectedCustomer.Customer.CustNo;
+
+            this.OnResceiveCustomerAdded(this, arg);
         }
 
         private bool CanPrintAtenaSeal()

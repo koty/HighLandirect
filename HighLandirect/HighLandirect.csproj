@@ -169,6 +169,7 @@
     <Compile Include="Services\EntityService.cs" />
     <Compile Include="Services\IEntityService.cs" />
     <Compile Include="Services\IQuestionService.cs" />
+    <Compile Include="ViewModels\CustomerListEventArgs.cs" />
     <Compile Include="ViewModels\CustomerListViewModel.cs" />
     <Compile Include="ViewModels\CustomerViewModel.cs" />
     <Compile Include="ViewModels\OrderListViewModel.cs" />

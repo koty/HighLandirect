@@ -31,7 +31,7 @@ namespace HighLandirect
             //TODO:ロギング処理など
 
             MessageBox.Show(
-                "不明なエラーが発生しました。アプリケーションを終了します。",
+                "不明なエラーが発生しました。アプリケーションを終了します。\n" + ((Exception)e.ExceptionObject).Message,
                 "エラー",
                 MessageBoxButton.OK,
                 MessageBoxImage.Error);
