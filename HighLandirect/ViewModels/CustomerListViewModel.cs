@@ -25,21 +25,18 @@ namespace HighLandirect.ViewModels
         private ViewModelCommand printKokyakuDaichoCommand;
         private bool showDeletedData;
         private readonly IEntityService entityService;
-        private readonly ShellViewModel shellVM;
 
         public CustomerListViewModel()
         {
         }
 
-        public CustomerListViewModel(ShellViewModel shellVM,
-            IEnumerable<Customer> customers, IEntityService entityService)
+        public CustomerListViewModel(IEnumerable<Customer> customers, IEntityService entityService)
         {
             if (customers == null) { throw new ArgumentNullException("customers"); }
 
             var customerViewModelList = customers.Select(customer => new CustomerViewModel(customer));
             this.CustomerViewModels = new ObservableCollection<CustomerViewModel>(customerViewModelList);
             this.entityService = entityService;
-            this.shellVM = shellVM;
             this.HideDeletedData();
         }
 

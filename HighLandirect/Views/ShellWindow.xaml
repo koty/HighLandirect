@@ -9,12 +9,14 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:b="clr-namespace:Livet.Behaviors;assembly=Livet"
         xmlns:l="clr-namespace:Livet.Behaviors.Messaging;assembly=Livet"
+        xmlns:behaviormessaingio="clr-namespace:Livet.Behaviors.Messaging.IO;assembly=Livet"
+        xmlns:messagingio="clr-namespace:Livet.Messaging.IO;assembly=Livet"
         xmlns:messaging="clr-namespace:Livet.Messaging;assembly=Livet"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance vm:ShellViewModel}"
         Title="{Binding Title}"
         Icon="{StaticResource BookLibraryImageSource}"
-        Height="600" Width="1000">
+        Height="800" Width="1600">
     
     <Window.InputBindings>
         <KeyBinding x:Name="saveKeyBinding" Key="S" Modifiers="Control"/>
@@ -23,43 +25,60 @@
         <i:EventTrigger EventName="Closing">
             <b:LivetCallMethodAction MethodTarget="{Binding}" MethodName="ShellViewModelClosing" />
         </i:EventTrigger>
+        <l:InteractionMessageTrigger Messenger="{Binding Messenger}" MessageKey="Info">
+            <l:InformationDialogInteractionMessageAction />
+        </l:InteractionMessageTrigger>
     </i:Interaction.Triggers>
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="データ">
-                <MenuItem Command="{Binding SaveCommand}" Header="保存" Icon="{StaticResource SaveImage}" 
-                          InputGestureText="{x:Static p:Resources.ControlS}">
+                <MenuItem Header="バックアップ用データ取得" Icon="{StaticResource DownLoadImage}">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
-                            <l:ConfirmationDialogInteractionMessageAction>
-                                <l:DirectInteractionMessage CallbackMethodName="SaveIfYouWant" CallbackMethodTarget="{Binding}" >
-                                    <messaging:ConfirmationMessage
-                                        Text="保存しますか？" Caption="確認" Button="YesNo" Image="Question"/>
+                            <behaviormessaingio:SaveFileDialogInteractionMessageAction>
+                                <l:DirectInteractionMessage CallbackCommand="{Binding GetBackUpDataCommand, Mode=OneWay}">
+                                    <messagingio:SavingFileSelectionMessage Filter="SQL Server Compact Database(*.sdf)|*.sdf" Title="データベースのバックアップを保存"/>
                                 </l:DirectInteractionMessage>
-                            </l:ConfirmationDialogInteractionMessageAction>
+                            </behaviormessaingio:SaveFileDialogInteractionMessageAction>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </MenuItem>
+                <MenuItem Header="バックアップ用データ復元" Icon="{StaticResource UpLoadImage}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <behaviormessaingio:OpenFileDialogInteractionMessageAction>
+                                <l:DirectInteractionMessage CallbackCommand="{Binding SetBackUpDataCommand, Mode=OneWay}">
+                                    <messagingio:OpeningFileSelectionMessage Filter="SQL Server Compact Database(*.sdf)|*.sdf" Title="データベースのバックアップを選択"/>
+                                </l:DirectInteractionMessage>
+                            </behaviormessaingio:OpenFileDialogInteractionMessageAction>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </MenuItem>
                 <Separator/>
-                <MenuItem Command="{Binding GetBackUpDataCommand}" Header="バックアップ用データ取得" Icon="{StaticResource DownLoadImage}">
+                <MenuItem Header="データエクスポート" Icon="{StaticResource DownLoadImage}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <behaviormessaingio:SaveFileDialogInteractionMessageAction>
+                                <l:DirectInteractionMessage CallbackCommand="{Binding GetExportDataCommand, Mode=OneWay}">
+                                    <messagingio:SavingFileSelectionMessage Filter="エクスポートデータ(*.csv)|*.csv" Title="エクスポートデータを保存"/>
+                                </l:DirectInteractionMessage>
+                            </behaviormessaingio:SaveFileDialogInteractionMessageAction>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
                 </MenuItem>
-                <MenuItem Command="{Binding SetBackUpDataCommand}" Header="バックアップ用データ復元" Icon="{StaticResource UpLoadImage}" />
-                <Separator/>
-                <MenuItem Command="{Binding GetExportDataCommand}" Header="データエクスポート" Icon="{StaticResource DownLoadImage}" />
-                <MenuItem Command="{Binding SetImportDataCommand}" Header="データインポート" Icon="{StaticResource UpLoadImage}" />
+                <MenuItem Command="{Binding SetImportDataCommand}" Header="データインポート" Icon="{StaticResource UpLoadImage}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <behaviormessaingio:OpenFileDialogInteractionMessageAction>
+                                <l:DirectInteractionMessage CallbackCommand="{Binding SetImportDataCommand, Mode=OneWay}">
+                                    <messagingio:OpeningFileSelectionMessage Filter="インポートデータ(*.csv)|*.csv" Title="インポートデータを選択"/>
+                                </l:DirectInteractionMessage>
+                            </behaviormessaingio:OpenFileDialogInteractionMessageAction>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </MenuItem>
                 <Separator/>
                 <MenuItem Command="{Binding ExitCommand}" Header="終了"/>
-            </MenuItem>
-            <MenuItem Header="編集">
-                <MenuItem Command="ApplicationCommands.Undo" Header="元に戻す" Icon="{StaticResource UndoImage}"/>
-                <MenuItem Command="ApplicationCommands.Redo" Header="元に戻すを元に戻す" Icon="{StaticResource RedoImage}"/>
-                <Separator/>
-                <MenuItem Command="ApplicationCommands.Cut" Header="切り取り" Icon="{StaticResource CutImage}"/>
-                <MenuItem Command="ApplicationCommands.Copy" Header="コピー" Icon="{StaticResource CopyImage}"/>
-                <MenuItem Command="ApplicationCommands.Paste" Header="貼り付け" Icon="{StaticResource PasteImage}"/>
-                <MenuItem Command="EditingCommands.Delete" Header="削除" Icon="{StaticResource DeleteImage}"/>
-                <Separator/>
-                <MenuItem Command="ApplicationCommands.SelectAll" Header="すべて選択"/>
             </MenuItem>
             <MenuItem Header="ヘルプ">
                 <MenuItem Command="{Binding AboutCommand}" Header="HighLandirectについて"/>
@@ -72,9 +91,6 @@
                 <Separator/>
                 <Button Command="ApplicationCommands.Undo" Content="{StaticResource UndoImage}" ToolTip="{x:Static p:Resources.Undo}"/>
                 <Button Command="ApplicationCommands.Redo" Content="{StaticResource RedoImage}" ToolTip="{x:Static p:Resources.Redo}"/>
-                <Button Command="ApplicationCommands.Cut" Content="{StaticResource CutImage}" ToolTip="{x:Static p:Resources.Cut}"/>
-                <Button Command="ApplicationCommands.Copy" Content="{StaticResource CopyImage}" ToolTip="{x:Static p:Resources.Copy}"/>
-                <Button Command="ApplicationCommands.Paste" Content="{StaticResource PasteImage}" ToolTip="{x:Static p:Resources.Paste}"/>
             </ToolBar>
         </ToolBarTray>
 
