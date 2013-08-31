@@ -1,6 +1,8 @@
 ﻿using HighLandirect.Domains;
 using Livet;
+using Livet.Behaviors.Messaging;
 using Livet.Commands;
+using Livet.Messaging;
 
 namespace HighLandirect.ViewModels
 {
@@ -50,23 +52,16 @@ namespace HighLandirect.ViewModels
             }
         }
 
-        private ViewModelCommand textBox_KeyUpCommand;
-
-        public ViewModelCommand TextBox_KeyUpCommand
+        public void PostalCDTextBox_KeyUp()
         {
-            get { return this.textBox_KeyUpCommand ?? (this.textBox_KeyUpCommand = new ViewModelCommand(TextBox_KeyUp)); }
-        }
+            if (this.Customer.PostalCD.Length < 7) return;
 
-        private void TextBox_KeyUp()
-        {
-            //this.Customer.PostalCD.Select(this.PostalCD.Text.Length, 0);
-            if (this.Customer.PostalCD.Length < 8) return;
-
+            //郵便番号検索
             this.SetJusho(this.Customer.PostalCD);
 
             //続けて番地を入力できるよう、フォーカスとカーソル位置を操作
-            //this.Customer.Address1.Focus();
-            //this.Customer.Select(this.Customer.Address1.Length, 0);
+            Messenger.Raise(new InteractionMessage("SetFocus"));
+            Messenger.Raise(new InteractionMessage("MoveCaretToEnd"));
         }
 
         private void SetJusho(string PostalCD)
