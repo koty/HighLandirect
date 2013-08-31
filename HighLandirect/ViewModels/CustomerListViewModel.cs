@@ -37,6 +37,7 @@ namespace HighLandirect.ViewModels
             var customerViewModelList = customers.Select(customer => new CustomerViewModel(customer));
             this.CustomerViewModels = new ObservableCollection<CustomerViewModel>(customerViewModelList);
             this.entityService = entityService;
+            this.SelectedCustomer = this.CustomerViewModels.FirstOrDefault();
             this.HideDeletedData();
         }
 
