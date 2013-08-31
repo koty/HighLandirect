@@ -16,7 +16,7 @@
     <DockPanel>
         <ToolBarTray DockPanel.Dock="Top">
             <ToolBar>
-                <Button Command="{Binding AddNewCommand}" Content="追加" Background="{StaticResource LightBlueBrushKey}"></Button>
+                <Button Command="{Binding AddNewCommand}" Content="追加" Background="{StaticResource LightBlueBrushKey}" />
                 <Separator Width="10" />
                 <TextBox Width="150" Text="{Binding SearchString, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true, 
                      ValidatesOnDataErrors=true, NotifyOnValidationError=true}" />
@@ -61,6 +61,9 @@
         <StackPanel Orientation="Horizontal">
             <DataGrid ItemsSource="{Binding CustomerViewModels}" AutoGenerateColumns="False" CanUserAddRows="False"
                       FontSize="14" SelectedItem="{Binding SelectedCustomer}">
+                <i:Interaction.Behaviors>
+                    <v:ScrollIntoViewBehavior />
+                </i:Interaction.Behaviors>
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding Customer.CustNo}" Header="顧客番号" Width="70"/>
                     <DataGridTextColumn Binding="{Binding Customer.CustName}" Header="顧客名" Width="100"/>

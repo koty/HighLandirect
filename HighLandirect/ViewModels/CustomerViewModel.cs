@@ -8,15 +8,13 @@ namespace HighLandirect.ViewModels
     {
         private bool isValid = true;
         private Customer customer;
-        private readonly CustomerListViewModel customerListViewModel;
 
         public CustomerViewModel()
         {
         }
 
-        public CustomerViewModel(CustomerListViewModel customerListViewModel, Customer customer)
+        public CustomerViewModel(Customer customer)
         {
-            this.customerListViewModel = customerListViewModel;
             this.Customer = customer;
         }
 

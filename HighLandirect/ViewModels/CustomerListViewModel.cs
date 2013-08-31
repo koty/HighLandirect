@@ -36,20 +36,12 @@ namespace HighLandirect.ViewModels
         {
             if (customers == null) { throw new ArgumentNullException("customers"); }
 
-            var customerViewModelList = customers.Select(customer => new CustomerViewModel(this, customer));
+            var customerViewModelList = customers.Select(customer => new CustomerViewModel(customer));
             this.CustomerViewModels = new ObservableCollection<CustomerViewModel>(customerViewModelList);
             this.entityService = entityService;
             this.shellVM = shellVM;
             this.HideDeletedData();
         }
-
-        public void ScrollIntoView()
-        {
-            //var view = this.customerListView as ContentControl;
-            //var grid = ((Panel)view.Content).Children[1] as DataGrid;
-            //grid.ScrollIntoView(this.selectedCustomer);
-        }
-
 
         public ObservableCollection<CustomerViewModel> CustomerViewModels { get; private set; }
 
@@ -173,44 +165,45 @@ namespace HighLandirect.ViewModels
             var customer = new Customer(CustNo);
             customer.Label = false;
             customer.Delete = false;
-            entityService.Customers.Add(customer);
+            var customerVM = new CustomerViewModel( customer);
+            this.CustomerViewModels.Add(customerVM);
+            this.RaisePropertyChanged(() => this.CustomerViewModels);
 
-            this.SelectedCustomer = new CustomerViewModel(this, customer);
+            this.SelectedCustomer = customerVM;
         }
 
         private bool CanRemoveCustomer() { return this.SelectedCustomer != null; }
         private void RemoveCustomer()
         {
-            this.entityService.Customers.Remove(this.SelectedCustomer.Customer);
+            this.CustomerViewModels.Remove(this.SelectedCustomer);
         }
 
         private bool CanSearchCustomer() { return true; }
         private void SearchCustomer()
         {
-            //とりあえずCustNameでの検索。電話番号、ふりがなでの検索も可能とする
-
-            var FoundCustomer = GetCustomerQuery(this.SearchString);
-            this.SelectedCustomer = new CustomerViewModel(this, FoundCustomer);
-
-            //スクロールバーを移動する
-            this.ScrollIntoView();
+            this.SelectedCustomer = GetCustomerQuery(this.SearchString);
         }
 
-        private Customer GetCustomerQuery(string searchString)
+        /// <summary>
+        /// とりあえずCustNameでの検索。電話番号、ふりがなでの検索も可能とする
+        /// </summary>
+        /// <param name="searchString"></param>
+        /// <returns></returns>
+        private CustomerViewModel GetCustomerQuery(string searchString)
         {
-            Customer FoundCustomer;
+            CustomerViewModel FoundCustomer;
             int dummy;
             if (int.TryParse(SearchString.Replace("-", ""), out dummy))
             {
-                FoundCustomer = this.entityService.Customers.FirstOrDefault(x => x.Phone.IndexOf(SearchString) >= 0);
+                FoundCustomer = this.CustomerViewModels.FirstOrDefault(x => x.Customer.Phone.IndexOf(SearchString) >= 0);
             }
             else if (IsHiragana(searchString))
             {
-                FoundCustomer = this.entityService.Customers.FirstOrDefault(x => x.Furigana.IndexOf(SearchString) >= 0);
+                FoundCustomer = this.CustomerViewModels.FirstOrDefault(x => x.Customer.Furigana.IndexOf(SearchString) >= 0);
             }
             else
             {
-                FoundCustomer = this.entityService.Customers.FirstOrDefault(x => x.CustName.IndexOf(SearchString) >= 0);
+                FoundCustomer = this.CustomerViewModels.FirstOrDefault(x => x.Customer.CustName.IndexOf(SearchString) >= 0);
             }
             return FoundCustomer;
         }

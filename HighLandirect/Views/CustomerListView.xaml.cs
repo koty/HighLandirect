@@ -10,7 +10,3 @@ namespace HighLandirect.Views
         }
     }
 }
-
-namespace  HighLandirect.Domain
-{
-}
