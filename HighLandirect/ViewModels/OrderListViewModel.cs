@@ -63,11 +63,12 @@ namespace HighLandirect.ViewModels
             this.selectedReportMemo = this.reportMemos.FirstOrDefault(x => x.IsDefault == true);
 
             this.entityService = entityService;
-            this.OrderHistories = new ObservableCollection<OrderHistoryViewModel>(histories.Select(x => new OrderHistoryViewModel(x)));
             this.Orders = new ObservableCollection<OrderViewModel>(orders.Select(x => new OrderViewModel(x)));
+            this.OrderHistories = new ObservableCollection<OrderHistoryViewModel>();
             if (this.Orders.Any())
             {
                 this.SendCustNo = this.Orders.First().Order.SendCustID;
+                this.ShowOrderHistoryBySendCustomer();
             }
         }
 
@@ -238,7 +239,7 @@ namespace HighLandirect.ViewModels
             else
             {
                 //二件目以降は画面のデータを使う
-                OrderID = this.entityService.Orders.Max(x => x.OrderID) + 1;
+                OrderID = this.Orders.Max(x => x.Order.OrderID) + 1;
             }
             var order = Order.CreateOrder(OrderID, DateTime.Now, ResceiveCustNo, this.SendCustNo, 2);
 
@@ -258,11 +259,12 @@ namespace HighLandirect.ViewModels
         {
             //新しい注文履歴50件を表示する
             this.OrderHistories.Clear();
-            this.OrderHistories = new ObservableCollection<OrderHistoryViewModel>(entityService.OrderHistories.Where(
+            var list = entityService.OrderHistories.Where(
                 x => x.CustomerMasterSend.CustNo == this.SendCustNo)
                                            .OrderByDescending(x => x.OrderDate)
                                            .Take(50)
-                                           .Select(x => new OrderHistoryViewModel(x)));
+                                           .Select(x => new OrderHistoryViewModel(x));
+            this.OrderHistories = new ObservableCollection<OrderHistoryViewModel>(list);
         }
 
         private void AddOrderFromSelectedHistory()
