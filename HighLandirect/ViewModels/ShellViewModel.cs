@@ -23,8 +23,6 @@ namespace HighLandirect.ViewModels
         private ViewModelCommand exitCommand;
         private ViewModelCommand aboutCommand;
 
-        //private readonly EntityController entityController;
-        //private readonly MyDataEntities customerEntities;
         private readonly EntityService entityService;
 
         private readonly ProductListViewModel productListViewModel;
@@ -126,7 +124,6 @@ namespace HighLandirect.ViewModels
             Messenger.Raise(new InformationMessage("HighLandirect version 0.1", "お知らせ", "Info"));
         }
 
-        //public void ShellViewModelClosing(object sender, CancelEventArgs e)
         public void ShellViewModelClosing()
         {
             this.Save();
@@ -208,18 +205,19 @@ namespace HighLandirect.ViewModels
 
         #region Set/Get Ex/Im portData
 
-        public ListenerCommand<OpeningFileSelectionMessage> GetExportDataCommand
+        private ListenerCommand<SavingFileSelectionMessage> _GetExportDataCommand;
+        public ListenerCommand<SavingFileSelectionMessage> GetExportDataCommand
         {
             get
             {
-                if (_SetBackUpDataCommand == null)
+                if (_GetExportDataCommand == null)
                 {
-                    _SetBackUpDataCommand = new ListenerCommand<OpeningFileSelectionMessage>(GetExportData);
+                    _GetExportDataCommand = new ListenerCommand<SavingFileSelectionMessage>(GetExportData);
                 }
-                return _SetBackUpDataCommand;
+                return _GetExportDataCommand;
             }
         }
-        private void GetExportData(OpeningFileSelectionMessage parameter)
+        private void GetExportData(SavingFileSelectionMessage parameter)
         {
             if (parameter.Response == null || parameter.Response.Length == 0)
                 return;
@@ -244,7 +242,7 @@ namespace HighLandirect.ViewModels
                 {
                     _SetImportDataCommand = new ListenerCommand<OpeningFileSelectionMessage>(SetImportData);
                 }
-                return _SetBackUpDataCommand;
+                return _SetImportDataCommand;
             }
         }
 

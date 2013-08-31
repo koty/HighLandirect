@@ -9,23 +9,27 @@
              xmlns:Messaging="clr-namespace:Livet.Messaging;assembly=Livet"
              xmlns:v="clr-namespace:HighLandirect.Views"
              mc:Ignorable="d"
-             d:DataContext="{d:DesignInstance vm:CustomerListViewModel}">
-    <UserControl.Resources>
-        <SolidColorBrush x:Key="LightBlueBrushKey">#FFC6D2F5</SolidColorBrush>
-    </UserControl.Resources>
+             d:DataContext="{d:DesignInstance vm:CustomerListViewModel}"
+             Background="#FF87B2F3" BorderBrush="#FF87B2F3">
     <DockPanel>
         <ToolBarTray DockPanel.Dock="Top">
             <ToolBar>
-                <Button Command="{Binding AddNewCommand}" Content="追加" Background="{StaticResource LightBlueBrushKey}" />
+                <ToolBar.Resources>
+                    <Style TargetType="Button">
+                        <Setter Property="FontSize" Value="30" />
+                        <Setter Property="Height" Value="30" />
+                    </Style>
+                </ToolBar.Resources>
+                <Button Command="{Binding AddNewCommand}" Content="顧客を新規登録" Height="30" FontSize="18" />
                 <Separator Width="10" />
                 <TextBox Width="150" Text="{Binding SearchString, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true, 
-                     ValidatesOnDataErrors=true, NotifyOnValidationError=true}" />
-                <Button Command="{Binding SearchCommand}" Content="検索" />
+                     ValidatesOnDataErrors=true, NotifyOnValidationError=true}" Height="30" FontSize="18" />
+                <Button Command="{Binding SearchCommand}" Content="検索" Height="30" FontSize="18" />
                 <Separator Width="10"/>
-                <Button Command="{Binding AddSendCustomerCommand}" Content="送主として追加"/>
-                <Button Command="{Binding AddResceiveCustomerCommand}" Content="送先として追加"/>
+                <Button Command="{Binding AddSendCustomerCommand}" Content="送主として追加" Height="30" FontSize="18"/>
+                <Button Command="{Binding AddResceiveCustomerCommand}" Content="送先として追加" Height="30" FontSize="18"/>
                 <Separator Width="10" />
-                <Button Command="{Binding PrintAtenaSealCommand}" Content="宛名シール印刷">
+                <Button Command="{Binding PrintAtenaSealCommand}" Content="宛名シール印刷" Height="30" FontSize="18">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
                             <l:ConfirmationDialogInteractionMessageAction>
@@ -39,7 +43,7 @@
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </Button>
-                <Button Command="{Binding PrintKokyakuDaichoCommand}" Content="顧客台帳印刷">
+                <Button Command="{Binding PrintKokyakuDaichoCommand}" Content="顧客台帳印刷" Height="30" FontSize="18">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
                             <l:ConfirmationDialogInteractionMessageAction>
@@ -54,8 +58,9 @@
                     </i:Interaction.Triggers>
                 </Button>
                 <Separator Width="10" />
-                <CheckBox Content="削除行を表示" />
-                <Button Command="{Binding RemoveCommand}" Content="削除" Visibility="Hidden"/>
+                <CheckBox Content="削除行を表示" Height="30" FontSize="18" />
+                <!--物理削除は使わないので、とりあえずボタンを隠しておく。-->
+                <Button Command="{Binding RemoveCommand}" Content="削除" Visibility="Hidden" Height="30" FontSize="18"/>
             </ToolBar>
         </ToolBarTray>
         <StackPanel Orientation="Horizontal">
@@ -67,7 +72,7 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding Customer.CustNo}" Header="顧客番号" Width="70"/>
                     <DataGridTextColumn Binding="{Binding Customer.CustName}" Header="顧客名" Width="100"/>
-                    <DataGridTextColumn Binding="{Binding Customer.PostalCD}" Header="郵便番号" Width="60"/>
+                    <DataGridTextColumn Binding="{Binding Customer.PostalCD}" Header="郵便番号" Width="70"/>
                     <DataGridTextColumn Binding="{Binding Customer.CityName}" Header="市町村名" Width="70"/>
                     <DataGridTextColumn Binding="{Binding Customer.Address1}" Header="住所１" Width="150"/>
                     <DataGridTextColumn Binding="{Binding Customer.Address2}" Header="住所２" Width="150"/>

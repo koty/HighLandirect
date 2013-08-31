@@ -16,7 +16,8 @@
         d:DataContext="{d:DesignInstance vm:ShellViewModel}"
         Title="{Binding Title}"
         Icon="{StaticResource BookLibraryImageSource}"
-        Height="800" Width="1600">
+        Height="800" Width="1600"
+        Background="#FF87B2F3" BorderBrush="#FF87B2F3">
     
     <Window.InputBindings>
         <KeyBinding x:Name="saveKeyBinding" Key="S" Modifiers="Control"/>
@@ -99,13 +100,13 @@
         </StatusBar>
 
         <TabControl>
-            <TabItem Header="{x:Static p:Resources.Order}">
+            <TabItem Header="{x:Static p:Resources.Order}" Height="30" Width="70">
                 <v:OrderListView Grid.Row="0" Grid.Column="0" DataContext="{Binding OrderListViewModel}" />
             </TabItem>
-            <TabItem Header="{x:Static p:Resources.AddressBook}">
+            <TabItem Header="{x:Static p:Resources.AddressBook}" Height="30" Width="70">
                 <v:CustomerListView DataContext="{Binding CustomerListViewModel}" />
             </TabItem>
-            <TabItem Header="{x:Static p:Resources.Product}">
+            <TabItem Header="{x:Static p:Resources.Product}" Height="30" Width="70">
                 <v:ProductListView DataContext="{Binding ProductListViewModel}" />
             </TabItem>
         </TabControl>

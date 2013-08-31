@@ -8,7 +8,8 @@
              xmlns:c="clr-namespace:HighLandirect.Converters"
              xmlns:ViewModels="clr-namespace:HighLandirect.ViewModels"
              mc:Ignorable="d"
-             d:DataContext="{d:DesignInstance ViewModels:OrderListViewModel}">
+             d:DataContext="{d:DesignInstance ViewModels:OrderListViewModel}"
+             Background="#FF87B2F3" BorderBrush="#FF87B2F3">
     <DockPanel>
         <DockPanel.Resources>
             <ObjectDataProvider x:Key="productDataProvider" ObjectType="{x:Type Resources:Products}" MethodName="GetProducts"           />
@@ -18,14 +19,17 @@
             <!--ObjectDataProvider x:Key="storeDataProvider" ObjectType="{x:Type r:AdditionalData}"     /-->
             <!--ObjectDataProvider x:Key="reportMemoDataProvider" ObjectType="{x:Type r:AdditionalData}" /-->
             <c:ProductConverter x:Key="ProductConverter" />
+            <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                <Setter Property="Height" Value="30" />
+            </Style>
         </DockPanel.Resources>
         <ToolBarTray DockPanel.Dock="Top">
             <ToolBar>
-                <Button Command="{Binding PrintCommand}" Content="印刷" Width="100" />
-                <Button Command="{Binding RemoveCommand}" Content="削除" />
+                <!--スタイルが適用されない。仕方ないので個別にHeightとFontSizeを設定する。-->
+                <Button Command="{Binding PrintCommand}" Content="印刷" Width="100" Height="30" FontSize="18" />
+                <Button Command="{Binding RemoveCommand}" Content="削除" Height="30" FontSize="18" />
                 <Separator />
-                <Button Command="{Binding ShowOrderHistoryBySendCustomerCommand}" Width="80" Content="履歴を抽出"/>
-                
+                <Button Command="{Binding ShowOrderHistoryBySendCustomerCommand}" Width="100" Content="履歴を抽出" Height="30" FontSize="18" />
             </ToolBar>
         </ToolBarTray>
         <Grid>
@@ -63,37 +67,55 @@
             </DataGrid>
             <Grid Grid.Column="1">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="100"/>
-                    <ColumnDefinition Width="100"/>
-                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="160"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30" />
                     <RowDefinition Height="30" />
                     <RowDefinition Height="30" />
-                    <RowDefinition Height="50" />
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="30" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <ComboBox Width="140" Height="30" Grid.ColumnSpan="2" HorizontalAlignment="Left"
+                <Grid.Resources>
+                    <Style TargetType="CheckBox" BasedOn="{StaticResource {x:Type CheckBox}}">
+                        <Setter Property="FontSize" Value="18" />
+                        <Setter Property="Foreground" Value="White" />
+                    </Style>
+                    <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+                        <Setter Property="FontSize" Value="18" />
+                        <Setter Property="Foreground" Value="White" />
+                    </Style>
+                    <Style TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">
+                        <Setter Property="FontSize" Value="18" />
+                    </Style>
+                    <Style TargetType="ComboBox" BasedOn="{StaticResource {x:Type ComboBox}}">
+                        <Setter Property="FontSize" Value="18" />
+                    </Style>
+                </Grid.Resources>
+                <ComboBox Width="120" Grid.ColumnSpan="2" HorizontalAlignment="Left"
                           ItemsSource="{Binding Source={StaticResource storeDataProvider}}"
-                          SelectedItem="{Binding SelectedStore}" DisplayMemberPath="StoreName"
-                          FontSize="16" Margin="11,0,0,0" />
-                <CheckBox IsChecked="{Binding SelectedStore.IsDefault}" Content="既定" Grid.Column="2" Grid.ColumnSpan="2" Margin="0,6,12,0" />
-                <TextBlock Text="発店コード" Grid.Row="1" Margin="11,9,98,26" FontSize="20" Grid.ColumnSpan="2" Width="91" Height="25" Grid.RowSpan="2" />
-                <TextBox Text="{Binding SelectedStore.StoreId1}" Width="60" Grid.Row="2" Margin="11,1,0,0" Height="29" FontSize="20" MinWidth="10" />
-                <TextBox Text="{Binding SelectedStore.StoreId2}" Width="60" Grid.Row="2" Grid.Column="1"  Margin="0,1,0,0" Height="29" FontSize="20" MinWidth="10" />
+                          SelectedItem="{Binding SelectedStore}" DisplayMemberPath="StoreName"/>
+                <CheckBox IsChecked="{Binding SelectedStore.IsDefault}" Content="既定" Grid.Column="1"
+                          VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+                <TextBlock Text="発店コード" Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="2" />
+                <TextBox Text="{Binding SelectedStore.StoreId1}" Grid.Row="2" MinWidth="10" />
+                <TextBox Text="{Binding SelectedStore.StoreId2}" Grid.Row="2" Grid.Column="1" MinWidth="10" />
             
-                <TextBlock Text="お客様番号" Grid.Column="2" Height="21" Margin="0,9,0,0" Grid.Row="1" FontSize="20" Grid.ColumnSpan="2" />
-                <TextBox Text="{Binding SelectedStore.CustomerCD}" Grid.Column="2" Margin="0,1,0,49" Grid.Row="2" Grid.ColumnSpan="2" FontSize="20" Height="30" Grid.RowSpan="2" Width="111" />
+                <TextBlock Text="お客様番号" Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="2" />
+                <TextBox Text="{Binding SelectedStore.CustomerCD}" Grid.Column="2" Grid.Row="2"   />
             
-                <ComboBox Width="140" Height="30"  Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Left"
+                <ComboBox Width="120" Grid.Row="4" HorizontalAlignment="Left"
                           ItemsSource="{Binding Source={StaticResource reportMemoDataProvider}}"
                           DisplayMemberPath="MemoName"
-                          SelectedItem="{Binding SelectedReportMemo}" FontSize="16" Margin="11,20,0,0" />
-                <CheckBox IsChecked="{Binding SelectedReportMemo.IsDefault}" Content="既定" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" Margin="0,30,11,0" />
-                <TextBox Text="{Binding SelectedReportMemo.ReportMemo1}" Width="300" Height="100" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4"
-                         TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Visible" FontSize="20"/>
+                          SelectedItem="{Binding SelectedReportMemo}" />
+                <CheckBox IsChecked="{Binding SelectedReportMemo.IsDefault}" Content="既定" Grid.Row="4" Grid.Column="1"
+                          VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+                <TextBox Text="{Binding SelectedReportMemo.ReportMemo1}" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="4"
+                         TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Visible" />
             </Grid>
             <GridSplitter HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="4" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"/>
             <StackPanel Grid.Row="1" Grid.ColumnSpan="2" >

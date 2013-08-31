@@ -10,7 +10,8 @@
              xmlns:Messaging="clr-namespace:Livet.Messaging;assembly=Livet"
              xmlns:v="clr-namespace:HighLandirect.Views"
              mc:Ignorable="d"
-             d:DataContext="{d:DesignInstance ViewModels:ProductListViewModel}">
+             d:DataContext="{d:DesignInstance ViewModels:ProductListViewModel}"
+             Background="#FF87B2F3" BorderBrush="#FF87B2F3">
 
     <DockPanel>
         <DockPanel.Resources>

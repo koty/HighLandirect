@@ -8,7 +8,8 @@
             mc:Ignorable="d"
             d:DataContext="{d:DesignInstance vm:ProductViewModel}"
             MinWidth="250" MinHeight="270"
-            IsEnabled="{Binding IsEnabled}">
+            IsEnabled="{Binding IsEnabled}"
+            Background="#FF87B2F3" BorderBrush="#FF87B2F3">
     <Grid>
         <Grid.Resources>
             <c:NumberFormatter x:Key="myNumberFormatter"/>
