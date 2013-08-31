@@ -32,9 +32,5 @@ namespace HighLandirect.Domains
             //return string.Format(formatProvider, Resources.PersonToString, Firstname, Lastname);
         }
 
-        /**
-         * 画面で使う
-         */
-        public bool IsSelected { get; set; }
     }
 }

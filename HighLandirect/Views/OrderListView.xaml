@@ -21,8 +21,8 @@
         </DockPanel.Resources>
         <ToolBarTray DockPanel.Dock="Top">
             <ToolBar>
-                <Button Command="{Binding PrintCommand}" Content="印刷" Width="100" Background="#FFC6D2F5"/>
-                <Button Command="{Binding RemoveCommand}" Content="削除"/>
+                <Button Command="{Binding PrintCommand}" Content="印刷" Width="100" />
+                <Button Command="{Binding RemoveCommand}" Content="削除" />
                 <Separator />
                 <Button Command="{Binding ShowOrderHistoryBySendCustomerCommand}" Width="80" Content="履歴を抽出"/>
                 
@@ -41,21 +41,21 @@
                          AutoGenerateColumns="False" AlternationCount="1"
                          CanUserAddRows="False" FontSize="16">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding CustomerMasterSend.CustNo}" Header="顧客番号" Width="60" IsReadOnly="True"/>
-                    <DataGridTextColumn Binding="{Binding CustomerMasterSend.CustName}" Header="氏名" Width="150" IsReadOnly="True"/>
-                    <DataGridTextColumn Binding="{Binding CustomerMasterReceive.CustNo}" Header="顧客番号" Width="60" IsReadOnly="True"/>
-                    <DataGridTextColumn Binding="{Binding CustomerMasterReceive.CustName}" Header="氏名" Width="150" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Order.CustomerMasterSend.CustNo}" Header="顧客番号" Width="60" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Order.CustomerMasterSend.CustName}" Header="氏名" Width="150" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Order.CustomerMasterReceive.CustNo}" Header="顧客番号" Width="60" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Order.CustomerMasterReceive.CustName}" Header="氏名" Width="150" IsReadOnly="True"/>
 
                     <DataGridTemplateColumn Header="品物" Width="100">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding ProductID, Mode=OneWay, Converter={StaticResource ProductConverter}, ConverterParameter=ProductName}" />
+                                <TextBlock Text="{Binding Order.ProductID, Mode=OneWay, Converter={StaticResource ProductConverter}, ConverterParameter=ProductName}" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                         <DataGridTemplateColumn.CellEditingTemplate>
                             <DataTemplate>
                                 <ComboBox ItemsSource="{Binding Source={StaticResource productDataProvider}}"
-                                          SelectedValue="{Binding ProductID}" SelectedValuePath="ProductID" DisplayMemberPath="ProductName" Margin="0,0,0,0" />
+                                          SelectedValue="{Binding Order.ProductID}" SelectedValuePath="ProductID" DisplayMemberPath="ProductName" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellEditingTemplate>
                     </DataGridTemplateColumn>
@@ -105,24 +105,24 @@
                 <ListView ItemsSource="{Binding OrderHistories}" SelectedItem="{Binding SelectedOrderHistory}">
                     <ListView.ItemContainerStyle>
                         <Style TargetType="{x:Type ListViewItem}">
-                            <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+                            <Setter Property="IsSelected" Value="{Binding OrderHistory.IsSelected, Mode=TwoWay}" />
                         </Style>
                     </ListView.ItemContainerStyle>
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn DisplayMemberBinding="{Binding OrderDate}" Header="注文日付" Width="100"/>
-                            <GridViewColumn DisplayMemberBinding="{Binding CustomerMasterReceive.CustNo}" Header="顧客番号" Width="60"/>
-                            <GridViewColumn DisplayMemberBinding="{Binding CustomerMasterReceive.CustName}" Header="氏名" Width="150"/>
-                            <GridViewColumn DisplayMemberBinding="{Binding CustomerMasterReceive.PostalCD}" Header="郵便番号" Width="40"/>
-                            <GridViewColumn DisplayMemberBinding="{Binding CustomerMasterReceive.CityName}" Header="市町村名" Width="50"/>
-                            <GridViewColumn DisplayMemberBinding="{Binding CustomerMasterReceive.Address1}" Header="住所１" Width="150"/>
-                            <GridViewColumn DisplayMemberBinding="{Binding CustomerMasterReceive.Address2}" Header="住所２" Width="150"/>
-                            <GridViewColumn DisplayMemberBinding="{Binding CustomerMasterReceive.Phone}" Header="電話番号" Width="100"/>
-                            <GridViewColumn DisplayMemberBinding="{Binding CustomerMasterReceive.MailAddress}" Header="メールアドレス" Width="100"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding OrderHistory.OrderDate}" Header="注文日付" Width="100"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding OrderHistory.CustomerMasterReceive.CustNo}" Header="顧客番号" Width="60"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding OrderHistory.CustomerMasterReceive.CustName}" Header="氏名" Width="150"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding OrderHistory.CustomerMasterReceive.PostalCD}" Header="郵便番号" Width="40"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding OrderHistory.CustomerMasterReceive.CityName}" Header="市町村名" Width="50"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding OrderHistory.CustomerMasterReceive.Address1}" Header="住所１" Width="150"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding OrderHistory.CustomerMasterReceive.Address2}" Header="住所２" Width="150"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding OrderHistory.CustomerMasterReceive.Phone}" Header="電話番号" Width="100"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding OrderHistory.CustomerMasterReceive.MailAddress}" Header="メールアドレス" Width="100"/>
                             <GridViewColumn Header="ラベル１" Width="30">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <CheckBox Content="消す" IsChecked="{Binding CustomerMasterSend.Label}" IsEnabled="False" />
+                                        <CheckBox Content="消す" IsChecked="{Binding OrderHistory.CustomerMasterSend.Label}" IsEnabled="False" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>

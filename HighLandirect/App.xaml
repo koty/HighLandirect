@@ -9,6 +9,8 @@
                 <ResourceDictionary Source="Resources/ImageResources.xaml"/>
                 <ResourceDictionary Source="Resources/ControlResources.xaml"/>
                 <ResourceDictionary Source="Resources/DataResources.xaml"/>
+                
+                <ResourceDictionary Source="Resources/Theme/Theme.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

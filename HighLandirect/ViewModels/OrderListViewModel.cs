@@ -21,7 +21,7 @@ namespace HighLandirect.ViewModels
         private readonly IEntityService entityService;
         //private readonly ObservableCollection<Order> selectedOrders;
         //private readonly ObservableCollection<OrderHistory> selectedOrderHistories;
-        private Order selectedOrder;
+        private OrderViewModel selectedOrder;
         private OrderHistory selectedOrderHistory;
         private Store selectedStore;
         private ReportMemo selectedReportMemo;
@@ -33,6 +33,10 @@ namespace HighLandirect.ViewModels
         private ViewModelCommand showOrderHistoryBySendCustomerCommand;
 
         private int SendCustNo;
+
+        public ObservableCollection<OrderViewModel> Orders { get; private set; }
+        public ObservableCollection<OrderHistoryViewModel> OrderHistories { get; private set; }
+
 
         public OrderListViewModel()
         {
@@ -59,16 +63,13 @@ namespace HighLandirect.ViewModels
             this.selectedReportMemo = this.reportMemos.FirstOrDefault(x => x.IsDefault == true);
 
             this.entityService = entityService;
-            this.OrderHistories = new ObservableCollection<OrderHistory>(histories);
-            this.Orders = new ObservableCollection<Order>(orders);
+            this.OrderHistories = new ObservableCollection<OrderHistoryViewModel>(histories.Select(x => new OrderHistoryViewModel(x)));
+            this.Orders = new ObservableCollection<OrderViewModel>(orders.Select(x => new OrderViewModel(x)));
             if (this.Orders.Any())
             {
-                this.SendCustNo = this.Orders.First().SendCustID;
+                this.SendCustNo = this.Orders.First().Order.SendCustID;
             }
         }
-
-        public ObservableCollection<Order> Orders { get; private set; }
-        public ObservableCollection<OrderHistory> OrderHistories { get; private set; }
 
         //public ObservableCollection<Order> SelectedOrders
         //{
@@ -80,7 +81,7 @@ namespace HighLandirect.ViewModels
         //    get { return selectedOrderHistories; }
         //}
 
-        public Order SelectedOrder
+        public OrderViewModel SelectedOrder
         {
             get { return selectedOrder; }
             set
@@ -89,6 +90,7 @@ namespace HighLandirect.ViewModels
                 {
                     selectedOrder = value;
                     this.RaisePropertyChanged(() => SelectedOrder);
+                    this.RemoveCommand.RaiseCanExecuteChanged();
                 }
             }
         }
@@ -240,10 +242,10 @@ namespace HighLandirect.ViewModels
             }
             var order = Order.CreateOrder(OrderID, DateTime.Now, ResceiveCustNo, this.SendCustNo, 2);
 
-            this.entityService.Orders.Add(order);
-            this.Orders.Add(order);
+            this.Orders.Add(new OrderViewModel(order));
+            this.RaisePropertyChanged(() => this.Orders);
 
-            this.SelectedOrder = order;
+            this.SelectedOrder = new OrderViewModel(order);
         }
 
         private bool CanRemoveOrder() { return this.SelectedOrder != null; }
@@ -256,20 +258,19 @@ namespace HighLandirect.ViewModels
         {
             //新しい注文履歴50件を表示する
             this.OrderHistories.Clear();
-            this.OrderHistories = new ObservableCollection<OrderHistory>(entityService.OrderHistories.Where(
+            this.OrderHistories = new ObservableCollection<OrderHistoryViewModel>(entityService.OrderHistories.Where(
                 x => x.CustomerMasterSend.CustNo == this.SendCustNo)
                                            .OrderByDescending(x => x.OrderDate)
-                                           .Take(50));
+                                           .Take(50)
+                                           .Select(x => new OrderHistoryViewModel(x)));
         }
 
         private void AddOrderFromSelectedHistory()
         {
-            
             foreach (var ResceiveCustomer in this.OrderHistories.Where(x => x.IsSelected))
             {
-                this.AddNewOrderCore(ResceiveCustomer.ReceiveCustID);
+                this.AddNewOrderCore(ResceiveCustomer.OrderHistory.ReceiveCustID);
             }
-             
         }
 
         //private bool CanFilterOrderHistory(object CustomerIdText) { return true; }
@@ -322,7 +323,7 @@ namespace HighLandirect.ViewModels
                 var orderSources = new List<OrderSource>();
                 foreach (var order in this.Orders)
                 {
-                    var orderSource = new OrderSource(order);
+                    var orderSource = new OrderSource(order.Order);
 
                     orderSource.CustomerCD = this.SelectedStore.CustomerCD;
                     orderSource.StoreId1 = this.SelectedStore.StoreId1;

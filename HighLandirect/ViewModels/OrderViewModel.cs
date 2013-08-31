@@ -5,6 +5,11 @@ namespace HighLandirect.ViewModels
 {
     public class OrderViewModel : ViewModel
     {
+        public OrderViewModel(Order order)
+        {
+            this.Order = order;
+        }
+
         private bool isValid = true;
         private Order order;
 
@@ -36,5 +41,10 @@ namespace HighLandirect.ViewModels
                 }
             }
         }
+
+        /**
+         * 画面で使う
+         */
+        public bool IsSelected { get; set; }
     }
 }
