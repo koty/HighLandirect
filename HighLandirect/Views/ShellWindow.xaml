@@ -10,7 +10,9 @@
         xmlns:b="clr-namespace:Livet.Behaviors;assembly=Livet"
         xmlns:l="clr-namespace:Livet.Behaviors.Messaging;assembly=Livet"
         xmlns:behaviormessaingio="clr-namespace:Livet.Behaviors.Messaging.IO;assembly=Livet"
+        xmlns:behaviorwindows="clr-namespace:Livet.Behaviors.Messaging.Windows;assembly=Livet"
         xmlns:messagingio="clr-namespace:Livet.Messaging.IO;assembly=Livet"
+        xmlns:messagingwindows="clr-namespace:Livet.Messaging.Windows;assembly=Livet"
         xmlns:messaging="clr-namespace:Livet.Messaging;assembly=Livet"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance vm:ShellViewModel}"
@@ -28,6 +30,13 @@
         </i:EventTrigger>
         <l:InteractionMessageTrigger Messenger="{Binding Messenger}" MessageKey="Info">
             <l:InformationDialogInteractionMessageAction />
+        </l:InteractionMessageTrigger>
+        <l:InteractionMessageTrigger Messenger="{Binding Messenger}" MessageKey="CloseWindow">
+            <behaviorwindows:WindowInteractionMessageAction>
+                <l:DirectInteractionMessage>
+                    <messagingwindows:WindowActionMessage Action="Close"/>
+                </l:DirectInteractionMessage>
+            </behaviorwindows:WindowInteractionMessageAction>
         </l:InteractionMessageTrigger>
     </i:Interaction.Triggers>
     <DockPanel>

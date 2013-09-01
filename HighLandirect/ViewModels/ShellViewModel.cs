@@ -93,7 +93,7 @@ namespace HighLandirect.ViewModels
 
         private void Shutdown()
         {
-            this.entityService.Customerentities.Dispose();
+            Messenger.Raise(new InteractionMessage("CloseWindow"));
         }
 
         public bool IsValid
@@ -109,16 +109,6 @@ namespace HighLandirect.ViewModels
             }
         }
 
-        protected virtual void OnClosing(CancelEventArgs e)
-        {
-            //if (Closing != null) { Closing(this, e); }
-        }
-
-        private void ViewClosing(object sender, CancelEventArgs e)
-        {
-            OnClosing(e);
-        }
-
         private void ShowAboutMessage()
         {
             Messenger.Raise(new InformationMessage("HighLandirect version 0.1", "お知らせ", "Info"));
@@ -127,6 +117,7 @@ namespace HighLandirect.ViewModels
         public void ShellViewModelClosing()
         {
             this.Save();
+            this.entityService.Customerentities.Dispose();
         }
 
         #region ConfirmCommand

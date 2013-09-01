@@ -121,7 +121,8 @@
             <StackPanel Grid.Row="1" Grid.ColumnSpan="2" >
                 <ToolBarTray >
                     <ToolBar>
-                        <Button Command="{Binding AddOrderFromSelectedHistoryCommand}" Width="120" Content="履歴から注文を追加" Margin="0" />
+                        <Button Command="{Binding AddOrderFromSelectedHistoryCommand}" Padding="10,0,10,0" Content="履歴から注文を追加"
+                                 Height="30" FontSize="18" />
                     </ToolBar>
                 </ToolBarTray>
                 <ListView ItemsSource="{Binding OrderHistories}" SelectedItem="{Binding SelectedOrderHistory}">
