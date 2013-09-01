@@ -58,7 +58,7 @@
                     </i:Interaction.Triggers>
                 </Button>
                 <Separator Width="10" />
-                <CheckBox Content="削除行を表示" Height="30" FontSize="18" />
+                <CheckBox Content="削除行を表示" Height="30" FontSize="18" Command="{Binding ShowDeletedDataCommand}" IsChecked="{Binding ShowDeletedData}" />
                 <!--物理削除は使わないので、とりあえずボタンを隠しておく。-->
                 <Button Command="{Binding RemoveCommand}" Content="削除" Visibility="Hidden" Height="30" FontSize="18"/>
             </ToolBar>

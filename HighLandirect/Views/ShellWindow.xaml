@@ -76,7 +76,7 @@
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </MenuItem>
-                <MenuItem Command="{Binding SetImportDataCommand}" Header="データインポート" Icon="{StaticResource UpLoadImage}">
+                <MenuItem Header="データインポート" Icon="{StaticResource UpLoadImage}">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
                             <behaviormessaingio:OpenFileDialogInteractionMessageAction>
@@ -97,8 +97,6 @@
 
         <ToolBarTray DockPanel.Dock="Top">
             <ToolBar>
-                <Button Command="{Binding SaveCommand}" Content="{StaticResource SaveImage}" ToolTip="{x:Static p:Resources.Save}"/>
-                <Separator/>
                 <Button Command="ApplicationCommands.Undo" Content="{StaticResource UndoImage}" ToolTip="{x:Static p:Resources.Undo}"/>
                 <Button Command="ApplicationCommands.Redo" Content="{StaticResource RedoImage}" ToolTip="{x:Static p:Resources.Redo}"/>
             </ToolBar>

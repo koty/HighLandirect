@@ -19,7 +19,6 @@ namespace HighLandirect.ViewModels
 {
     public class ShellViewModel : ViewModel
     {
-        private ViewModelCommand saveCommand;
         private ViewModelCommand exitCommand;
         private ViewModelCommand aboutCommand;
 
@@ -71,14 +70,6 @@ namespace HighLandirect.ViewModels
             {
                 return this.aboutCommand
                        ?? (this.aboutCommand = new ViewModelCommand(this.ShowAboutMessage));
-            }
-        }
-        public ViewModelCommand SaveCommand
-        {
-            get
-            {
-                return this.saveCommand
-                       ?? (this.saveCommand = new ViewModelCommand(this.SaveCore));
             }
         }
 
@@ -242,38 +233,7 @@ namespace HighLandirect.ViewModels
             if (parameter.Response == null || parameter.Response.Length == 0)
                 return;
 
-            bool ExistsError = false;
-            using (var sr = new StreamReader(parameter.Response[0], Encoding.UTF8))
-            using (var sw = new StreamWriter("ErrorList.txt", false, Encoding.UTF8))
-            {
-                string Line = sr.ReadLine();
-                //ヘッダが設定されてたら読み捨てる
-                if (Line.Trim() == Customer.HeaderCsv)
-                    Line = sr.ReadLine();
-                int i = 0;
-                int CustNo = GetMaxCustNo();
-
-                while (Line != null)
-                {
-                    i++;
-                    if (Line.Trim().Length > 0)
-                    {
-                        try
-                        {
-                            CustNo++;
-                            var customer = Customer.GetCustomerFromCsv(Line, CustNo);
-                            this.entityService.Customers.Add(customer);
-                        }
-                        catch (Exception ex)
-                        {
-                            sw.WriteLine("{0}行目の{1}を設定中『{2}』のためエラーが発生しました。この行はインポートされません。",
-                                        i.ToString(), ex.Source, ex.Message);
-                            ExistsError = true;
-                        }
-                    }
-                    Line = sr.ReadLine();
-                }
-            }
+            bool ExistsError = this.CustomerListViewModel.SetImportData(parameter.Response[0]);
 
             if (ExistsError)
             {
@@ -288,21 +248,6 @@ namespace HighLandirect.ViewModels
             //customerListViewModel.Initialize(orderController);
         }
 
-        private int GetMaxCustNo()
-        {
-            int CustNo = 0;
-            if (this.entityService.Customers.Count > 0)
-            {
-                //もっとカッコいいやり方はないんだろうか。。。
-                var result = this.entityService.Customerentities.Customers.OrderBy("it.CustNo desc");
-                foreach (var c in result)
-                {
-                    CustNo = c.CustNo;
-                    break;
-                }
-            }
-            return CustNo;
-        }
         #endregion
 
         #region save

@@ -95,10 +95,16 @@ namespace HighLandirect.Domains
             customer.MailAddress = GetItem(items, "Phone", i); i++;
             customer.Memo = GetItem(items, "Phone", i); i++;
             customer.Label = GetBoolItem(items, "Label", i); i++;
-            customer.LatestSend = GetDateItem(items, "LatestSend", i); i++;
-            customer.LatestResceive = GetDateItem(items, "LatestResceive", i); i++;
-            customer.Delete = GetBoolItem(items, "Delete", i); i++;
-
+            customer.Delete = false; //規定値
+            try
+            {
+                /*customer.Delete = GetBoolItem(items, "Delete", i);*/ i++;
+                customer.LatestSend = GetDateItem(items, "LatestSend", i); i++;
+                customer.LatestResceive = GetDateItem(items, "LatestResceive", i); i++;
+            }
+            catch (Exception)
+            {
+            }
             return customer;
         }
 
@@ -125,6 +131,9 @@ namespace HighLandirect.Domains
             {
                 if (items[i].Trim().Length == 0)
                     return false;
+                if (items[i] == "0") return false;
+                if (items[i] == "1") return true;
+
                 return bool.Parse(items[i]);
             }
             catch (IndexOutOfRangeException IOoRex)

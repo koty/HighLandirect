@@ -10,6 +10,8 @@ using HighLandirect.Foundations;
 using HighLandirect.Services;
 using Livet;
 using Livet.Commands;
+using System.IO;
+using System.Text;
 
 namespace HighLandirect.ViewModels
 {
@@ -23,8 +25,9 @@ namespace HighLandirect.ViewModels
         private ViewModelCommand addResceiveCustomerCommand;
         private ViewModelCommand printAtenaSealCommand;
         private ViewModelCommand printKokyakuDaichoCommand;
-        private bool showDeletedData;
+        private ViewModelCommand showDeletedDataCommand;
         private readonly IEntityService entityService;
+        private readonly IList<Customer> customers;
 
         public CustomerListViewModel()
         {
@@ -33,12 +36,13 @@ namespace HighLandirect.ViewModels
         public CustomerListViewModel(IEnumerable<Customer> customers, IEntityService entityService)
         {
             if (customers == null) { throw new ArgumentNullException("customers"); }
+            this.customers = customers.ToList();
 
-            var customerViewModelList = customers.Select(customer => new CustomerViewModel(customer));
-            this.CustomerViewModels = new ObservableCollection<CustomerViewModel>(customerViewModelList);
             this.entityService = entityService;
+
+            this.ShowDeletedData = false;
+            this.ShowDeletedDataFunc();
             this.SelectedCustomer = this.CustomerViewModels.FirstOrDefault();
-            this.HideDeletedData();
         }
 
         public ObservableCollection<CustomerViewModel> CustomerViewModels { get; private set; }
@@ -48,6 +52,7 @@ namespace HighLandirect.ViewModels
             get { return selectedCustomer; }
             set
             {
+                if (value == null) return;
                 if (selectedCustomer == null
                         || selectedCustomer.Customer.CustNo != value.Customer.CustNo)
                 {
@@ -122,26 +127,40 @@ namespace HighLandirect.ViewModels
                        ?? (this.printKokyakuDaichoCommand = new ViewModelCommand(this.PrintKokyakuDaicho, this.CanPrintKokyakuDaicho));
             }
         }
-        #endregion
 
-        public void ShowDeletedData()
+        public ViewModelCommand ShowDeletedDataCommand
         {
-            this.showDeletedData = true;
-            RefreshCustomerViewModels();
+            get
+            {
+                return this.showDeletedDataCommand
+                       ?? (this.showDeletedDataCommand = new ViewModelCommand(this.ShowDeletedDataFunc));
+            }
         }
 
-        public void HideDeletedData()
+        #endregion
+
+        public bool? ShowDeletedData { get; set; }
+        public void ShowDeletedDataFunc()
         {
-            this.showDeletedData = false;
             RefreshCustomerViewModels();
         }
 
         private void RefreshCustomerViewModels()
         {
             //whereは遅延実行なのでコンストラクタに書いても良いよーな気がするが。。。
-            this.CustomerViewModels =
-                new ObservableCollection<CustomerViewModel>(
-                    this.CustomerViewModels.Where(customerVM => customerVM.Customer.Delete == this.showDeletedData));
+            IEnumerable<Customer> filterdCustomers;
+            if (this.ShowDeletedData == true)
+            {
+                //「削除行を表示」→全データを表示
+                filterdCustomers = this.customers.Where(x => x.Delete != true);
+            }
+            else
+            {
+                //「削除行を表示しない」→true:「削除行==true」以外を表示
+                filterdCustomers = customers;
+            }
+            this.CustomerViewModels = new ObservableCollection<CustomerViewModel>(filterdCustomers.Select(x => new CustomerViewModel(x)));
+
             this.RaisePropertyChanged(() => this.CustomerViewModels);
         }
 
@@ -300,6 +319,59 @@ namespace HighLandirect.ViewModels
             //ラベル印刷するチェックが入ってる人
             printer.Print(this.CustomerViewModels.Where(customerVM => customerVM.Customer.Label == true)
                               .Select(customerVM => customerVM.Customer));
+        }
+
+        internal bool SetImportData(string filePath)
+        {
+            bool ExistsError = false;
+            using (var sr = new StreamReader(filePath, Encoding.UTF8))
+            using (var sw = new StreamWriter("ErrorList.txt", false, Encoding.UTF8))
+            {
+                string Line = sr.ReadLine();
+                //ヘッダが設定されてたら読み捨てる
+                if (Line.Trim() == Customer.HeaderCsv)
+                    Line = sr.ReadLine();
+                int i = 0;
+                int CustNo = GetMaxCustNo();
+
+                while (Line != null)
+                {
+                    i++;
+                    if (Line.Trim().Length > 0)
+                    {
+                        try
+                        {
+                            CustNo++;
+                            var customer = Customer.GetCustomerFromCsv(Line, CustNo);
+                            //ほんとはObservableCollection<CustomerViewModels> にAddすれば、entityServiceにAddする必要はないんだろうが。。。
+                            this.customers.Add(customer);
+                            this.entityService.Customers.Add(customer);
+                        }
+                        catch (Exception ex)
+                        {
+                            sw.WriteLine("{0}行目の{1}を設定中『{2}』のためエラーが発生しました。この行はインポートされません。",
+                                        i.ToString(), ex.Source, ex.Message);
+                            ExistsError = true;
+                        }
+                    }
+                    Line = sr.ReadLine();
+                }
+            }
+
+            this.RefreshCustomerViewModels();
+
+            return ExistsError;
+        }
+
+        private int GetMaxCustNo()
+        {
+            int CustNo = 0;
+            if (this.CustomerViewModels.Count > 0)
+            {
+                CustNo = this.CustomerViewModels.Select(x => x.Customer)
+                    .Max(x => x.CustNo);
+            }
+            return CustNo;
         }
     }
 }
