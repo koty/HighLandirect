@@ -47,6 +47,11 @@ namespace HighLandirect.ViewModels
 
             this.CustomerListViewModel.OnResceiveCustomerAdded += this.OrderListViewModel.AddResceiveCustomer;
             this.CustomerListViewModel.OnSendCustomerAdded += this.OrderListViewModel.AddSendCustomer;
+            this.OrderListViewModel.OnSendCustomerChanged += this.CustomerListViewModel.ChangeCanAddSendCustomer;
+
+            //初期描画時に既にOrderがある場合は、送付者を追加できない。
+            this.CustomerListViewModel.ChangeCanAddSendCustomer(this.OrderListViewModel,
+                new CustomerListEventArgs() { CustomerViewModel = this.OrderListViewModel.SendCustomerViewModel });
         }
 
         public ProductListViewModel ProductListViewModel

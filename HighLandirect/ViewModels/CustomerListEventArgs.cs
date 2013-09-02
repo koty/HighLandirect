@@ -8,6 +8,6 @@ namespace HighLandirect.ViewModels
 {
     public class CustomerListEventArgs : EventArgs
     {
-        public int CustNo { get; set; }
+        public CustomerViewModel CustomerViewModel { get; set; }
     }
 }

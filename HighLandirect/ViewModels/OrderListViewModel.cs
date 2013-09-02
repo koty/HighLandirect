@@ -32,11 +32,22 @@ namespace HighLandirect.ViewModels
         //private ICommand filterOrderHistoryCommand;
         private ViewModelCommand showOrderHistoryBySendCustomerCommand;
 
-        private int SendCustNo;
+        private CustomerViewModel sendCustomerViewModel;
+        public CustomerViewModel SendCustomerViewModel
+        {
+            get { return this.sendCustomerViewModel; }
+            private set
+            {
+                if (this.sendCustomerViewModel == value) return;
+                this.sendCustomerViewModel = value;
+                this.RaisePropertyChanged(() => this.SendCustomerViewModel);
+            }
+        }
 
         public ObservableCollection<OrderViewModel> Orders { get; private set; }
         public ObservableCollection<OrderHistoryViewModel> OrderHistories { get; private set; }
 
+        public EventHandler<CustomerListEventArgs> OnSendCustomerChanged;
 
         public OrderListViewModel()
         {
@@ -67,8 +78,11 @@ namespace HighLandirect.ViewModels
             this.OrderHistories = new ObservableCollection<OrderHistoryViewModel>();
             if (this.Orders.Any())
             {
-                this.SendCustNo = this.Orders.First().Order.SendCustID;
+                var customer = this.entityService.Customers.Where(x => x.CustNo == this.Orders.First().Order.SendCustID).First();
+                this.SendCustomerViewModel = new CustomerViewModel(customer);
                 this.ShowOrderHistoryBySendCustomer();
+                var arg = new CustomerListEventArgs() { CustomerViewModel = this.SendCustomerViewModel };
+                //this.OnSendCustomerChanged(this, arg); //ここではまだイベント登録されてない。
             }
         }
 
@@ -200,7 +214,7 @@ namespace HighLandirect.ViewModels
          */
         internal void AddSendCustomer(object sender, CustomerListEventArgs e)
         {
-            this.SendCustNo = e.CustNo;
+            this.SendCustomerViewModel = e.CustomerViewModel;
         }
 
         /**
@@ -208,7 +222,7 @@ namespace HighLandirect.ViewModels
          */
         internal void AddResceiveCustomer(object sender, CustomerListEventArgs e)
         {
-            this.AddNewOrderCore(e.CustNo);
+            this.AddNewOrderCore(e.CustomerViewModel.Customer.CustNo);
         }
 
         /*
@@ -241,9 +255,10 @@ namespace HighLandirect.ViewModels
                 //二件目以降は画面のデータを使う
                 OrderID = this.Orders.Max(x => x.Order.OrderID) + 1;
             }
-            var order = Order.CreateOrder(OrderID, DateTime.Now, ResceiveCustNo, this.SendCustNo, 2);
-
-            this.Orders.Add(new OrderViewModel(order));
+            var ProductIdDefaultValue = 2;
+            var order = Order.CreateOrder(OrderID, DateTime.Now, ResceiveCustNo,
+                                this.SendCustomerViewModel.Customer.CustNo, ProductIdDefaultValue);
+            this.entityService.Orders.Add(order);
             this.RaisePropertyChanged(() => this.Orders);
 
             this.SelectedOrder = new OrderViewModel(order);
@@ -253,6 +268,12 @@ namespace HighLandirect.ViewModels
         private void RemoveOrder()
         {
             this.Orders.Remove(this.selectedOrder);
+            if (!this.Orders.Any())
+            {
+                this.SendCustomerViewModel = null;
+                var arg = new CustomerListEventArgs() { CustomerViewModel = null };
+                this.OnSendCustomerChanged(this, arg);
+            }
         }
 
         private void ShowOrderHistoryBySendCustomer()
@@ -260,7 +281,7 @@ namespace HighLandirect.ViewModels
             //新しい注文履歴50件を表示する
             this.OrderHistories.Clear();
             var list = entityService.OrderHistories.Where(
-                x => x.CustomerMasterSend.CustNo == this.SendCustNo)
+                x => x.CustomerMasterSend.CustNo == this.SendCustomerViewModel.Customer.CustNo)
                                            .OrderByDescending(x => x.OrderDate)
                                            .Take(50)
                                            .Select(x => new OrderHistoryViewModel(x));
@@ -348,15 +369,21 @@ namespace HighLandirect.ViewModels
                 }
 
                 //最終発送を更新
-                this.entityService.Customers.First(x => x.CustNo == this.SendCustNo)
-                    .LatestSend = DateTime.Now;
+                this.SendCustomerViewModel.Customer.LatestSend = DateTime.Now;
+
                 //最終宛先を更新
                 foreach (var order in this.entityService.Orders)
                 {
                     this.entityService.Customers.First(x => x.CustNo == order.CustomerMasterReceive.CustNo)
                         .LatestResceive = DateTime.Now;
                 }
+                
+                //ここもentityServiceとOrdersの両方をClearする必要はない気がする。
                 this.entityService.Orders.Clear();
+                this.Orders.Clear();
+
+                var arg = new CustomerListEventArgs() { CustomerViewModel = null };
+                this.OnSendCustomerChanged(this, arg);
             }
             catch
             {

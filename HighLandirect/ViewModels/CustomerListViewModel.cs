@@ -97,7 +97,7 @@ namespace HighLandirect.ViewModels
             get
             {
                 return this.addSendCustomerCommand
-                       ?? (this.addSendCustomerCommand = new ViewModelCommand(this.AddSendCustomer, this.CanAddSendCustomer));
+                       ?? (this.addSendCustomerCommand = new ViewModelCommand(this.AddSendCustomer, this.CanAddSendCustomerFunc));
             }
         }
 
@@ -151,13 +151,13 @@ namespace HighLandirect.ViewModels
             IEnumerable<Customer> filterdCustomers;
             if (this.ShowDeletedData == true)
             {
-                //「削除行を表示」→全データを表示
-                filterdCustomers = this.customers.Where(x => x.Delete != true);
+                //「削除行を表示しない」→true:「削除行==true」以外を表示
+                filterdCustomers = customers;
             }
             else
             {
-                //「削除行を表示しない」→true:「削除行==true」以外を表示
-                filterdCustomers = customers;
+                //「削除行を表示」→全データを表示
+                filterdCustomers = this.customers.Where(x => x.Delete != true);
             }
             this.CustomerViewModels = new ObservableCollection<CustomerViewModel>(filterdCustomers.Select(x => new CustomerViewModel(x)));
 
@@ -179,9 +179,7 @@ namespace HighLandirect.ViewModels
                                     .OrderByDescending(x => x.CustNo)
                                     .FirstOrDefault().CustNo + 1;
             }
-            var customer = new Customer(CustNo);
-            customer.Label = false;
-            customer.Delete = false;
+            var customer = new Customer(CustNo) { Label = false, Delete = false };
             var customerVM = new CustomerViewModel( customer);
             this.CustomerViewModels.Add(customerVM);
             this.RaisePropertyChanged(() => this.CustomerViewModels);
@@ -257,20 +255,29 @@ namespace HighLandirect.ViewModels
         public EventHandler<CustomerListEventArgs> OnSendCustomerAdded;
         public EventHandler<CustomerListEventArgs> OnResceiveCustomerAdded;
 
-        private bool CanAddSendCustomer() { return true; }
+        private bool _CanAddSendCustomer;
+        public bool CanAddSendCustomer
+        {
+            get { return this._CanAddSendCustomer; }
+            set
+            {
+                this._CanAddSendCustomer = value;
+                this.AddSendCustomerCommand.RaiseCanExecuteChanged();
+            }
+        }
+
+        private bool CanAddSendCustomerFunc() { return this.CanAddSendCustomer; }
         private void AddSendCustomer()
         {
-            var arg = new CustomerListEventArgs();
-            arg.CustNo = this.SelectedCustomer.Customer.CustNo;
-
+            var arg = new CustomerListEventArgs() {CustomerViewModel = this.SelectedCustomer };
+            this.CanAddSendCustomer = false;
             this.OnSendCustomerAdded(this, arg);
         }
 
         private bool CanAddResceiveCustomer() { return true; }
         private void AddResceiveCustomer()
         {
-            var arg = new CustomerListEventArgs();
-            arg.CustNo = this.SelectedCustomer.Customer.CustNo;
+            var arg = new CustomerListEventArgs() {CustomerViewModel = this.SelectedCustomer };
 
             this.OnResceiveCustomerAdded(this, arg);
         }
@@ -282,6 +289,12 @@ namespace HighLandirect.ViewModels
         private void PrintAtenaSeal()
         {
             PrintAtenaSealCore();
+        }
+
+        internal void ChangeCanAddSendCustomer(Object o, CustomerListEventArgs arg)
+        {
+            //CustomerViewModelが無い場合は送信者を追加できる。
+            this.CanAddSendCustomer = arg.CustomerViewModel == null;
         }
 
         private bool CanPrintKokyakuDaicho()
