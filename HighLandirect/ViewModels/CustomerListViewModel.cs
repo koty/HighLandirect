@@ -106,7 +106,7 @@ namespace HighLandirect.ViewModels
             get
             {
                 return this.addResceiveCustomerCommand
-                       ?? (this.addResceiveCustomerCommand = new ViewModelCommand(this.AddResceiveCustomer, this.CanAddResceiveCustomer));
+                       ?? (this.addResceiveCustomerCommand = new ViewModelCommand(this.AddResceiveCustomer, this.CanAddResceiveCustomerFunc));
             }
         }
 
@@ -263,6 +263,7 @@ namespace HighLandirect.ViewModels
             {
                 this._CanAddSendCustomer = value;
                 this.AddSendCustomerCommand.RaiseCanExecuteChanged();
+                this.AddResceiveCustomerCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -274,7 +275,7 @@ namespace HighLandirect.ViewModels
             this.OnSendCustomerAdded(this, arg);
         }
 
-        private bool CanAddResceiveCustomer() { return true; }
+        private bool CanAddResceiveCustomerFunc() { return !this.CanAddSendCustomer; }
         private void AddResceiveCustomer()
         {
             var arg = new CustomerListEventArgs() {CustomerViewModel = this.SelectedCustomer };

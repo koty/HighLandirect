@@ -37,7 +37,7 @@ namespace HighLandirect.ViewModels
                 if (isValid != value)
                 {
                     isValid = value;
-                    RaisePropertyChanged("IsValid");
+                    RaisePropertyChanged(() => IsValid);
                 }
             }
         }
@@ -50,8 +50,8 @@ namespace HighLandirect.ViewModels
                 if (orderhistory != value)
                 {
                     orderhistory = value;
-                    RaisePropertyChanged("OrderHistory");
-                    RaisePropertyChanged("IsEnabled");
+                    RaisePropertyChanged(() => OrderHistory);
+                    RaisePropertyChanged(() => IsEnabled);
                 }
             }
         }
@@ -59,6 +59,16 @@ namespace HighLandirect.ViewModels
         /**
          * 画面で使う
          */
-        public bool IsSelected { get; set; }
+        private bool isSelected;
+        public bool IsSelected
+        {
+            get { return this.isSelected; }
+            set
+            {
+                if (this.isSelected == value) return;
+                this.isSelected = value;
+                this.RaisePropertyChanged(() => this.IsSelected);
+            }
+        }
     }
 }

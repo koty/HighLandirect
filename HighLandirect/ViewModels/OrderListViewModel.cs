@@ -19,18 +19,13 @@ namespace HighLandirect.ViewModels
         private readonly IEnumerable<Store> stores;
         private readonly IEnumerable<ReportMemo> reportMemos;
         private readonly IEntityService entityService;
-        //private readonly ObservableCollection<Order> selectedOrders;
-        //private readonly ObservableCollection<OrderHistory> selectedOrderHistories;
         private OrderViewModel selectedOrder;
         private OrderHistory selectedOrderHistory;
         private Store selectedStore;
         private ReportMemo selectedReportMemo;
         private ViewModelCommand printCommand;
         private ViewModelCommand removeCommand;
-        //private ViewModelCommand addNewCommand;
         private ViewModelCommand addOrderFromSelectedHistoryCommand;
-        //private ICommand filterOrderHistoryCommand;
-        private ViewModelCommand showOrderHistoryBySendCustomerCommand;
 
         private CustomerViewModel sendCustomerViewModel;
         public CustomerViewModel SendCustomerViewModel
@@ -75,6 +70,15 @@ namespace HighLandirect.ViewModels
 
             this.entityService = entityService;
             this.Orders = new ObservableCollection<OrderViewModel>(orders.Select(x => new OrderViewModel(x)));
+            this.Orders.CollectionChanged += (o, e) =>
+            {
+                if (e.NewItems != null)
+                    foreach (var item in e.NewItems)
+                        this.entityService.Orders.Add(((OrderViewModel)item).Order);
+                if (e.OldItems != null)
+                    foreach (var item in e.OldItems)
+                        this.entityService.Orders.Remove(((OrderViewModel)item).Order);
+            };
             this.OrderHistories = new ObservableCollection<OrderHistoryViewModel>();
             if (this.Orders.Any())
             {
@@ -183,16 +187,7 @@ namespace HighLandirect.ViewModels
             get
             {
                 return this.addOrderFromSelectedHistoryCommand
-                       ?? (this.addOrderFromSelectedHistoryCommand = new ViewModelCommand(this.AddOrderFromSelectedHistory));
-            }
-        }
-
-        public ViewModelCommand ShowOrderHistoryBySendCustomerCommand
-        {
-            get
-            {
-                return this.showOrderHistoryBySendCustomerCommand
-                       ?? (this.showOrderHistoryBySendCustomerCommand = new ViewModelCommand(this.ShowOrderHistoryBySendCustomer));
+                       ?? (this.addOrderFromSelectedHistoryCommand = new ViewModelCommand(this.AddOrderFromSelectedHistory, this.CanAddOrderFromSelectedHistory));
             }
         }
 
@@ -215,6 +210,7 @@ namespace HighLandirect.ViewModels
         internal void AddSendCustomer(object sender, CustomerListEventArgs e)
         {
             this.SendCustomerViewModel = e.CustomerViewModel;
+            this.ShowOrderHistoryBySendCustomer();
         }
 
         /**
@@ -258,10 +254,11 @@ namespace HighLandirect.ViewModels
             var ProductIdDefaultValue = 2;
             var order = Order.CreateOrder(OrderID, DateTime.Now, ResceiveCustNo,
                                 this.SendCustomerViewModel.Customer.CustNo, ProductIdDefaultValue);
-            this.entityService.Orders.Add(order);
+            var orderVM = new OrderViewModel(order);
+            this.Orders.Add(orderVM);
             this.RaisePropertyChanged(() => this.Orders);
 
-            this.SelectedOrder = new OrderViewModel(order);
+            this.SelectedOrder = orderVM;
         }
 
         private bool CanRemoveOrder() { return this.SelectedOrder != null; }
@@ -273,19 +270,28 @@ namespace HighLandirect.ViewModels
                 this.SendCustomerViewModel = null;
                 var arg = new CustomerListEventArgs() { CustomerViewModel = null };
                 this.OnSendCustomerChanged(this, arg);
+                this.OrderHistories.Clear();
+                this.AddOrderFromSelectedHistoryCommand.RaiseCanExecuteChanged();
             }
         }
 
         private void ShowOrderHistoryBySendCustomer()
         {
             //新しい注文履歴50件を表示する
-            this.OrderHistories.Clear();
             var list = entityService.OrderHistories.Where(
                 x => x.CustomerMasterSend.CustNo == this.SendCustomerViewModel.Customer.CustNo)
                                            .OrderByDescending(x => x.OrderDate)
                                            .Take(50)
                                            .Select(x => new OrderHistoryViewModel(x));
             this.OrderHistories = new ObservableCollection<OrderHistoryViewModel>(list);
+            //↓これが必要な理由が分からん。↑でnewせずに、Clear＆Concatするとリストが更新されない。
+            this.RaisePropertyChanged(() => this.OrderHistories);
+            this.AddOrderFromSelectedHistoryCommand.RaiseCanExecuteChanged();
+        }
+
+        private bool CanAddOrderFromSelectedHistory()
+        {
+            return this.OrderHistories.Count > 0;
         }
 
         private void AddOrderFromSelectedHistory()

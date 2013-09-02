@@ -30,7 +30,7 @@
                 <Button Command="{Binding PrintCommand}" Content="印刷" Width="100" Height="30" FontSize="18" />
                 <Button Command="{Binding RemoveCommand}" Content="削除" Height="30" FontSize="18" />
                 <Separator />
-                <Button Command="{Binding ShowOrderHistoryBySendCustomerCommand}" Width="100" Content="履歴を抽出" Height="30" FontSize="18" />
+                <Button Visibility="Hidden" Width="100" Content="履歴を抽出" Height="30" FontSize="18" />
             </ToolBar>
         </ToolBarTray>
         <Grid>
@@ -46,13 +46,12 @@
                          AutoGenerateColumns="False" AlternationCount="1"
                          CanUserAddRows="False" FontSize="16" HorizontalScrollBarVisibility="Auto">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding Order.CustomerMasterReceive.CustNo}" Header="顧客番号" Width="60" IsReadOnly="True"/>
-                    <DataGridTextColumn Binding="{Binding Order.CustomerMasterReceive.CustName}" Header="氏名" Width="150" IsReadOnly="True"/>
-                    <DataGridTextColumn Binding="{Binding Order.CustomerMasterReceive.PostalCD}" Header="郵便番号" Width="100"/>
-                    <DataGridTextColumn Binding="{Binding Order.CustomerMasterReceive.CityName}" Header="市町村名" Width="100"/>
-                    <DataGridTextColumn Binding="{Binding Order.CustomerMasterReceive.Address1}" Header="住所１" Width="150"/>
-                    <DataGridTextColumn Binding="{Binding Order.CustomerMasterReceive.Address2}" Header="住所２" Width="150"/>
-
+                    <DataGridTextColumn Binding="{Binding Order.CustomerMasterReceive.CustNo}" Header="顧客番号" Width="60" IsReadOnly="True" />
+                    <DataGridTextColumn Binding="{Binding Order.CustomerMasterReceive.CustName}" Header="氏名" Width="150" IsReadOnly="True" />
+                    <DataGridTextColumn Binding="{Binding Order.CustomerMasterReceive.PostalCD}" Header="郵便番号" Width="100" IsReadOnly="True" />
+                    <DataGridTextColumn Binding="{Binding Order.CustomerMasterReceive.CityName}" Header="市町村名" Width="100" IsReadOnly="True" />
+                    <DataGridTextColumn Binding="{Binding Order.CustomerMasterReceive.Address1}" Header="住所１" Width="150" IsReadOnly="True" />
+                    <DataGridTextColumn Binding="{Binding Order.CustomerMasterReceive.Address2}" Header="住所２" Width="150" IsReadOnly="True" />
                     <DataGridTemplateColumn Header="品物" Width="100">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
@@ -134,7 +133,7 @@
                 <ListView ItemsSource="{Binding OrderHistories}" SelectedItem="{Binding SelectedOrderHistory}">
                     <ListView.ItemContainerStyle>
                         <Style TargetType="{x:Type ListViewItem}">
-                            <Setter Property="IsSelected" Value="{Binding OrderHistory.IsSelected, Mode=TwoWay}" />
+                            <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
                         </Style>
                     </ListView.ItemContainerStyle>
                     <ListView.View>
