@@ -3,6 +3,8 @@ using System.Windows;
 using HighLandirect.ViewModels;
 using HighLandirect.Views;
 using Livet;
+using System.Windows.Markup;
+using System.Globalization;
 
 namespace HighLandirect
 {
@@ -12,6 +14,10 @@ namespace HighLandirect
         {
             DispatcherHelper.UIDispatcher = Dispatcher;
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
+            FrameworkElement.LanguageProperty.OverrideMetadata(
+                                            typeof(FrameworkElement),
+                                        new FrameworkPropertyMetadata(
+                                        XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
 
             var vm = new ShellViewModel();
             var window = new ShellWindow();
