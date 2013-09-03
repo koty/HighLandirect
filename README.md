@@ -1,13 +1,14 @@
 HighLandirect
 ===================
-���L�̋@�\������܂��B�i�\��j
+下記の機能があります。（予定）
 
-* �����Ǘ�
-* ���}�g��4.5�C���`�A���`�[�̈���ƈ�������Ǘ�
-* �ڋq�䒠�̈��
+* 宛名管理
+* ヤマトの4.5インチ連帳伝票の印刷と印刷履歴管理
+* 顧客台帳の印刷
 
-��Ɏ��̗��e���g���܂��B
+主に私の両親が使います。
 
-�f�[�^�x�[�X��SQL Server Compact ���g���Ă��܂��BWPF�̃t���[�����[�N�ɂ�Livet���g���Ă��܂��B
+データベースはSQL Server Compact を使っています。WPFのフレームワークにはLivetを使っています。
+Livetに関する情報はまだ少ないので、詰まっている方の助けになれば幸いです。
 
 ![Alt text](screenshot1.png)
