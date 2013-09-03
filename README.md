@@ -9,3 +9,5 @@ HighLandirect
 主に私の両親が使います。
 
 データベースはSQL Server Compact を使っています。WPFのフレームワークにはLivetを使っています。
+
+![Alt text](screenshot1.png)
