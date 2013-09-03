@@ -20,20 +20,20 @@
                         <Setter Property="Height" Value="30" />
                     </Style>
                 </ToolBar.Resources>
-                <Button Command="{Binding AddNewCommand}" Content="顧客を新規登録" Height="30" FontSize="18" />
+                <Button Command="{Binding AddNewCommand}" Content="顧客を新規登録" Height="30" FontSize="18" Padding="10,0,10,0" />
                 <Separator Width="10" />
                 <TextBox Width="150" Text="{Binding SearchString, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true, 
                      ValidatesOnDataErrors=true, NotifyOnValidationError=true}" Height="30" FontSize="18" />
-                <Button Command="{Binding SearchCommand}" Content="検索" Height="30" FontSize="18" />
+                <Button Command="{Binding SearchCommand}" Content="検索" Height="30" FontSize="18" Padding="10,0,10,0" />
                 <Separator Width="10"/>
-                <Button Command="{Binding AddSendCustomerCommand}" Content="送主として追加" Height="30" FontSize="18"/>
-                <Button Command="{Binding AddResceiveCustomerCommand}" Content="送先として追加" Height="30" FontSize="18"/>
+                <Button Command="{Binding AddSendCustomerCommand}" Content="送主として追加" Height="30" FontSize="18" Padding="10,0,10,0" />
+                <Button Command="{Binding AddResceiveCustomerCommand}" Content="送先として追加" Height="30" FontSize="18" Padding="10,0,10,0" />
                 <Separator Width="10" />
-                <Button Command="{Binding PrintAtenaSealCommand}" Content="宛名シール印刷" Height="30" FontSize="18">
+                <Button Content="宛名シール印刷" Height="30" FontSize="18" Padding="10,0,10,0">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
                             <l:ConfirmationDialogInteractionMessageAction>
-                                <l:DirectInteractionMessage CallbackCommand="{Binding RemoveCommand}">
+                                <l:DirectInteractionMessage CallbackCommand="{Binding PrintAtenaSealCommand}">
                                     <Messaging:ConfirmationMessage Button="OKCancel" 
                                                   Caption="確認"
                                                   Text="宛名ラベルを印刷しますか？"
@@ -43,11 +43,11 @@
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </Button>
-                <Button Command="{Binding PrintKokyakuDaichoCommand}" Content="顧客台帳印刷" Height="30" FontSize="18">
+                <Button Content="顧客台帳印刷" Height="30" FontSize="18" Padding="10,0,10,0">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
                             <l:ConfirmationDialogInteractionMessageAction>
-                                <l:DirectInteractionMessage CallbackCommand="{Binding RemoveCommand}">
+                                <l:DirectInteractionMessage CallbackCommand="{Binding PrintKokyakuDaichoCommand}">
                                     <Messaging:ConfirmationMessage Button="OKCancel" 
                                                   Caption="確認"
                                                   Text="顧客台帳を印刷しますか？"
@@ -58,7 +58,7 @@
                     </i:Interaction.Triggers>
                 </Button>
                 <Separator Width="10" />
-                <CheckBox Content="削除行を表示" Height="30" FontSize="18" Command="{Binding ShowDeletedDataCommand}" IsChecked="{Binding ShowDeletedData}" />
+                <CheckBox Content="削除行を表示" Height="30" FontSize="18" Command="{Binding ShowDeletedDataCommand}" IsChecked="{Binding ShowDeletedData}" VerticalContentAlignment="Center" VerticalAlignment="Center" />
                 <!--物理削除は使わないので、とりあえずボタンを隠しておく。-->
                 <Button Command="{Binding RemoveCommand}" Content="削除" Visibility="Hidden" Height="30" FontSize="18"/>
             </ToolBar>

@@ -4,37 +4,55 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:c="clr-namespace:HighLandirect.Converters"
-             mc:Ignorable="d" d:DesignHeight="700" d:DesignWidth="600">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="360" />
-            <RowDefinition Height="60" />
-            <RowDefinition Height="60" />
-            <RowDefinition Height="60" />
-            <RowDefinition Height="60" />
-            <RowDefinition Height="60" />
-        </Grid.RowDefinitions>
-        <Grid Height="150" Grid.Row="0" Grid.Column="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="300" />
-                <ColumnDefinition Width="100" />
-                <ColumnDefinition Width="100" />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="30" />
-                <RowDefinition Height="30" />
-                <RowDefinition Height="30" />
-                <RowDefinition Height="30" />
-                <RowDefinition Height="30" />
-            </Grid.RowDefinitions>
-            <Label Content="{Binding Path=[0].PostalCD, Converter={x:Static c:PostalCdConverter.Default}}" FontFamily="MS Gothic" FontSize="22" Margin="11,0,182,0" />
-            <Label Content="{Binding Path=[0].refectureName}" FontFamily="MS Gothic" FontSize="13" Margin="0,0,59,29" Grid.RowSpan="2" HorizontalAlignment="Right" Width="95" />
-            <Label Content="{Binding Path=[0].CityName}" Grid.Row="1" FontFamily="MS Gothic" FontSize="13" Margin="12,0,208,0" />
-            <Label Content="{Binding Path=[0].Address1}" Grid.Row="1" FontFamily="MS Gothic" FontSize="13" Margin="115,0,12,0" />
-            <Label Content="{Binding Path=[0].Address2}" Grid.Row="2" FontFamily="MS Gothic" FontSize="13" Margin="12,0,182,0" />
-            <Label Content="{Binding Path=[0].Address3}" Grid.Row="2" FontFamily="MS Gothic" FontSize="13" Margin="115,0,59,0" />
-            <Label Content="{Binding Path=[0].Address4}" Grid.Row="3" FontFamily="MS Gothic" FontSize="13" Margin="12,0,192,0" />
-            <Label Content="{Binding Path=[0].CustName}" Grid.Row="4" FontFamily="MS Gothic" FontSize="13" Margin="12,0,-1,0" />
-        </Grid>
-    </Grid>
+             mc:Ignorable="d"
+             d:DesignHeight="1122" d:DesignWidth="793">
+
+    <ItemsControl ItemsSource="{Binding }" Height="1100" Width="780" Margin="10,0,0,0">
+        <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+                <WrapPanel />
+            </ItemsPanelTemplate>
+        </ItemsControl.ItemsPanel>
+        <ItemsControl.ItemTemplate>
+            <DataTemplate>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="390" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                    </Grid.RowDefinitions>
+                    <Grid.Resources>
+                        <Style TargetType="Label">
+                            <Setter Property="Foreground" Value="Black" />
+                            <Setter Property="FontSize" Value="16" />
+                            <Setter Property="FontFamily" Value="MS Gothic" />
+                        </Style>
+                    </Grid.Resources>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="{Binding PostalCD, Converter={x:Static c:PostalCdConverter.Default}}" FontSize="20" />
+                        <Label Content="{Binding PrefectureName}" HorizontalAlignment="Right" Width="95" />
+                    </StackPanel>
+                    <StackPanel Grid.Row="1" Orientation="Horizontal">
+                        <Label Content="{Binding CityName}" />
+                        <Label Content="{Binding Address1}" />
+                    </StackPanel>
+                    <StackPanel Grid.Row="2" Orientation="Horizontal">
+                        <Label Content="{Binding Address2}" />
+                        <Label Content="{Binding Address3}" />
+                    </StackPanel>
+                    <Label Grid.Row="3" Content="{Binding Address4}" />
+                    <StackPanel Grid.Row="4" Orientation="Horizontal">
+                        <Label Content="{Binding CustName}" />
+                        <Label Content="{Binding Keisho}" />
+                    </StackPanel>
+                </Grid>
+            </DataTemplate>
+        </ItemsControl.ItemTemplate>
+    </ItemsControl>
+
 </UserControl>

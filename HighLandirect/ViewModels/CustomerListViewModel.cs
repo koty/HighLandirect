@@ -12,6 +12,8 @@ using Livet;
 using Livet.Commands;
 using System.IO;
 using System.Text;
+using Livet.Messaging;
+using Livet.Behaviors.Messaging;
 
 namespace HighLandirect.ViewModels
 {
@@ -23,8 +25,8 @@ namespace HighLandirect.ViewModels
         private ViewModelCommand searchCommand;
         private ViewModelCommand addSendCustomerCommand;
         private ViewModelCommand addResceiveCustomerCommand;
-        private ViewModelCommand printAtenaSealCommand;
-        private ViewModelCommand printKokyakuDaichoCommand;
+        private ListenerCommand<ConfirmationMessage> printAtenaSealCommand;
+        private ListenerCommand<ConfirmationMessage> printKokyakuDaichoCommand;
         private ViewModelCommand showDeletedDataCommand;
         private readonly IEntityService entityService;
         private readonly IList<Customer> customers;
@@ -110,21 +112,21 @@ namespace HighLandirect.ViewModels
             }
         }
 
-        public ViewModelCommand PrintAtenaSealCommand
+        public ListenerCommand<ConfirmationMessage> PrintAtenaSealCommand
         {
             get
             {
                 return this.printAtenaSealCommand
-                       ?? (this.printAtenaSealCommand = new ViewModelCommand(this.PrintAtenaSeal, this.CanPrintAtenaSeal));
+                       ?? (this.printAtenaSealCommand = new ListenerCommand<ConfirmationMessage>(this.PrintAtenaSeal, this.CanPrintAtenaSeal));
             }
         }
 
-        public ViewModelCommand PrintKokyakuDaichoCommand
+        public ListenerCommand<ConfirmationMessage> PrintKokyakuDaichoCommand
         {
             get
             {
                 return this.printKokyakuDaichoCommand
-                       ?? (this.printKokyakuDaichoCommand = new ViewModelCommand(this.PrintKokyakuDaicho, this.CanPrintKokyakuDaicho));
+                       ?? (this.printKokyakuDaichoCommand = new ListenerCommand<ConfirmationMessage>(this.PrintKokyakuDaicho, this.CanPrintKokyakuDaicho));
             }
         }
 
@@ -283,39 +285,45 @@ namespace HighLandirect.ViewModels
             this.OnResceiveCustomerAdded(this, arg);
         }
 
-        private bool CanPrintAtenaSeal()
-        {
-            return this.CustomerViewModels.Any(customerVM => customerVM.Customer.Label == true);
-        }
-        private void PrintAtenaSeal()
-        {
-            PrintAtenaSealCore();
-        }
-
         internal void ChangeCanAddSendCustomer(Object o, CustomerListEventArgs arg)
         {
             //CustomerViewModelが無い場合は送信者を追加できる。
             this.CanAddSendCustomer = arg.CustomerViewModel == null;
         }
 
+        #region 印刷関係
+
+        private bool CanPrintAtenaSeal()
+        {
+            return this.CustomerViewModels.Any(customerVM => customerVM.Customer.Label == true);
+        }
+
         private bool CanPrintKokyakuDaicho()
         {
             return this.CustomerViewModels.Any(customerVM => customerVM.Customer.Label == true);
         }
-        private void PrintKokyakuDaicho()
+
+        private void PrintAtenaSeal(ConfirmationMessage parameter)
         {
-            PrintKokyakuDaichoCore();
+            if (parameter.Response == true)
+            {
+                PrintAtenaSealCore();
+            }
+        }
+
+        private void PrintKokyakuDaicho(ConfirmationMessage parameter)
+        {
+            if (parameter.Response == true)
+            {
+                PrintKokyakuDaichoCore();
+            }
         }
 
         private void PrintAtenaSealCore()
         {
-            var ps = new LocalPrintServer();
-            var pq = ps.DefaultPrintQueue; //既定のプリンタ
-            //A4縦
-            pq.UserPrintTicket.PageMediaSize = new PageMediaSize(PageMediaSizeName.ISOA4);
-            pq.UserPrintTicket.PageOrientation = PageOrientation.Portrait;
+            var pq = GetPrintQueue();
 
-            var printer = new PrintListReport<Customer, AtenaSeal>(4, pq);
+            var printer = new PrintListReport<Customer, AtenaSeal>(10, pq);
             //ラベル印刷するチェックが入ってる人
             printer.Print(this.CustomerViewModels.Where(customerVM => customerVM.Customer.Label == true)
                               .Select(customerVM => customerVM.Customer));
@@ -323,17 +331,26 @@ namespace HighLandirect.ViewModels
 
         private void PrintKokyakuDaichoCore()
         {
+            var pq = GetPrintQueue();
+
+            var printer = new PrintListReport<Customer, KokyakuDaicho>(15, pq);
+            //ラベル印刷するチェックが入ってる人
+            printer.Print(this.CustomerViewModels.Select(customerVM => customerVM.Customer));
+        }
+
+        private static PrintQueue GetPrintQueue()
+        {
+            return null;
+            /*
             var ps = new LocalPrintServer();
             var pq = ps.DefaultPrintQueue; //既定のプリンタ
             //A4縦
             pq.UserPrintTicket.PageMediaSize = new PageMediaSize(PageMediaSizeName.ISOA4);
             pq.UserPrintTicket.PageOrientation = PageOrientation.Portrait;
-
-            var printer = new PrintListReport<Customer, KokyakuDaicho>(10, pq);
-            //ラベル印刷するチェックが入ってる人
-            printer.Print(this.CustomerViewModels.Where(customerVM => customerVM.Customer.Label == true)
-                              .Select(customerVM => customerVM.Customer));
+            return pq;
+            */
         }
+        #endregion
 
         internal bool SetImportData(string filePath)
         {
