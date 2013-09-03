@@ -211,6 +211,8 @@ namespace HighLandirect.ViewModels
         {
             this.SendCustomerViewModel = e.CustomerViewModel;
             this.ShowOrderHistoryBySendCustomer();
+            //履歴から追加ボタンを有効に
+            this.AddOrderFromSelectedHistoryCommand.RaiseCanExecuteChanged();
         }
 
         /**
@@ -219,6 +221,8 @@ namespace HighLandirect.ViewModels
         internal void AddResceiveCustomer(object sender, CustomerListEventArgs e)
         {
             this.AddNewOrderCore(e.CustomerViewModel.Customer.CustNo);
+            //印刷ボタンを有効に
+            this.PrintCommand.RaiseCanExecuteChanged();
         }
 
         /*
@@ -272,6 +276,7 @@ namespace HighLandirect.ViewModels
                 this.OnSendCustomerChanged(this, arg);
                 this.OrderHistories.Clear();
                 this.AddOrderFromSelectedHistoryCommand.RaiseCanExecuteChanged();
+                this.PrintCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -327,7 +332,7 @@ namespace HighLandirect.ViewModels
             try
             {
                 var ps = new LocalPrintServer();
-                PrintQueue pq;
+                PrintQueue pq = null;
                 try
                 {
                     pq = ps.GetPrintQueue("FUJITSU FMPR5000"); //指定したプリンタ
@@ -339,7 +344,7 @@ namespace HighLandirect.ViewModels
                 {
                     try
                     {   //PrimoPDF
-                        pq = ps.GetPrintQueue("PrimoPDF");
+                        //pq = ps.GetPrintQueue("PrimoPDF");
                     }
                     catch (PrintQueueException)
                     {
@@ -363,11 +368,16 @@ namespace HighLandirect.ViewModels
                 }
 
                 printer.Print(orderSources);
-
+                long orderID = 0;
+                if (this.entityService.OrderHistories.Any())
+                {
+                    orderID = this.entityService.OrderHistories.Max(x => x.OrderID);
+                }
                 //OrderからOrderHistoryへレコードをmove
                 foreach (var order in entityService.Orders)
                 {
-                    this.entityService.OrderHistories.Add(OrderHistory.CreateOrderHistory(order.OrderID,
+                    orderID++;
+                    this.entityService.OrderHistories.Add(OrderHistory.CreateOrderHistory(orderID,
                                                                                      order.OrderDate,
                                                                                      order.ReceiveCustID,
                                                                                      order.SendCustID,
@@ -387,6 +397,7 @@ namespace HighLandirect.ViewModels
                 //ここもentityServiceとOrdersの両方をClearする必要はない気がする。
                 this.entityService.Orders.Clear();
                 this.Orders.Clear();
+                this.SendCustomerViewModel = null;
 
                 var arg = new CustomerListEventArgs() { CustomerViewModel = null };
                 this.OnSendCustomerChanged(this, arg);

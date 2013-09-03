@@ -42,8 +42,18 @@ namespace HighLandirect.Foundations
 
         private void SendFixedDocumentToPrinter(FixedDocument fixedDocument)
         {
-            XpsDocumentWriter xpsdw
-                         = PrintQueue.CreateXpsDocumentWriter(pq);
+            XpsDocumentWriter xpsdw;
+
+            if (pq == null)
+            {
+                PrintDocumentImageableArea imgArea = null;
+                //こちらのオーバーロードだと、プリンタ選択ダイアログが出る。
+                xpsdw = PrintQueue.CreateXpsDocumentWriter(ref imgArea);
+            }
+            else
+            {
+                xpsdw = PrintQueue.CreateXpsDocumentWriter(pq);
+            }
             xpsdw.Write(fixedDocument);
         }
     }
