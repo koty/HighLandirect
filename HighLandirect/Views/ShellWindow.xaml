@@ -18,7 +18,7 @@
         d:DataContext="{d:DesignInstance vm:ShellViewModel}"
         Title="{Binding Title}"
         Icon="{StaticResource BookLibraryImageSource}"
-        Height="1000" Width="1600"
+        Height="800" Width="1500"
         Background="#FF87B2F3" BorderBrush="#FF87B2F3">
     
     <Window.InputBindings>

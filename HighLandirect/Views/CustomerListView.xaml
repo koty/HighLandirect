@@ -65,7 +65,7 @@
         </ToolBarTray>
         <StackPanel Orientation="Horizontal">
             <DataGrid ItemsSource="{Binding CustomerViewModels}" AutoGenerateColumns="False" CanUserAddRows="False"
-                      FontSize="14" SelectedItem="{Binding SelectedCustomer}">
+                      FontSize="14" SelectedItem="{Binding SelectedCustomer}" Width="800">
                 <i:Interaction.Behaviors>
                     <v:ScrollIntoViewBehavior />
                 </i:Interaction.Behaviors>
