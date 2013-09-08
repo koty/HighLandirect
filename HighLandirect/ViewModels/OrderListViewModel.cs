@@ -261,6 +261,8 @@ namespace HighLandirect.ViewModels
             var orderVM = new OrderViewModel(order);
             this.Orders.Add(orderVM);
             this.RaisePropertyChanged(() => this.Orders);
+            this.RemoveCommand.RaiseCanExecuteChanged();
+            this.PrintCommand.RaiseCanExecuteChanged();
 
             this.SelectedOrder = orderVM;
         }
@@ -401,6 +403,8 @@ namespace HighLandirect.ViewModels
 
                 var arg = new CustomerListEventArgs() { CustomerViewModel = null };
                 this.OnSendCustomerChanged(this, arg);
+                this.PrintCommand.RaiseCanExecuteChanged();
+                this.RemoveCommand.RaiseCanExecuteChanged();
             }
             catch
             {

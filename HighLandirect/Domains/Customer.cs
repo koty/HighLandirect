@@ -73,7 +73,7 @@ namespace HighLandirect.Domains
             var customer = CreateCustomer(0, "");
             int CustNoForImport;
             int i = 0;
-            if (!int.TryParse(items[i], out CustNoForImport))
+            if (!int.TryParse(items[i].Replace(".00", ""), out CustNoForImport))
                 CustNoForImport = CustNo; //parseに失敗したら外からもらう
             customer.CustNo = CustNoForImport; i++;
             customer.Furigana = GetItem(items, "Furigana", i); i++;
@@ -112,7 +112,7 @@ namespace HighLandirect.Domains
         {
             try
             {
-                return items[i];
+                return items[i].Replace(".00", "").Trim('　').Trim(' ');
             }
             catch (IndexOutOfRangeException IOoRex)
             {
