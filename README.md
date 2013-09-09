@@ -15,6 +15,6 @@ This software can manage the order and sending out goods sent from my home to co
 
 This Software is to manage costomer address and to print YAMATO ship using Livet (https://github.com/ugaya40/Livet).
 Livet is a WPF framework which can make developer high performer. but the framework has few information. 
-So this project may help you learn Livet usage.
+So this project may help one learning about Livet usage.
 
 ![Alt text](screenshot1.png)
