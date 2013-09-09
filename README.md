@@ -11,4 +11,10 @@ HighLandirect
 データベースはSQL Server Compact を使っています。WPFのフレームワークにはLivetを使っています。
 Livetに関する情報はまだ少ないので、詰まっている方の助けになれば幸いです。
 
+This software can manage the order and sending out goods sending directly from my home. 
+
+This Software is to manage costomer address and to print YAMATO slip using Livet (https://github.com/ugaya40/Livet).
+Livet is a WPF framework which can make developer high performer. but the framework has few information. 
+So this project may help you learn Livet usage.
+
 ![Alt text](screenshot1.png)
