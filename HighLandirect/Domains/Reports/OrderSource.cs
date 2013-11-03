@@ -17,5 +17,35 @@
             this.StoreId2 = "";
             this.Order = order;
         }
+
+        public OrderSource()
+        {
+            this.ReportMemo = "□□□□　111-222-3333";
+            this.CustomerCD = "xxx-yyyy-zzzz";
+            this.StoreId1 = "001";
+            this.StoreId2 = "023";
+            this.Order = new Order();
+            this.Order.CustomerMasterReceive = new Customer()
+            {
+                Address1 = "あいうえおかきくけこ",
+                Address2 = "さしすせそたちつてと",
+                Address3 = "なにぬねのはひふへほ",
+                Address4 = "まみむめもやゆよわを",
+                CustName = "長野　太郎あいうえおかきく",
+                Phone = "026-888-888",
+                PostalCD = "1234567"
+            };
+            this.Order.CustomerMasterSend = new Customer()
+            {
+                Address1 = "あいうえおかきくけこ",
+                Address2 = "さしすせそたちつてと",
+                Address3 = "なにぬねのはひふへほ",
+                Address4 = "まみむめもやゆよわを",
+                CustName = "長野　太郎あいうえおかきく",
+                Phone = "026-888-888",
+                PostalCD = "1234567"
+            };
+
+        }
     }
 }
