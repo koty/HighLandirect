@@ -21,7 +21,7 @@
         public OrderSource()
         {
             this.ReportMemo = "□□□□　111-222-3333";
-            this.CustomerCD = "xxx-yyyy-zzzz";
+            this.CustomerCD = "0260000000-001(001)";
             this.StoreId1 = "001";
             this.StoreId2 = "023";
             this.Order = new Order();

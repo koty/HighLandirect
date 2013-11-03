@@ -79,7 +79,7 @@
         </Grid>
         
         <Label Content="{Binding ReportMemo}" Grid.Column="1" Margin="20,110,274,242" />
-        <Label Content="{Binding CustomerCD}" Grid.Column="1" Margin="20,310,338,90" FontSize="20" Padding="0" />
+        <Label Content="{Binding CustomerCD}" Grid.Column="1" Margin="20,310,250,90" FontSize="20" Padding="0" />
         <Label Content="{Binding StoreId1}" Grid.Column="1" Margin="20,280,490,130" FontSize="20" Padding="0" />
         <Label Content="{Binding StoreId2}" Grid.Column="1" Margin="68,280,420,130" FontSize="20" Padding="0"  />
     </Grid>
