@@ -90,6 +90,12 @@
                         ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
                  MaxLength="200" Grid.Column="4" Grid.Row="2" HorizontalAlignment="Stretch" DataContext="{Binding}"
                  InputMethod.PreferredImeState="On" InputMethod.PreferredImeConversionMode="FullShape,Native">
+        </TextBox>
+        <Label Content="住所２" Grid.Column="3" Grid.Row="3" />
+        <TextBox Text="{Binding Customer.Address2, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True,
+                        ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                 MaxLength="200" Grid.Column="4" Grid.Row="3" HorizontalAlignment="Stretch" DataContext="{Binding}"
+                 InputMethod.PreferredImeState="On" InputMethod.PreferredImeConversionMode="FullShape,Native">
             <i:Interaction.Triggers>
                 <l:InteractionMessageTrigger Messenger="{Binding Messenger}" MessageKey="SetFocus">
                     <b:SetFocusAction />
@@ -99,11 +105,6 @@
                 </l:InteractionMessageTrigger>
             </i:Interaction.Triggers>
         </TextBox>
-        <Label Content="住所２" Grid.Column="3" Grid.Row="3" />
-        <TextBox Text="{Binding Customer.Address2, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True,
-                        ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
-                 MaxLength="200" Grid.Column="4" Grid.Row="3" HorizontalAlignment="Stretch" DataContext="{Binding}"
-                 InputMethod.PreferredImeState="On" InputMethod.PreferredImeConversionMode="FullShape,Native" />
         <Label Content="住所３" Grid.Column="3" Grid.Row="4" />
         <TextBox Text="{Binding Customer.Address3, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True,
                         ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
