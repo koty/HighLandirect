@@ -39,7 +39,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="525"/>
+                <RowDefinition Height="460"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <DataGrid ItemsSource="{Binding Orders}" SelectedItem="{Binding SelectedOrder}" 
@@ -48,10 +48,6 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding Order.CustomerMasterReceive.CustNo}" Header="顧客番号" Width="60" IsReadOnly="True" />
                     <DataGridTextColumn Binding="{Binding Order.CustomerMasterReceive.CustName}" Header="氏名" Width="150" IsReadOnly="True" />
-                    <DataGridTextColumn Binding="{Binding Order.CustomerMasterReceive.PostalCD}" Header="郵便番号" Width="100" IsReadOnly="True" />
-                    <DataGridTextColumn Binding="{Binding Order.CustomerMasterReceive.CityName}" Header="市町村名" Width="100" IsReadOnly="True" />
-                    <DataGridTextColumn Binding="{Binding Order.CustomerMasterReceive.Address1}" Header="住所１" Width="150" IsReadOnly="True" />
-                    <DataGridTextColumn Binding="{Binding Order.CustomerMasterReceive.Address2}" Header="住所２" Width="150" IsReadOnly="True" />
                     <DataGridTemplateColumn Header="品物" Width="100">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
@@ -65,62 +61,97 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellEditingTemplate>
                     </DataGridTemplateColumn>
+                    <DataGridTextColumn Binding="{Binding Order.CustomerMasterReceive.PostalCD}" Header="郵便番号" Width="80" IsReadOnly="True" />
+                    <DataGridTextColumn Binding="{Binding Order.CustomerMasterReceive.Address1}" Header="住所１" Width="150" IsReadOnly="True" />
+                    <DataGridTextColumn Binding="{Binding Order.CustomerMasterReceive.Address2}" Header="住所２" Width="150" IsReadOnly="True" />
+                    <DataGridTextColumn Binding="{Binding Order.CustomerMasterReceive.Address3}" Header="住所３" Width="150" IsReadOnly="True" />
+                    <DataGridTextColumn Binding="{Binding Order.CustomerMasterReceive.Address4}" Header="住所４" Width="150" IsReadOnly="True" />
+                    <DataGridTextColumn Binding="{Binding Order.CustomerMasterReceive.Phone}" Header="電話" Width="150" IsReadOnly="True" />
                 </DataGrid.Columns>
             </DataGrid>
             <StackPanel Grid.Column="1">
-                <v:CustomerView Grid.Row="0" Grid.Column="0" DataContext="{Binding SendCustomerViewModel}" Height="350" Padding="0,0,0,10" />
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="120"/>
-                        <ColumnDefinition Width="120"/>
-                        <ColumnDefinition Width="160"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="30" />
-                        <RowDefinition Height="30" />
-                        <RowDefinition Height="30" />
-                        <RowDefinition Height="20" />
-                        <RowDefinition Height="30" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    <Grid.Resources>
-                        <Style TargetType="CheckBox" BasedOn="{StaticResource {x:Type CheckBox}}">
-                            <Setter Property="FontSize" Value="18" />
-                            <Setter Property="Foreground" Value="White" />
-                        </Style>
-                        <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
-                            <Setter Property="FontSize" Value="18" />
-                            <Setter Property="Foreground" Value="White" />
-                        </Style>
-                        <Style TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">
-                            <Setter Property="FontSize" Value="18" />
-                        </Style>
-                        <Style TargetType="ComboBox" BasedOn="{StaticResource {x:Type ComboBox}}">
-                            <Setter Property="FontSize" Value="18" />
-                        </Style>
-                    </Grid.Resources>
-                    <ComboBox Width="120" Grid.ColumnSpan="2" HorizontalAlignment="Left"
-                              ItemsSource="{Binding Source={StaticResource storeDataProvider}}"
-                              SelectedItem="{Binding SelectedStore}" DisplayMemberPath="StoreName"/>
-                    <CheckBox IsChecked="{Binding SelectedStore.IsDefault}" Content="既定" Grid.Column="1"
-                              VerticalAlignment="Center" VerticalContentAlignment="Center"/>
-                    <TextBlock Text="発店コード" Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="2" />
-                    <TextBox Text="{Binding SelectedStore.StoreId1}" Grid.Row="2" MinWidth="10" />
-                    <TextBox Text="{Binding SelectedStore.StoreId2}" Grid.Row="2" Grid.Column="1" MinWidth="10" />
+                <v:CustomerView DataContext="{Binding SendCustomerViewModel}" Height="300"
+                                Padding="0,0,0,10" ScrollViewer.VerticalScrollBarVisibility="Auto" />
+                <StackPanel Orientation="Horizontal">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition Width="160"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid.Resources>
+                            <Style TargetType="CheckBox" BasedOn="{StaticResource {x:Type CheckBox}}">
+                                <Setter Property="FontSize" Value="18" />
+                                <Setter Property="Foreground" Value="White" />
+                            </Style>
+                            <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+                                <Setter Property="FontSize" Value="18" />
+                                <Setter Property="Foreground" Value="White" />
+                            </Style>
+                            <Style TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">
+                                <Setter Property="FontSize" Value="18" />
+                            </Style>
+                            <Style TargetType="ComboBox" BasedOn="{StaticResource {x:Type ComboBox}}">
+                                <Setter Property="FontSize" Value="18" />
+                            </Style>
+                        </Grid.Resources>
+                        <ComboBox Width="120" Grid.ColumnSpan="2" HorizontalAlignment="Left"
+                                  ItemsSource="{Binding Source={StaticResource storeDataProvider}}"
+                                  SelectedItem="{Binding SelectedStore}" DisplayMemberPath="StoreName"/>
+                        <CheckBox Grid.Column="2" IsChecked="{Binding SelectedStore.IsDefault}" Content="既定"
+                                  VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+                        <TextBlock Text="発店コード" Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="2" />
+                        <TextBox Text="{Binding SelectedStore.StoreId1}" Grid.Row="2" MinWidth="10" />
+                        <TextBox Text="{Binding SelectedStore.StoreId2}" Grid.Row="2" Grid.Column="1" MinWidth="10" />
             
-                    <TextBlock Text="お客様番号" Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="2" />
-                    <TextBox Text="{Binding SelectedStore.CustomerCD}" Grid.Column="2" Grid.Row="2"   />
+                        <TextBlock Text="お客様番号" Grid.Row="3" Grid.ColumnSpan="2" />
+                        <TextBox Text="{Binding SelectedStore.CustomerCD}" Grid.ColumnSpan="3" Grid.Row="4"   />
             
-                    <ComboBox Width="120" Grid.Row="4" HorizontalAlignment="Left"
-                              ItemsSource="{Binding Source={StaticResource reportMemoDataProvider}}"
-                              DisplayMemberPath="MemoName"
-                              SelectedItem="{Binding SelectedReportMemo}" />
-                    <CheckBox IsChecked="{Binding SelectedReportMemo.IsDefault}" Content="既定" Grid.Row="4" Grid.Column="1"
-                              VerticalAlignment="Center" VerticalContentAlignment="Center"/>
-                    <TextBox Text="{Binding SelectedReportMemo.ReportMemo1}" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="4"
-                             TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Visible" />
-                </Grid>
+                    </Grid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="150"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="120" />
+                        </Grid.RowDefinitions>
+                        <Grid.Resources>
+                            <Style TargetType="CheckBox" BasedOn="{StaticResource {x:Type CheckBox}}">
+                                <Setter Property="FontSize" Value="18" />
+                                <Setter Property="Foreground" Value="White" />
+                            </Style>
+                            <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+                                <Setter Property="FontSize" Value="18" />
+                                <Setter Property="Foreground" Value="White" />
+                            </Style>
+                            <Style TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">
+                                <Setter Property="FontSize" Value="18" />
+                            </Style>
+                            <Style TargetType="ComboBox" BasedOn="{StaticResource {x:Type ComboBox}}">
+                                <Setter Property="FontSize" Value="18" />
+                            </Style>
+                        </Grid.Resources>
+
+                        <ComboBox Width="120"  HorizontalAlignment="Left"
+                                    ItemsSource="{Binding Source={StaticResource reportMemoDataProvider}}"
+                                    DisplayMemberPath="MemoName"
+                                    SelectedItem="{Binding SelectedReportMemo}" />
+                        <CheckBox IsChecked="{Binding SelectedReportMemo.IsDefault}" Content="既定" Grid.Row="0" Grid.Column="1"
+                                    VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+                        <TextBox Text="{Binding SelectedReportMemo.ReportMemo1}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4"
+                                    TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Visible" />
+                    </Grid>
+                   
+                </StackPanel>
             </StackPanel>
             <GridSplitter HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="4" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"/>
             <StackPanel Grid.Row="1" Grid.ColumnSpan="2" >
@@ -138,13 +169,15 @@
                     </ListView.ItemContainerStyle>
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn DisplayMemberBinding="{Binding OrderHistory.OrderDate}" Header="注文日付" Width="100"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding OrderHistory.OrderDate}" Header="注文日付" Width="85"/>
                             <GridViewColumn DisplayMemberBinding="{Binding OrderHistory.CustomerMasterReceive.CustNo}" Header="顧客番号" Width="60"/>
-                            <GridViewColumn DisplayMemberBinding="{Binding OrderHistory.CustomerMasterReceive.CustName}" Header="氏名" Width="150"/>
-                            <GridViewColumn DisplayMemberBinding="{Binding OrderHistory.CustomerMasterReceive.PostalCD}" Header="郵便番号" Width="40"/>
-                            <GridViewColumn DisplayMemberBinding="{Binding OrderHistory.CustomerMasterReceive.CityName}" Header="市町村名" Width="50"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding OrderHistory.CustomerMasterReceive.CustName}" Header="氏名" Width="120"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding OrderHistory.CustomerMasterReceive.PostalCD}" Header="郵便番号" Width="70"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding OrderHistory.CustomerMasterReceive.CityName}" Header="市町村名" Width="60"/>
                             <GridViewColumn DisplayMemberBinding="{Binding OrderHistory.CustomerMasterReceive.Address1}" Header="住所１" Width="150"/>
                             <GridViewColumn DisplayMemberBinding="{Binding OrderHistory.CustomerMasterReceive.Address2}" Header="住所２" Width="150"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding OrderHistory.CustomerMasterReceive.Address3}" Header="住所３" Width="150"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding OrderHistory.CustomerMasterReceive.Address4}" Header="住所４" Width="150"/>
                             <GridViewColumn DisplayMemberBinding="{Binding OrderHistory.CustomerMasterReceive.Phone}" Header="電話番号" Width="100"/>
                             <GridViewColumn DisplayMemberBinding="{Binding OrderHistory.CustomerMasterReceive.MailAddress}" Header="メールアドレス" Width="100"/>
                             <GridViewColumn Header="ラベル１" Width="30">
