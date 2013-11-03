@@ -117,7 +117,7 @@
                     </Grid>
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="140"/>
                             <ColumnDefinition Width="150"/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
@@ -141,7 +141,7 @@
                             </Style>
                         </Grid.Resources>
 
-                        <ComboBox Width="120"  HorizontalAlignment="Left"
+                        <ComboBox Width="140"  HorizontalAlignment="Left"
                                     ItemsSource="{Binding Source={StaticResource reportMemoDataProvider}}"
                                     DisplayMemberPath="MemoName"
                                     SelectedItem="{Binding SelectedReportMemo}" />

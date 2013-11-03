@@ -196,33 +196,47 @@ namespace HighLandirect.ViewModels
         }
 
         private bool CanSearchCustomer() { return true; }
+
+        private string _CachedSearchString = "";
+        private CustomerViewModel[] _FoundCustomers;
+        private int _FoundCustomersIndex;
+
         private void SearchCustomer()
         {
-            this.SelectedCustomer = GetCustomerQuery(this.SearchString);
-        }
+            if (this._CachedSearchString != this.SearchString)
+            {
+                this._CachedSearchString = this.SearchString;
+                this._FoundCustomers = SearchCustomer(this.SearchString);
+                this._FoundCustomersIndex = -1;
+            }
 
+            this._FoundCustomersIndex++;
+            if (this._FoundCustomersIndex >= this._FoundCustomers.Length)
+            {
+                this._FoundCustomersIndex = 0;
+            }
+            this.SelectedCustomer = _FoundCustomers[this._FoundCustomersIndex];
+        }
         /// <summary>
         /// とりあえずCustNameでの検索。電話番号、ふりがなでの検索も可能とする
         /// </summary>
         /// <param name="searchString"></param>
         /// <returns></returns>
-        private CustomerViewModel GetCustomerQuery(string searchString)
+        private CustomerViewModel[] SearchCustomer(string searchString)
         {
-            CustomerViewModel FoundCustomer;
             int dummy;
             if (int.TryParse(SearchString.Replace("-", ""), out dummy))
             {
-                FoundCustomer = this.CustomerViewModels.FirstOrDefault(x => x.Customer.Phone.IndexOf(SearchString) >= 0);
+                return this.CustomerViewModels.Where(x => x.Customer.Phone.IndexOf(SearchString) >= 0).ToArray();
             }
             else if (IsHiragana(searchString))
             {
-                FoundCustomer = this.CustomerViewModels.FirstOrDefault(x => x.Customer.Furigana.IndexOf(SearchString) >= 0);
+                return this.CustomerViewModels.Where(x => x.Customer.Furigana.IndexOf(SearchString) >= 0).ToArray();
             }
             else
             {
-                FoundCustomer = this.CustomerViewModels.FirstOrDefault(x => x.Customer.CustName.IndexOf(SearchString) >= 0);
+                return this.CustomerViewModels.Where(x => x.Customer.CustName.IndexOf(SearchString) >= 0).ToArray();
             }
-            return FoundCustomer;
         }
 
         static bool IsHiragana(string str)
