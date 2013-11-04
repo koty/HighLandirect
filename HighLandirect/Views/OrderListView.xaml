@@ -39,7 +39,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="460"/>
+                <RowDefinition Height="456"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <DataGrid ItemsSource="{Binding Orders}" SelectedItem="{Binding SelectedOrder}" 
@@ -161,7 +161,8 @@
                                  Height="30" FontSize="18" />
                     </ToolBar>
                 </ToolBarTray>
-                <ListView ItemsSource="{Binding OrderHistories}" SelectedItem="{Binding SelectedOrderHistory}">
+                <ListView ItemsSource="{Binding OrderHistories}" SelectedItem="{Binding SelectedOrderHistory}"
+                          ScrollViewer.VerticalScrollBarVisibility="Visible" Height="170">
                     <ListView.ItemContainerStyle>
                         <Style TargetType="{x:Type ListViewItem}">
                             <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
