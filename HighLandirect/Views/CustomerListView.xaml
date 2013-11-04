@@ -98,7 +98,7 @@
                     <DataGridTemplateColumn Header="ラベル" Width="30" SortMemberPath="Customer.Label" >
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <CheckBox IsChecked="{Binding Customer.Label}" />
+                                <CheckBox IsChecked="{Binding Path=Customer.Label, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
