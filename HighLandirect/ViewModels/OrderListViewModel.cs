@@ -288,12 +288,29 @@ namespace HighLandirect.ViewModels
             var list = entityService.OrderHistories.Where(
                 x => x.CustomerMasterSend.CustNo == this.SendCustomerViewModel.Customer.CustNo)
                                            .OrderByDescending(x => x.OrderDate)
-                                           .Take(50)
+                                           .Distinct(new ReceiveCustomerEqualityComparer())
                                            .Select(x => new OrderHistoryViewModel(x));
             this.OrderHistories = new ObservableCollection<OrderHistoryViewModel>(list);
             //↓これが必要な理由が分からん。↑でnewせずに、Clear＆Concatするとリストが更新されない。
             this.RaisePropertyChanged(() => this.OrderHistories);
             this.AddOrderFromSelectedHistoryCommand.RaiseCanExecuteChanged();
+        }
+
+        /// <summary>
+        /// 注文履歴を送付先顧客ごとに一意にするためのIEqualityComparer
+        /// </summary>
+        class ReceiveCustomerEqualityComparer : IEqualityComparer<OrderHistory>
+        {
+
+            public bool Equals(OrderHistory x, OrderHistory y)
+            {
+                return x.ReceiveCustID == y.ReceiveCustID;
+            }
+
+            public int GetHashCode(OrderHistory obj)
+            {
+                return obj.ReceiveCustID.GetHashCode();
+            }
         }
 
         private bool CanAddOrderFromSelectedHistory()
