@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Text.RegularExpressions;
 using HighLandirect.Foundations;
+using Livet;
 
 namespace HighLandirect.Domains
 {
@@ -16,13 +17,9 @@ namespace HighLandirect.Domains
         private readonly DataErrorSupport dataErrorSupport;
 
         
-        public Customer(int CustNo)
+        public Customer(int CustNo) : this()
         {
-
-            dataErrorSupport = new DataErrorSupport(this);
-                //.AddValidationRule("Email", ValidateEmail);
             this.CustNo = CustNo;
-            this.PostalCD = "";
         }
 
         public Customer()
@@ -30,6 +27,7 @@ namespace HighLandirect.Domains
             dataErrorSupport = new DataErrorSupport(this);
                 //.AddValidationRule("Email", ValidateEmail);
             this.PostalCD = "";
+            this.Keisho = "様";
         }
 
 

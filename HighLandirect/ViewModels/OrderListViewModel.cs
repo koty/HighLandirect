@@ -234,6 +234,7 @@ namespace HighLandirect.ViewModels
 
         private void AddNewOrderCore(int ResceiveCustNo)
         {
+            ((EntityService)this.entityService).Customerentities.SaveChanges();
             //テンポラリにOrderテーブル使っちゃったら同時実行はできんな。。。
 
             //最大番号プラス1
