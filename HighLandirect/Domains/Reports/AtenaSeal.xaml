@@ -5,9 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:c="clr-namespace:HighLandirect.Converters"
              mc:Ignorable="d"
+            xmlns:vm="clr-namespace:HighLandirect.Domains"
              d:DesignHeight="1122" d:DesignWidth="793">
-
-    <ItemsControl ItemsSource="{Binding }" Height="1100" Width="780" Margin="10,0,0,0">
+    <ItemsControl ItemsSource="{Binding }" Height="950" Width="630" Margin="80,80,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
         <ItemsControl.ItemsPanel>
             <ItemsPanelTemplate>
                 <WrapPanel />
@@ -15,40 +15,36 @@
         </ItemsControl.ItemsPanel>
         <ItemsControl.ItemTemplate>
             <DataTemplate>
-                <Grid>
+                <Grid Height="160">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="390" />
+                        <ColumnDefinition Width="300" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="30" />
-                        <RowDefinition Height="30" />
-                        <RowDefinition Height="30" />
-                        <RowDefinition Height="30" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="26" />
+                        <RowDefinition Height="26" />
+                        <RowDefinition Height="26" />
+                        <RowDefinition Height="26" />
+                        <RowDefinition Height="26" />
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <Grid.Resources>
                         <Style TargetType="Label">
                             <Setter Property="Foreground" Value="Black" />
                             <Setter Property="FontSize" Value="16" />
                             <Setter Property="FontFamily" Value="MS Gothic" />
+                            <Setter Property="Padding" Value="30,3,0,0" />
                         </Style>
                     </Grid.Resources>
-                    <StackPanel Orientation="Horizontal">
-                        <Label Content="{Binding PostalCD, Converter={x:Static c:PostalCdConverter.Default}}" FontSize="20" />
-                        <Label Content="{Binding PrefectureName}" HorizontalAlignment="Right" Width="95" />
-                    </StackPanel>
-                    <StackPanel Grid.Row="1" Orientation="Horizontal">
-                        <Label Content="{Binding CityName}" />
-                        <Label Content="{Binding Address1}" />
-                    </StackPanel>
-                    <StackPanel Grid.Row="2" Orientation="Horizontal">
-                        <Label Content="{Binding Address2}" />
-                        <Label Content="{Binding Address3}" />
-                    </StackPanel>
-                    <Label Grid.Row="3" Content="{Binding Address4}" />
-                    <StackPanel Grid.Row="4" Orientation="Horizontal">
+                    <Label Content="{Binding PostalCD, Converter={x:Static c:PostalCdConverter.Default}}" FontSize="20" />
+
+                    <Label Grid.Row="1" Content="{Binding Address1}" />
+
+                    <Label Grid.Row="2" Content="{Binding Address2}" />
+                    <Label Grid.Row="3" Content="{Binding Address3}" />
+                    <Label Grid.Row="4" Content="{Binding Address4}" />
+                    <StackPanel Grid.Row="5" Orientation="Horizontal">
                         <Label Content="{Binding CustName}" />
-                        <Label Content="{Binding Keisho}" />
+                        <Label Content="{Binding Keisho}" Margin="10,0,0,0"/>
                     </StackPanel>
                 </Grid>
             </DataTemplate>

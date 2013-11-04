@@ -344,7 +344,7 @@ namespace HighLandirect.ViewModels
         {
             var pq = GetPrintQueue();
 
-            var printer = new PrintListReport<Customer, AtenaSeal>(10, pq);
+            var printer = new PrintListReport<Customer, AtenaSeal>(12, pq);
             //ラベル印刷するチェックが入ってる人
             printer.Print(this.CustomerViewModels.Where(customerVM => customerVM.Customer.Label == true)
                               .Select(customerVM => customerVM.Customer));
