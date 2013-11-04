@@ -22,12 +22,14 @@ namespace HighLandirect.Domains
             dataErrorSupport = new DataErrorSupport(this);
                 //.AddValidationRule("Email", ValidateEmail);
             this.CustNo = CustNo;
+            this.PostalCD = "";
         }
 
         public Customer()
         {
             dataErrorSupport = new DataErrorSupport(this);
                 //.AddValidationRule("Email", ValidateEmail);
+            this.PostalCD = "";
         }
 
 

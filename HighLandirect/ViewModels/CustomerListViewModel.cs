@@ -162,7 +162,15 @@ namespace HighLandirect.ViewModels
                 filterdCustomers = this.customers.Where(x => x.Delete != true);
             }
             this.CustomerViewModels = new ObservableCollection<CustomerViewModel>(filterdCustomers.Select(x => new CustomerViewModel(x)));
-
+            this.CustomerViewModels.CollectionChanged += (o, e) =>
+            {
+                if (e.NewItems != null)
+                    foreach (var item in e.NewItems)
+                        this.entityService.Customers.Add(((CustomerViewModel)item).Customer);
+                if (e.OldItems != null)
+                    foreach (var item in e.OldItems)
+                        this.entityService.Customers.Remove(((CustomerViewModel)item).Customer);
+            };
             this.RaisePropertyChanged(() => this.CustomerViewModels);
         }
 
@@ -185,7 +193,6 @@ namespace HighLandirect.ViewModels
             var customerVM = new CustomerViewModel( customer);
             this.CustomerViewModels.Add(customerVM);
             this.RaisePropertyChanged(() => this.CustomerViewModels);
-
             this.SelectedCustomer = customerVM;
         }
 
