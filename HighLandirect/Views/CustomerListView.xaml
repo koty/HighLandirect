@@ -95,7 +95,7 @@
                     <DataGridTextColumn Binding="{Binding Customer.Address2}" Header="住所２" Width="150"/>
                     <DataGridTextColumn Binding="{Binding Customer.Phone}" Header="電話番号" Width="100"/>
                     <DataGridTextColumn Binding="{Binding Customer.MailAddress}" Header="メールアドレス" Width="100"/>
-                    <DataGridTemplateColumn Header="" Width="30" >
+                    <DataGridTemplateColumn Header="ラベル" Width="30" SortMemberPath="Customer.Label" >
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <CheckBox IsChecked="{Binding Customer.Label}" />
