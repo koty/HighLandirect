@@ -210,6 +210,13 @@ namespace HighLandirect.ViewModels
                 this._FoundCustomersIndex = -1;
             }
 
+            if (this._FoundCustomers.Length == 0)
+            {
+                this.SelectedCustomer = null;
+                Messenger.Raise(new InteractionMessage("NoOneFound"));
+                return;
+            }
+
             this._FoundCustomersIndex++;
             if (this._FoundCustomersIndex >= this._FoundCustomers.Length)
             {

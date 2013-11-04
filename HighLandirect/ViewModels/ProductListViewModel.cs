@@ -40,6 +40,7 @@ namespace HighLandirect.ViewModels
                 {
                     this.selectedProduct = value;
                     this.RaisePropertyChanged(() => SelectedProduct);
+                    this.UpdateCommands();
                 }
             }
         }
@@ -89,6 +90,7 @@ namespace HighLandirect.ViewModels
         private void RemoveProduct()
         {
             entityService.Products.Remove(this.SelectedProduct.Product);
+            this.RaisePropertyChanged(() => this.ProductViewModels);
         }
 
 

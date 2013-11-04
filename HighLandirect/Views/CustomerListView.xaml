@@ -23,8 +23,22 @@
                 <Button Command="{Binding AddNewCommand}" Content="顧客を新規登録" Height="30" FontSize="18" Padding="10,0,10,0" />
                 <Separator Width="10" />
                 <TextBox Width="150" Text="{Binding SearchString, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true, 
-                     ValidatesOnDataErrors=true, NotifyOnValidationError=true}" Height="30" FontSize="18" />
-                <Button Command="{Binding SearchCommand}" Content="検索" Height="30" FontSize="18" Padding="10,0,10,0" />
+                     ValidatesOnDataErrors=true, NotifyOnValidationError=true}" Height="30" FontSize="18"
+                     InputMethod.PreferredImeConversionMode="Native,FullShape" InputMethod.PreferredImeState="On" />
+                <Button Command="{Binding SearchCommand}" Content="検索" Height="30" FontSize="18" Padding="10,0,10,0">
+                    <i:Interaction.Triggers>
+                        <l:InteractionMessageTrigger Messenger="{Binding Messenger}" MessageKey="NoOneFound">
+                            <l:ConfirmationDialogInteractionMessageAction>
+                                <l:DirectInteractionMessage>
+                                    <Messaging:ConfirmationMessage Button="OK" 
+                                                  Caption="確認"
+                                                  Text="指定した検索条件で見つかりませんでした。"
+                                                  Image="Information"/>
+                                </l:DirectInteractionMessage>
+                            </l:ConfirmationDialogInteractionMessageAction>
+                        </l:InteractionMessageTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
                 <Separator Width="10"/>
                 <Button Command="{Binding AddSendCustomerCommand}" Content="送主として追加" Height="30" FontSize="18" Padding="10,0,10,0" />
                 <Button Command="{Binding AddResceiveCustomerCommand}" Content="送先として追加" Height="30" FontSize="18" Padding="10,0,10,0" />
@@ -69,6 +83,9 @@
                 <i:Interaction.Behaviors>
                     <v:ScrollIntoViewBehavior />
                 </i:Interaction.Behaviors>
+                <DataGrid.Resources>
+                    <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="#3399ff"/>
+                </DataGrid.Resources>
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding Customer.CustNo}" Header="顧客番号" Width="70"/>
                     <DataGridTextColumn Binding="{Binding Customer.CustName}" Header="顧客名" Width="100"/>
