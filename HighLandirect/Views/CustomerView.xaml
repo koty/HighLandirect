@@ -80,12 +80,11 @@
             </i:Interaction.Triggers>
         </TextBox>
 
-        <Label Content="市町村名" Grid.Column="3" Grid.Row="1" />
-        <TextBox Text="{Binding Customer.CityName, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True,
+        <Label Content="都道府県名" Grid.Column="3" Grid.Row="1" />
+        <TextBox Text="{Binding Customer.PrefectureName, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True,
                         ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
                  MaxLength="200" Grid.Column="4" Grid.Row="1" HorizontalAlignment="Stretch" DataContext="{Binding}"
-                 InputMethod.PreferredImeState="On" InputMethod.PreferredImeConversionMode="FullShape,Native"
-                 IsReadOnly="True" Background="LightGray" />
+                 InputMethod.PreferredImeState="On" InputMethod.PreferredImeConversionMode="FullShape,Native" />
 
         <Label Content="住所１" Grid.Column="3" Grid.Row="2" />
         <TextBox Name="Address1" Text="{Binding Customer.Address1, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True,

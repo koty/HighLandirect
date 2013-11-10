@@ -62,9 +62,9 @@ namespace HighLandirect.Domains
 
         public void SetAddress(PostalCDGetter postalConverter)
         {
-            //this.PrefectureName = postalConverter.Prefecture;
+            this.PrefectureName = postalConverter.Prefecture;
             //this.CityName = postalConverter.City;
-            this.Address1 = postalConverter.Prefecture + " " + postalConverter.City;
+            this.Address1 = postalConverter.City;
             this.Address2 = postalConverter.Address;
         }
 

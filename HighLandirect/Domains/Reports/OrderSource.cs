@@ -27,6 +27,7 @@
             this.Order = new Order();
             this.Order.CustomerMasterReceive = new Customer()
             {
+                PrefectureName = "□■□県",
                 Address1 = "あいうえおかきくけこ",
                 Address2 = "さしすせそたちつてと",
                 Address3 = "なにぬねのはひふへほ",
@@ -37,6 +38,7 @@
             };
             this.Order.CustomerMasterSend = new Customer()
             {
+                PrefectureName = "□■□県",
                 Address1 = "あいうえおかきくけこ",
                 Address2 = "さしすせそたちつてと",
                 Address3 = "なにぬねのはひふへほ",

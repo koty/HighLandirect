@@ -37,8 +37,8 @@
                     </Grid.Resources>
                     <Label Content="{Binding PostalCD, Converter={x:Static c:PostalCdConverter.Default}}" FontSize="20" />
 
-                    <Label Grid.Row="1" Content="{Binding Address1}" />
-
+                    <Label Grid.Row="1" Content="{Binding PrefectureName}" />
+                    <Label Grid.Row="1" Content="{Binding Address1}" Margin="65,0,0,0" />
                     <Label Grid.Row="2" Content="{Binding Address2}" />
                     <Label Grid.Row="3" Content="{Binding Address3}" />
                     <Label Grid.Row="4" Content="{Binding Address4}" />
