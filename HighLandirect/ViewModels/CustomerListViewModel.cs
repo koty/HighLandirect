@@ -353,7 +353,9 @@ namespace HighLandirect.ViewModels
 
             var printer = new PrintListReport<Customer, AtenaSeal>(12, pq);
             //ラベル印刷するチェックが入ってる人
-            printer.Print(this.CustomerViewModels.Where(customerVM => customerVM.Customer.Label == true)
+            printer.Print(this.CustomerViewModels
+                              .Where(customerVM => customerVM.Customer.Label == true)
+                              .OrderBy(customerVM => customerVM.Customer.Furigana)
                               .Select(customerVM => customerVM.Customer));
         }
 
@@ -362,8 +364,11 @@ namespace HighLandirect.ViewModels
             var pq = GetPrintQueue();
 
             var printer = new PrintListReport<Customer, KokyakuDaicho>(15, pq);
-            //ラベル印刷するチェックが入ってる人
-            printer.Print(this.CustomerViewModels.Select(customerVM => customerVM.Customer));
+
+            printer.Print(this.CustomerViewModels
+                              .Where(customerVM => customerVM.Customer.Label == true)
+                              .OrderBy(customerVM => customerVM.Customer.CustNo)
+                              .Select(customerVM => customerVM.Customer));
         }
 
         private static PrintQueue GetPrintQueue()
