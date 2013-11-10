@@ -88,13 +88,6 @@
                 </DataGrid.Resources>
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding Customer.CustNo}" Header="顧客番号" Width="70"/>
-                    <DataGridTextColumn Binding="{Binding Customer.CustName}" Header="顧客名" Width="100"/>
-                    <DataGridTextColumn Binding="{Binding Customer.PostalCD}" Header="郵便番号" Width="70"/>
-                    <DataGridTextColumn Binding="{Binding Customer.CityName}" Header="市町村名" Width="70"/>
-                    <DataGridTextColumn Binding="{Binding Customer.Address1}" Header="住所１" Width="150"/>
-                    <DataGridTextColumn Binding="{Binding Customer.Address2}" Header="住所２" Width="150"/>
-                    <DataGridTextColumn Binding="{Binding Customer.Phone}" Header="電話番号" Width="100"/>
-                    <DataGridTextColumn Binding="{Binding Customer.MailAddress}" Header="メールアドレス" Width="100"/>
                     <DataGridTemplateColumn Header="ラベル" Width="30" SortMemberPath="Customer.Label" >
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
@@ -102,6 +95,13 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
+                    <DataGridTextColumn Binding="{Binding Customer.CustName}" Header="顧客名" Width="100"/>
+                    <DataGridTextColumn Binding="{Binding Customer.PostalCD}" Header="郵便番号" Width="70"/>
+                    <DataGridTextColumn Binding="{Binding Customer.CityName}" Header="市町村名" Width="70"/>
+                    <DataGridTextColumn Binding="{Binding Customer.Address1}" Header="住所１" Width="150"/>
+                    <DataGridTextColumn Binding="{Binding Customer.Address2}" Header="住所２" Width="150"/>
+                    <DataGridTextColumn Binding="{Binding Customer.Phone}" Header="電話番号" Width="100"/>
+                    <DataGridTextColumn Binding="{Binding Customer.MailAddress}" Header="メールアドレス" Width="100"/>
                     <DataGridTextColumn Binding="{Binding Customer.LatestSend}" Header="最終荷主日" Width="100" />
                     <DataGridTextColumn Binding="{Binding Customer.LatestResceive}" Header="最終宛先日" Width="100" />
                     <DataGridTemplateColumn Header="一覧に出さない" Width="30" >
