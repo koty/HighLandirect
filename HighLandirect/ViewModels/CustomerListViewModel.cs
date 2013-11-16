@@ -14,6 +14,7 @@ using System.IO;
 using System.Text;
 using Livet.Messaging;
 using Livet.Behaviors.Messaging;
+using Microsoft.VisualBasic;
 
 namespace HighLandirect.ViewModels
 {
@@ -213,7 +214,7 @@ namespace HighLandirect.ViewModels
             if (this._CachedSearchString != this.SearchString)
             {
                 this._CachedSearchString = this.SearchString;
-                this._FoundCustomers = SearchCustomer(this.SearchString);
+                this._FoundCustomers = SearchCustomer(this.SearchString, this.CustomerViewModels);
                 this._FoundCustomersIndex = -1;
             }
 
@@ -231,26 +232,33 @@ namespace HighLandirect.ViewModels
             }
             this.SelectedCustomer = _FoundCustomers[this._FoundCustomersIndex];
         }
+
         /// <summary>
         /// とりあえずCustNameでの検索。電話番号、ふりがなでの検索も可能とする
         /// </summary>
         /// <param name="searchString"></param>
         /// <returns></returns>
-        private CustomerViewModel[] SearchCustomer(string searchString)
+        private static CustomerViewModel[] SearchCustomer(string searchString, IEnumerable<CustomerViewModel> customerViewModels)
         {
-            int dummy;
-            if (int.TryParse(SearchString.Replace("-", ""), out dummy))
-            {
-                return this.CustomerViewModels.Where(x => x.Customer.Phone.IndexOf(SearchString) >= 0).ToArray();
-            }
-            else if (IsHiragana(searchString))
-            {
-                return this.CustomerViewModels.Where(x => x.Customer.Furigana.IndexOf(SearchString) >= 0).ToArray();
-            }
-            else
-            {
-                return this.CustomerViewModels.Where(x => x.Customer.CustName.IndexOf(SearchString) >= 0).ToArray();
-            }
+            int number;
+            var re = new Regex("[０-９Ａ-Ｚａ-ｚ：－　]+");
+            var searchStringNormalized = re.Replace(searchString, m => Strings.StrConv(m.Value, VbStrConv.Narrow, 0));
+
+            //顧客番号
+            if (int.TryParse(searchStringNormalized, out number))
+                return customerViewModels.Where(x => x.Customer.CustNo == number).ToArray();
+
+            //電話番号
+            if (int.TryParse(searchStringNormalized.Replace("-", ""), out number))
+                return customerViewModels.Where(x => x.Customer.Phone.IndexOf(searchStringNormalized) >= 0).ToArray();
+
+            //ふりがな
+            if (IsHiragana(searchStringNormalized))
+                return customerViewModels.Where(x => x.Customer.Furigana.IndexOf(searchStringNormalized) >= 0).ToArray();
+
+            //漢字氏名
+            return customerViewModels.Where(x => x.Customer.CustName.IndexOf(searchStringNormalized) >= 0).ToArray();
+
         }
 
         static bool IsHiragana(string str)
