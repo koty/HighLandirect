@@ -79,7 +79,8 @@
         </ToolBarTray>
         <StackPanel Orientation="Horizontal">
             <DataGrid ItemsSource="{Binding CustomerViewModels}" AutoGenerateColumns="False" CanUserAddRows="False"
-                      FontSize="14" SelectedItem="{Binding SelectedCustomer}" Width="800">
+                      FontSize="14" SelectedItem="{Binding SelectedCustomer}" Width="800"
+                      Sorting="DataGrid_Sorting">
                 <i:Interaction.Behaviors>
                     <v:ScrollIntoViewBehavior />
                 </i:Interaction.Behaviors>
@@ -95,13 +96,13 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTextColumn Binding="{Binding Customer.CustName}" Header="顧客名" Width="100"/>
+                    <DataGridTextColumn Binding="{Binding Customer.CustName}" Header="顧客名" Width="100"
+                                        SortMemberPath="Customer.Furigana" />
                     <DataGridTextColumn Binding="{Binding Customer.PostalCD}" Header="郵便番号" Width="70"/>
                     <DataGridTextColumn Binding="{Binding Customer.PrefectureName}" Header="都道府県名" Width="70"/>
                     <DataGridTextColumn Binding="{Binding Customer.Address1}" Header="住所１" Width="150"/>
                     <DataGridTextColumn Binding="{Binding Customer.Address2}" Header="住所２" Width="150"/>
                     <DataGridTextColumn Binding="{Binding Customer.Phone}" Header="電話番号" Width="100"/>
-                    <DataGridTextColumn Binding="{Binding Customer.MailAddress}" Header="メールアドレス" Width="100"/>
                     <DataGridTextColumn Binding="{Binding Customer.LatestSend}" Header="最終荷主日" Width="100" />
                     <DataGridTextColumn Binding="{Binding Customer.LatestResceive}" Header="最終宛先日" Width="100" />
                     <DataGridTemplateColumn Header="一覧に出さない" Width="30" >
@@ -111,6 +112,7 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
+                    <DataGridTextColumn Binding="{Binding Customer.MailAddress}" Header="メールアドレス" Width="100"/>
                 </DataGrid.Columns>
             </DataGrid>
      
