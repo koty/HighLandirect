@@ -363,7 +363,7 @@ namespace HighLandirect.ViewModels
         {
             var pq = GetPrintQueue();
 
-            var printer = new PrintListReport<Customer, KokyakuDaicho>(15, pq);
+            var printer = new PrintListReport<Customer, KokyakuDaicho>(17, pq);
 
             printer.Print(this.CustomerViewModels
                               .Where(customerVM => customerVM.Customer.Label == true)

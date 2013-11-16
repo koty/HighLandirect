@@ -6,7 +6,7 @@
              mc:Ignorable="d" xmlns:c="clr-namespace:HighLandirect.Converters"
              xmlns:m="clr-namespace:HighLandirect.Domains"
              d:DesignHeight="1122" d:DesignWidth="793">
-    <ItemsControl ItemsSource="{Binding }" Height="1050" VerticalAlignment="Top">
+    <ItemsControl ItemsSource="{Binding }" Height="1050" VerticalAlignment="Top" Margin="30">
         <ItemsControl.ItemTemplate>
             <DataTemplate>
                 <Grid Height="62">
