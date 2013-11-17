@@ -3,6 +3,8 @@ using Livet;
 using Livet.Behaviors.Messaging;
 using Livet.Commands;
 using Livet.Messaging;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace HighLandirect.ViewModels
 {
@@ -10,14 +12,16 @@ namespace HighLandirect.ViewModels
     {
         private bool isValid = true;
         private Customer customer;
+        private readonly IEnumerable<CustomerViewModel> customerListViewModels;
 
         public CustomerViewModel()
         {
         }
 
-        public CustomerViewModel(Customer customer)
+        public CustomerViewModel(Customer customer, IEnumerable<CustomerViewModel> customerListViewModels)
         {
             this.Customer = customer;
+            this.customerListViewModels = customerListViewModels ?? new List<CustomerViewModel>();
         }
 
         public bool IsEnabled
@@ -69,6 +73,24 @@ namespace HighLandirect.ViewModels
             var postalConverter = new PostalCDGetter();
             postalConverter.GetAddress(PostalCD);
             customer.SetAddress(postalConverter);
+        }
+
+        public void CustNameTextBox_LostFocus()
+        {
+            if (this.Customer.Furigana.Length > 3)
+            {
+                if (this.customerListViewModels
+                        .Any(x => eq(x.Customer.Furigana, this.Customer.Furigana)))
+                {
+                    Messenger.Raise(new InteractionMessage("ConfirmDuplicateRegistration"));
+                }
+            }
+        }
+
+        private static bool eq(string furigana1, string furigana2)
+        {
+            return (furigana1.Replace(" ", "").Replace("　", "")
+                 == furigana2.Replace(" ", "").Replace("　", ""));
         }
     }
 }

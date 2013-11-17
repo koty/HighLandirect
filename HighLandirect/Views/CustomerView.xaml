@@ -9,6 +9,7 @@
              xmlns:v="clr-namespace:HighLandirect.Views"
              xmlns:b="clr-namespace:Livet.Behaviors;assembly=Livet"
              xmlns:l="clr-namespace:Livet.Behaviors.Messaging;assembly=Livet"
+             xmlns:Messaging="clr-namespace:Livet.Messaging;assembly=Livet"
              xmlns:Converters="clr-namespace:HighLandirect.Converters"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance vm:CustomerViewModel}"
@@ -57,7 +58,24 @@
         <f:YomiganaWPFTextBox x:Name="CustName" Text="{Binding Customer.CustName, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True,
                         ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
                  MaxLength="30" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Stretch" 
-                              BindingControl="Furigana" MinWidth="100" FontSize="18" InputMethod.PreferredImeState="On" InputMethod.PreferredImeConversionMode="FullShape,Native" />
+                              BindingControl="Furigana" MinWidth="100" FontSize="18"
+                              InputMethod.PreferredImeState="On" InputMethod.PreferredImeConversionMode="FullShape,Native">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="LostFocus">
+                    <b:LivetCallMethodAction MethodTarget="{Binding}" MethodName="CustNameTextBox_LostFocus" />
+                </i:EventTrigger>
+                <l:InteractionMessageTrigger Messenger="{Binding Messenger}" MessageKey="ConfirmDuplicateRegistration">
+                    <l:ConfirmationDialogInteractionMessageAction>
+                        <l:DirectInteractionMessage>
+                            <Messaging:ConfirmationMessage Button="OK" 
+                                                  Caption="確認"
+                                                  Text="同名の方が既に登録されています。"
+                                                  Image="Information"/>
+                        </l:DirectInteractionMessage>
+                    </l:ConfirmationDialogInteractionMessageAction>
+                </l:InteractionMessageTrigger>
+            </i:Interaction.Triggers>
+        </f:YomiganaWPFTextBox>
 
         <Label Content="ふりがな" Grid.Column="0" Grid.Row="2" />
         <TextBox Name="Furigana" Text="{Binding Customer.Furigana, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True,
@@ -140,8 +158,7 @@
         <TextBox Text="{Binding Customer.Memo, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True,
                         ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
                  MaxLength="200" Grid.Column="1" Grid.Row="8" Grid.ColumnSpan="4" HorizontalAlignment="Stretch" DataContext="{Binding}"
-                 InputMethod.PreferredImeState="On" InputMethod.PreferredImeConversionMode="FullShape,Native"
-                 AcceptsReturn="True"/>
+                 InputMethod.PreferredImeState="On" InputMethod.PreferredImeConversionMode="FullShape,Native" />
         <Label Content="最終荷主日" Grid.Row="7" Grid.Column="0"/>
         <TextBox MaxLength="200" Text="{Binding Customer.LatestSend, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" Grid.Column="1" Grid.Row="7" />
         <Label Content="最終宛先日" Grid.Row="7" Grid.Column="3"/>

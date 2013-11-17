@@ -83,7 +83,7 @@ namespace HighLandirect.ViewModels
             if (this.Orders.Any())
             {
                 var customer = this.entityService.Customers.Where(x => x.CustNo == this.Orders.First().Order.SendCustID).First();
-                this.SendCustomerViewModel = new CustomerViewModel(customer);
+                this.SendCustomerViewModel = new CustomerViewModel(customer, null);
                 this.ShowOrderHistoryBySendCustomer();
                 var arg = new CustomerListEventArgs() { CustomerViewModel = this.SendCustomerViewModel };
                 //this.OnSendCustomerChanged(this, arg); //ここではまだイベント登録されてない。
