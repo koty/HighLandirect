@@ -162,7 +162,12 @@ namespace HighLandirect.ViewModels
                 //「削除行を表示」→全データを表示
                 filterdCustomers = this.customers.Where(x => x.Delete != true);
             }
-            this.CustomerViewModels = new ObservableCollection<CustomerViewModel>(filterdCustomers.Select(x => new CustomerViewModel(x, this.CustomerViewModels)));
+            this.CustomerViewModels = new ObservableCollection<CustomerViewModel>(filterdCustomers.Select(x => new CustomerViewModel(x)));
+            foreach(var customer in this.CustomerViewModels)
+            {
+                customer.CustomerViewModels = this.CustomerViewModels;
+            }
+
             this.CustomerViewModels.CollectionChanged += (o, e) =>
             {
                 if (e.NewItems != null)
@@ -191,7 +196,8 @@ namespace HighLandirect.ViewModels
                                     .FirstOrDefault().CustNo + 1;
             }
             var customer = new Customer(CustNo) { Label = false, Delete = false };
-            var customerVM = new CustomerViewModel(customer, this.CustomerViewModels);
+            var customerVM = new CustomerViewModel(customer) { CustomerViewModels = this.CustomerViewModels };
+
             this.CustomerViewModels.Add(customerVM);
             this.RaisePropertyChanged(() => this.CustomerViewModels);
             this.SelectedCustomer = customerVM;

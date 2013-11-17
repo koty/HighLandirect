@@ -12,16 +12,15 @@ namespace HighLandirect.ViewModels
     {
         private bool isValid = true;
         private Customer customer;
-        private readonly IEnumerable<CustomerViewModel> customerListViewModels;
+        private IEnumerable<CustomerViewModel> customerViewModels;
 
         public CustomerViewModel()
         {
         }
 
-        public CustomerViewModel(Customer customer, IEnumerable<CustomerViewModel> customerListViewModels)
+        public CustomerViewModel(Customer customer)
         {
             this.Customer = customer;
-            this.customerListViewModels = customerListViewModels ?? new List<CustomerViewModel>();
         }
 
         public bool IsEnabled
@@ -56,6 +55,14 @@ namespace HighLandirect.ViewModels
             }
         }
 
+        public IEnumerable<CustomerViewModel> CustomerViewModels
+        {
+            set
+            {
+                this.customerViewModels = value;
+            }
+        }
+
         public void PostalCDTextBox_KeyUp()
         {
             if (this.Customer.PostalCD.Length < 7) return;
@@ -79,7 +86,7 @@ namespace HighLandirect.ViewModels
         {
             if (this.Customer.Furigana.Length > 3)
             {
-                if (this.customerListViewModels
+                if (this.customerViewModels
                         .Any(x => eq(x.Customer.Furigana, this.Customer.Furigana)))
                 {
                     Messenger.Raise(new InteractionMessage("ConfirmDuplicateRegistration"));
