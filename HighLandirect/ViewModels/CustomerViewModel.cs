@@ -87,7 +87,8 @@ namespace HighLandirect.ViewModels
             if (this.Customer.Furigana.Length > 3)
             {
                 if (this.customerViewModels
-                        .Any(x => eq(x.Customer.Furigana, this.Customer.Furigana)))
+                        .Any(x => eq(x.Customer.Furigana, this.Customer.Furigana)
+                                && x.Customer.CustNo != this.Customer.CustNo))
                 {
                     Messenger.Raise(new InteractionMessage("ConfirmDuplicateRegistration"));
                 }
