@@ -158,7 +158,8 @@
         <TextBox Text="{Binding Customer.Memo, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True,
                         ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
                  MaxLength="200" Grid.Column="1" Grid.Row="8" Grid.ColumnSpan="4" HorizontalAlignment="Stretch" DataContext="{Binding}"
-                 InputMethod.PreferredImeState="On" InputMethod.PreferredImeConversionMode="FullShape,Native" />
+                 InputMethod.PreferredImeState="On" InputMethod.PreferredImeConversionMode="FullShape,Native"
+                 AcceptsReturn="True" />
         <Label Content="最終荷主日" Grid.Row="7" Grid.Column="0"/>
         <TextBox MaxLength="200" Text="{Binding Customer.LatestSend, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" Grid.Column="1" Grid.Row="7" />
         <Label Content="最終宛先日" Grid.Row="7" Grid.Column="3"/>
