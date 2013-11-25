@@ -417,7 +417,6 @@ namespace HighLandirect.ViewModels
                 //ここもentityServiceとOrdersの両方をClearする必要はない気がする。
                 this.entityService.Orders.Clear();
                 this.Orders.Clear();
-                this.SendCustomerViewModel = null;
 
                 var arg = new CustomerListEventArgs() { CustomerViewModel = null };
                 this.OnSendCustomerChanged(this, arg);
