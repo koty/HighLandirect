@@ -26,6 +26,8 @@ namespace HighLandirect.ViewModels
         private ViewModelCommand printCommand;
         private ViewModelCommand removeCommand;
         private ViewModelCommand addOrderFromSelectedHistoryCommand;
+        private ViewModelCommand distinctSameCustomerClickCommand;
+        private ViewModelCommand removeOrderFromSelectedHistoryCommand;
 
         private CustomerViewModel sendCustomerViewModel;
         public CustomerViewModel SendCustomerViewModel
@@ -59,8 +61,8 @@ namespace HighLandirect.ViewModels
                 throw new ArgumentNullException("orders");
             }
 
-            //this.selectedOrders = new ObservableCollection<Order>();
-            //this.selectedOrderHistories = new ObservableCollection<OrderHistory>();
+            //既定で重複を削除
+            this.DistinctSameCustomer = true;
 
             this.stores = stores;
             this.reportMemos = reportMemos;
@@ -79,7 +81,6 @@ namespace HighLandirect.ViewModels
                     foreach (var item in e.OldItems)
                         this.entityService.Orders.Remove(((OrderViewModel)item).Order);
             };
-            this.OrderHistories = new ObservableCollection<OrderHistoryViewModel>();
             if (this.Orders.Any())
             {
                 var customer = this.entityService.Customers.Where(x => x.CustNo == this.Orders.First().Order.SendCustID).First();
@@ -90,15 +91,7 @@ namespace HighLandirect.ViewModels
             }
         }
 
-        //public ObservableCollection<Order> SelectedOrders
-        //{
-        //    get { return selectedOrders; }
-        //}
-
-        //public ObservableCollection<OrderHistory> SelectedOrderHistories
-        //{
-        //    get { return selectedOrderHistories; }
-        //}
+        public bool DistinctSameCustomer { get; set; }
 
         public OrderViewModel SelectedOrder
         {
@@ -162,16 +155,23 @@ namespace HighLandirect.ViewModels
             }
         }
 
-        /*
-        public ViewModelCommand AddNewCommanda
+        public ViewModelCommand DistinctSameCustomerClickCommand
         {
             get
             {
-                return this.addNewCommand
-                       ?? (this.addNewCommand = new ViewModelCommand(this.AddNewOrder));
+                return this.distinctSameCustomerClickCommand
+                       ?? (this.distinctSameCustomerClickCommand = new ViewModelCommand(this.ShowOrderHistoryBySendCustomer, this.CanAddOrderFromSelectedHistory));
             }
         }
-        */
+
+        public ViewModelCommand RemoveOrderFromSelectedHistoryCommand
+        {
+            get
+            {
+                return this.removeOrderFromSelectedHistoryCommand
+                       ?? (this.removeOrderFromSelectedHistoryCommand = new ViewModelCommand(this.RemoveOrderFromSelectedHistory, this.CanAddOrderFromSelectedHistory));
+            }
+        }
 
         public ViewModelCommand RemoveCommand
         {
@@ -190,19 +190,6 @@ namespace HighLandirect.ViewModels
                        ?? (this.addOrderFromSelectedHistoryCommand = new ViewModelCommand(this.AddOrderFromSelectedHistory, this.CanAddOrderFromSelectedHistory));
             }
         }
-
-        //public ICommand FilterOrderHistoryCommand
-        //{
-        //    get { return filterOrderHistoryCommand; }
-        //    set
-        //    {
-        //        if (filterOrderHistoryCommand != value)
-        //        {
-        //            filterOrderHistoryCommand = value;
-        //            RaisePropertyChanged("FilterOrderHistoryCommand");
-        //        }
-        //    }
-        //}
 
         /**
          * 顧客一覧で依頼主顧客を選択したときのイベント
@@ -224,13 +211,6 @@ namespace HighLandirect.ViewModels
             //印刷ボタンを有効に
             this.PrintCommand.RaiseCanExecuteChanged();
         }
-
-        /*
-        private void AddNewOrder()
-        {
-            this.AddNewOrderCore();
-        }
-        */
 
         private void AddNewOrderCore(int ResceiveCustNo)
         {
@@ -285,16 +265,35 @@ namespace HighLandirect.ViewModels
 
         private void ShowOrderHistoryBySendCustomer()
         {
-            //新しい注文履歴50件を表示する
-            var list = entityService.OrderHistories.Where(
-                x => x.CustomerMasterSend.CustNo == this.SendCustomerViewModel.Customer.CustNo)
-                                           .OrderByDescending(x => x.OrderDate)
-                                           .Distinct(new ReceiveCustomerEqualityComparer())
-                                           .Select(x => new OrderHistoryViewModel(x));
+            IEnumerable<OrderHistoryViewModel> list;
+            if (this.DistinctSameCustomer)
+            {
+                list = entityService.OrderHistories.Where(
+                    x => x.CustomerMasterSend.CustNo == this.SendCustomerViewModel.Customer.CustNo)
+                                               .OrderByDescending(x => x.OrderDate)
+                                               .Distinct(new ReceiveCustomerEqualityComparer())
+                                               .Select(x => new OrderHistoryViewModel(x));
+            }
+            else
+            {
+                list = entityService.OrderHistories.Where(
+                    x => x.CustomerMasterSend.CustNo == this.SendCustomerViewModel.Customer.CustNo)
+                                               .OrderByDescending(x => x.OrderDate)
+                                               .Select(x => new OrderHistoryViewModel(x));
+            }
+
             this.OrderHistories = new ObservableCollection<OrderHistoryViewModel>(list);
-            //↓これが必要な理由が分からん。↑でnewせずに、Clear＆Concatするとリストが更新されない。
+            this.OrderHistories.CollectionChanged += (o, e) =>
+            {
+                if (e.NewItems != null)
+                    foreach (var item in e.NewItems)
+                        this.entityService.OrderHistories.Add(((OrderHistoryViewModel)item).OrderHistory);
+                if (e.OldItems != null)
+                    foreach (var item in e.OldItems)
+                        this.entityService.OrderHistories.Remove(((OrderHistoryViewModel)item).OrderHistory);
+            };            //↓これが必要な理由が分からん。↑でnewせずに、Clear＆Concatするとリストが更新されない。
             this.RaisePropertyChanged(() => this.OrderHistories);
-            this.AddOrderFromSelectedHistoryCommand.RaiseCanExecuteChanged();
+            this.RefreshHistoryCommand();
         }
 
         /// <summary>
@@ -327,22 +326,27 @@ namespace HighLandirect.ViewModels
             }
         }
 
-        //private bool CanFilterOrderHistory(object CustomerIdText) { return true; }
-        //private void FilterOrderHistory(object CostomerIdText)
-        //{
-        //    this.orderListViewModel.OrderHistories =
-        //            entityService.OrderHistories.Where(x => x.CustomerMasterSend.CustNo.ToString() == CostomerIdText.ToString());
-        //}
+        private void RemoveOrderFromSelectedHistory()
+        {
+            for (var i = this.OrderHistories.Count - 1; i >= 0; i--)
+            {
+                if (this.OrderHistories[i].IsSelected)
+                {
+                    this.OrderHistories.RemoveAt(i);
+                }
+            }
+            this.RefreshHistoryCommand();
+        }
+
+        private void RefreshHistoryCommand()
+        {
+            this.AddOrderFromSelectedHistoryCommand.RaiseCanExecuteChanged();
+            this.RemoveOrderFromSelectedHistoryCommand.RaiseCanExecuteChanged();
+        }
 
         private bool CanPrintOrder() { return this.Orders != null && (this.Orders.Any()); }
         private void PrintOrder()
         {
-            /*
-            if (this.questionService.ShowYesNoQuestion("印刷しますか？"))
-            {
-                PrintOrderCore();
-            }
-            */ 
             PrintOrderCore();
         }
 
@@ -434,25 +438,5 @@ namespace HighLandirect.ViewModels
             //addNewCommand.RaiseCanExecuteChanged();
             removeCommand.RaiseCanExecuteChanged();
         }
-
-        /*
-        private void OrderListViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == "SelectedOrder")
-            {
-                orderViewModel.Order = orderListViewModel.SelectedOrder;
-                UpdateCommands();
-            }
-        }
-
-        private void OrderViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == "IsValid")
-            {
-                UpdateCommands();
-            }
-        }
-        */
-
     }
 }
