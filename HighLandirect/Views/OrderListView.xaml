@@ -159,6 +159,9 @@
                     <ToolBar>
                         <Button Command="{Binding AddOrderFromSelectedHistoryCommand}" Padding="10,0,10,0" Content="履歴から注文を追加"
                                  Height="30" FontSize="18" />
+                        <Button Command="{Binding RemoveOrderFromSelectedHistoryCommand}" Padding="10,0,10,0" Content="履歴を削除"
+                                 Height="30" FontSize="18" />
+                        <CheckBox Content="同一顧客は直近の注文のみ表示" IsChecked="{Binding DistinctSameCustomer}" Command="{Binding DistinctSameCustomerClickCommand}" />
                     </ToolBar>
                 </ToolBarTray>
                 <ListView ItemsSource="{Binding OrderHistories}" SelectedItem="{Binding SelectedOrderHistory}"
