@@ -45,8 +45,13 @@ namespace HighLandirect.ViewModels
                                                              entityService.OrderHistories,
                                                              entityService.ReportMemos);
 
+            //CustomerListのイベントをOrderListが購読
             this.CustomerListViewModel.OnResceiveCustomerAdded += this.OrderListViewModel.AddResceiveCustomer;
             this.CustomerListViewModel.OnSendCustomerAdded += this.OrderListViewModel.AddSendCustomer;
+
+            //OrderListのイベントをCustomerListが購読
+            this.OrderListViewModel.OnEditCustomerButtonClick += this.CustomerListViewModel.SetSelectedCustomer;
+            this.OrderListViewModel.OnEditCustomerButtonClick += this.ChangeToCustomerList;
             this.OrderListViewModel.OnSendCustomerChanged += this.CustomerListViewModel.ChangeCanAddSendCustomer;
 
             //初期描画時に既にOrderがある場合は、送付者を追加できない。
@@ -290,11 +295,23 @@ namespace HighLandirect.ViewModels
         }
         #endregion
 
-        public bool HasChanges
+        private int selectedTabIndex = 0;
+        public int SelectedTabIndex
         {
-            get { return (this.entityService.Customerentities != null 
-                            && this.entityService.Customerentities.HasChanges); }
+            get { return this.selectedTabIndex; }
+            set
+            {
+                if (this.selectedTabIndex != value)
+                {
+                    this.selectedTabIndex = value;
+                    this.RaisePropertyChanged(() => this.SelectedTabIndex);
+                }
+            }
         }
 
+        private void ChangeToCustomerList(object sender, CustomerListEventArgs e)
+        {
+            this.SelectedTabIndex = 1;
+        }
     }
 }

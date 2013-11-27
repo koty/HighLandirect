@@ -20,7 +20,6 @@ namespace HighLandirect.ViewModels
         private readonly IEnumerable<ReportMemo> reportMemos;
         private readonly IEntityService entityService;
         private OrderViewModel selectedOrder;
-        private OrderHistory selectedOrderHistory;
         private Store selectedStore;
         private ReportMemo selectedReportMemo;
         private ViewModelCommand printCommand;
@@ -28,6 +27,7 @@ namespace HighLandirect.ViewModels
         private ViewModelCommand addOrderFromSelectedHistoryCommand;
         private ViewModelCommand distinctSameCustomerClickCommand;
         private ViewModelCommand removeOrderFromSelectedHistoryCommand;
+        private ViewModelCommand editSelectedCustomerCommand;
 
         private CustomerViewModel sendCustomerViewModel;
         public CustomerViewModel SendCustomerViewModel
@@ -102,20 +102,7 @@ namespace HighLandirect.ViewModels
                 {
                     selectedOrder = value;
                     this.RaisePropertyChanged(() => SelectedOrder);
-                    this.RemoveCommand.RaiseCanExecuteChanged();
-                }
-            }
-        }
-
-        public OrderHistory SelectedOrderHistory
-        {
-            get { return selectedOrderHistory; }
-            set
-            {
-                if (selectedOrderHistory != value)
-                {
-                    selectedOrderHistory = value;
-                    this.RaisePropertyChanged(() => SelectedOrderHistory);
+                    this.UpdateCommands();
                 }
             }
         }
@@ -191,6 +178,45 @@ namespace HighLandirect.ViewModels
             }
         }
 
+        #region 注文履歴から顧客を修正する
+        public event EventHandler<CustomerListEventArgs> OnEditCustomerButtonClick;
+
+        public ViewModelCommand EditSelectedCustomerCommand
+        {
+            get
+            {
+                return this.editSelectedCustomerCommand
+                       ?? (this.editSelectedCustomerCommand = new ViewModelCommand(this.EditSelectedCustomer, this.CanEditSelectedCustomerCommand));
+            }
+        }
+
+        private ViewModelCommand selectedOrderHistoryChangedCommand;
+
+        public ViewModelCommand SelectedOrderHistoryChangedCommand
+        {
+            get
+            {
+                return this.selectedOrderHistoryChangedCommand
+                       ?? (this.selectedOrderHistoryChangedCommand = new ViewModelCommand(this.selectedOrderHistoryChanged));
+            }
+        }
+
+        private void EditSelectedCustomer()
+        {
+            var e = new CustomerListEventArgs()
+            {
+                CustomerViewModel = new CustomerViewModel(this.OrderHistories.First(x => x.IsSelected).OrderHistory.CustomerMasterReceive)
+            };
+
+            OnEditCustomerButtonClick(this, e);
+        }
+
+        private void selectedOrderHistoryChanged()
+        {
+            this.UpdateCommands();
+        }
+        #endregion
+
         /**
          * 顧客一覧で依頼主顧客を選択したときのイベント
          */
@@ -199,7 +225,7 @@ namespace HighLandirect.ViewModels
             this.SendCustomerViewModel = e.CustomerViewModel;
             this.ShowOrderHistoryBySendCustomer();
             //履歴から追加ボタンを有効に
-            this.AddOrderFromSelectedHistoryCommand.RaiseCanExecuteChanged();
+            this.UpdateCommands();
         }
 
         /**
@@ -209,7 +235,7 @@ namespace HighLandirect.ViewModels
         {
             this.AddNewOrderCore(e.CustomerViewModel.Customer.CustNo);
             //印刷ボタンを有効に
-            this.PrintCommand.RaiseCanExecuteChanged();
+            this.UpdateCommands();
         }
 
         private void AddNewOrderCore(int ResceiveCustNo)
@@ -242,8 +268,7 @@ namespace HighLandirect.ViewModels
             var orderVM = new OrderViewModel(order);
             this.Orders.Add(orderVM);
             this.RaisePropertyChanged(() => this.Orders);
-            this.RemoveCommand.RaiseCanExecuteChanged();
-            this.PrintCommand.RaiseCanExecuteChanged();
+            this.UpdateCommands();
 
             this.SelectedOrder = orderVM;
         }
@@ -258,8 +283,7 @@ namespace HighLandirect.ViewModels
                 var arg = new CustomerListEventArgs() { CustomerViewModel = null };
                 this.OnSendCustomerChanged(this, arg);
                 this.OrderHistories.Clear();
-                this.AddOrderFromSelectedHistoryCommand.RaiseCanExecuteChanged();
-                this.PrintCommand.RaiseCanExecuteChanged();
+                this.UpdateCommands();
             }
         }
 
@@ -291,9 +315,10 @@ namespace HighLandirect.ViewModels
                 if (e.OldItems != null)
                     foreach (var item in e.OldItems)
                         this.entityService.OrderHistories.Remove(((OrderHistoryViewModel)item).OrderHistory);
-            };            //↓これが必要な理由が分からん。↑でnewせずに、Clear＆Concatするとリストが更新されない。
+            };
+            //↓これが必要な理由が分からん。↑でnewせずに、Clear＆Concatするとリストが更新されない。
             this.RaisePropertyChanged(() => this.OrderHistories);
-            this.RefreshHistoryCommand();
+            this.UpdateCommands();
         }
 
         /// <summary>
@@ -318,6 +343,11 @@ namespace HighLandirect.ViewModels
             return this.OrderHistories.Count > 0;
         }
 
+        private bool CanEditSelectedCustomerCommand()
+        {
+            return this.OrderHistories.Where(x => x.IsSelected).Count() == 1;
+        }
+
         private void AddOrderFromSelectedHistory()
         {
             foreach (var ResceiveCustomer in this.OrderHistories.Where(x => x.IsSelected))
@@ -335,13 +365,7 @@ namespace HighLandirect.ViewModels
                     this.OrderHistories.RemoveAt(i);
                 }
             }
-            this.RefreshHistoryCommand();
-        }
-
-        private void RefreshHistoryCommand()
-        {
-            this.AddOrderFromSelectedHistoryCommand.RaiseCanExecuteChanged();
-            this.RemoveOrderFromSelectedHistoryCommand.RaiseCanExecuteChanged();
+            this.UpdateCommands();
         }
 
         private bool CanPrintOrder() { return this.Orders != null && (this.Orders.Any()); }
@@ -381,12 +405,13 @@ namespace HighLandirect.ViewModels
                 var orderSources = new List<OrderSource>();
                 foreach (var order in this.Orders)
                 {
-                    var orderSource = new OrderSource(order.Order);
-
-                    orderSource.CustomerCD = this.SelectedStore.CustomerCD;
-                    orderSource.StoreId1 = this.SelectedStore.StoreId1;
-                    orderSource.StoreId2 = this.SelectedStore.StoreId2;
-                    orderSource.ReportMemo = this.SelectedReportMemo.ReportMemo1;
+                    var orderSource = new OrderSource(order.Order)
+                    {
+                        CustomerCD = this.SelectedStore.CustomerCD,
+                        StoreId1 = this.SelectedStore.StoreId1,
+                        StoreId2 = this.SelectedStore.StoreId2,
+                        ReportMemo = this.SelectedReportMemo.ReportMemo1
+                    };
 
                     orderSources.Add(orderSource);
                 }
@@ -424,8 +449,7 @@ namespace HighLandirect.ViewModels
 
                 var arg = new CustomerListEventArgs() { CustomerViewModel = null };
                 this.OnSendCustomerChanged(this, arg);
-                this.PrintCommand.RaiseCanExecuteChanged();
-                this.RemoveCommand.RaiseCanExecuteChanged();
+                this.UpdateCommands();
             }
             catch
             {
@@ -435,8 +459,11 @@ namespace HighLandirect.ViewModels
 
         private void UpdateCommands()
         {
-            //addNewCommand.RaiseCanExecuteChanged();
-            removeCommand.RaiseCanExecuteChanged();
+            this.AddOrderFromSelectedHistoryCommand.RaiseCanExecuteChanged();
+            this.RemoveOrderFromSelectedHistoryCommand.RaiseCanExecuteChanged();
+            this.PrintCommand.RaiseCanExecuteChanged();
+            this.RemoveCommand.RaiseCanExecuteChanged();
+            this.EditSelectedCustomerCommand.RaiseCanExecuteChanged();
         }
     }
 }

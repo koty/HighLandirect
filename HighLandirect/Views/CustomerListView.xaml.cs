@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System;
+using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace HighLandirect.Views
@@ -18,6 +19,11 @@ namespace HighLandirect.Views
                 var scrollViewer = border.Child as ScrollViewer;
                 scrollViewer.ScrollToTop();
             }
+        }
+
+        private void UserControl_GotFocus(object sender, System.Windows.RoutedEventArgs e)
+        {
+            //
         }
     }
 }

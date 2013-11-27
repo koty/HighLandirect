@@ -277,24 +277,6 @@ namespace HighLandirect.ViewModels
             addNewCommand.RaiseCanExecuteChanged();
             removeCommand.RaiseCanExecuteChanged();
         }
-        /*
-        private void CustomerListViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == "SelectedCustomer")
-            {
-                customerViewModel.Customer = customerListViewModel.SelectedCustomer;
-                UpdateCommands();
-            }
-        }
-
-        private void CustomerViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == "IsValid")
-            {
-                UpdateCommands();
-            }
-        }
-        */
 
         public EventHandler<CustomerListEventArgs> OnSendCustomerAdded;
         public EventHandler<CustomerListEventArgs> OnResceiveCustomerAdded;
@@ -450,6 +432,11 @@ namespace HighLandirect.ViewModels
                     .Max(x => x.CustNo);
             }
             return CustNo;
+        }
+
+        internal void SetSelectedCustomer(object sender, CustomerListEventArgs e)
+        {
+            this.SelectedCustomer = e.CustomerViewModel;
         }
     }
 }

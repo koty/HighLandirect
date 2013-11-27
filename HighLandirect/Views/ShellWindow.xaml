@@ -107,7 +107,7 @@
             <StatusBarItem Content="{x:Static p:Resources.Ready}"/>
         </StatusBar>
 
-        <TabControl>
+        <TabControl SelectedIndex="{Binding SelectedTabIndex}">
             <TabItem Header="{x:Static p:Resources.Order}" Height="30" Width="70">
                 <v:OrderListView Grid.Row="0" Grid.Column="0" DataContext="{Binding OrderListViewModel}" />
             </TabItem>

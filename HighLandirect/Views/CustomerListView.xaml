@@ -10,7 +10,7 @@
              xmlns:v="clr-namespace:HighLandirect.Views"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance vm:CustomerListViewModel}"
-             Background="#FF87B2F3" BorderBrush="#FF87B2F3">
+             Background="#FF87B2F3" BorderBrush="#FF87B2F3" GotFocus="UserControl_GotFocus">
     <DockPanel>
         <ToolBarTray DockPanel.Dock="Top">
             <ToolBar>
@@ -79,8 +79,9 @@
         </ToolBarTray>
         <StackPanel Orientation="Horizontal">
             <DataGrid ItemsSource="{Binding CustomerViewModels}" AutoGenerateColumns="False" CanUserAddRows="False"
-                      FontSize="14" SelectedItem="{Binding SelectedCustomer}" Width="800"
-                      Sorting="DataGrid_Sorting">
+                      FontSize="14" SelectedItem="{Binding SelectedCustomer, Mode=TwoWay}" Width="800"
+                      Sorting="DataGrid_Sorting"
+                      x:Name="customerGrid">
                 <i:Interaction.Behaviors>
                     <v:ScrollIntoViewBehavior />
                 </i:Interaction.Behaviors>

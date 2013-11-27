@@ -8,6 +8,7 @@
              xmlns:c="clr-namespace:HighLandirect.Converters"
              xmlns:ViewModels="clr-namespace:HighLandirect.ViewModels"
              xmlns:v="clr-namespace:HighLandirect.Views"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance ViewModels:OrderListViewModel}"
              Background="#FF87B2F3" BorderBrush="#FF87B2F3">
@@ -27,10 +28,10 @@
         <ToolBarTray DockPanel.Dock="Top">
             <ToolBar>
                 <!--スタイルが適用されない。仕方ないので個別にHeightとFontSizeを設定する。-->
-                <Button Command="{Binding PrintCommand}" Content="印刷" Width="100" Height="30" FontSize="18" />
-                <Button Command="{Binding RemoveCommand}" Content="削除" Height="30" FontSize="18" />
-                <Separator />
-                <Button Visibility="Hidden" Width="100" Content="履歴を抽出" Height="30" FontSize="18" />
+                <Button Command="{Binding PrintCommand}" Content="印刷" Width="100" Height="30"
+                        FontSize="18" Margin="10,0,0,0" />
+                <Button Command="{Binding RemoveCommand}" Content="削除" Height="30" FontSize="18"
+                         Margin="10,0,0,0" />
             </ToolBar>
         </ToolBarTray>
         <Grid>
@@ -160,12 +161,20 @@
                         <Button Command="{Binding AddOrderFromSelectedHistoryCommand}" Padding="10,0,10,0" Content="履歴から注文を追加"
                                  Height="30" FontSize="18" />
                         <Button Command="{Binding RemoveOrderFromSelectedHistoryCommand}" Padding="10,0,10,0" Content="履歴を削除"
-                                 Height="30" FontSize="18" />
-                        <CheckBox Content="同一顧客は直近の注文のみ表示" IsChecked="{Binding DistinctSameCustomer}" Command="{Binding DistinctSameCustomerClickCommand}" />
+                                 Height="30" FontSize="18" Margin="10,0,0,0" />
+                        <CheckBox Content="同一顧客は直近の注文のみ表示" IsChecked="{Binding DistinctSameCustomer}"
+                                  Command="{Binding DistinctSameCustomerClickCommand}" Margin="10,0,0,0" />
+                        <Button Command="{Binding EditSelectedCustomerCommand}" Padding="30,0,30,0" Content="編　集"
+                                 Height="30" FontSize="18" Margin="10,0,0,0" />
                     </ToolBar>
                 </ToolBarTray>
-                <ListView ItemsSource="{Binding OrderHistories}" SelectedItem="{Binding SelectedOrderHistory}"
+                <ListView ItemsSource="{Binding OrderHistories}"
                           ScrollViewer.VerticalScrollBarVisibility="Visible" Height="170">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged">
+                            <i:InvokeCommandAction Command="{Binding SelectedOrderHistoryChangedCommand}" CommandParameter="{Binding}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
                     <ListView.ItemContainerStyle>
                         <Style TargetType="{x:Type ListViewItem}">
                             <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
