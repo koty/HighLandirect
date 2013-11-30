@@ -35,9 +35,9 @@ namespace HighLandirect
         private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             //TODO:ロギング処理など
-
+            var ex = (Exception)e.ExceptionObject;
             MessageBox.Show(
-                "不明なエラーが発生しました。アプリケーションを終了します。\n" + ((Exception)e.ExceptionObject).Message,
+                "不明なエラーが発生しました。アプリケーションを終了します。\n" + ex.Message + "\n" + ex.StackTrace,
                 "エラー",
                 MessageBoxButton.OK,
                 MessageBoxImage.Error);

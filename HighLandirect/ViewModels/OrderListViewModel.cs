@@ -340,12 +340,12 @@ namespace HighLandirect.ViewModels
 
         private bool CanAddOrderFromSelectedHistory()
         {
-            return this.OrderHistories.Count > 0;
+            return (this.OrderHistories != null && this.OrderHistories.Count > 0);
         }
 
         private bool CanEditSelectedCustomerCommand()
         {
-            return this.OrderHistories.Where(x => x.IsSelected).Count() == 1;
+            return (this.OrderHistories != null && this.OrderHistories.Where(x => x.IsSelected).Count() == 1);
         }
 
         private void AddOrderFromSelectedHistory()
