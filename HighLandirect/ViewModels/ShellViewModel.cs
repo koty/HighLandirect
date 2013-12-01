@@ -52,6 +52,8 @@ namespace HighLandirect.ViewModels
             //OrderListのイベントをCustomerListが購読
             this.OrderListViewModel.OnEditCustomerButtonClick += this.CustomerListViewModel.SetSelectedCustomer;
             this.OrderListViewModel.OnEditCustomerButtonClick += this.ChangeToCustomerList;
+            this.orderListViewModel.OnAddNewCustomerButtonClick += this.CustomerListViewModel.AddNewCustomer;
+            this.OrderListViewModel.OnAddNewCustomerButtonClick += this.ChangeToCustomerList;
             this.OrderListViewModel.OnSendCustomerChanged += this.CustomerListViewModel.ChangeCanAddSendCustomer;
 
             //初期描画時に既にOrderがある場合は、送付者を追加できない。

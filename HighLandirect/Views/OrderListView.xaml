@@ -176,6 +176,8 @@
                                   Command="{Binding DistinctSameCustomerClickCommand}" Margin="10,0,0,0" />
                         <Button Command="{Binding EditSelectedCustomerCommand}" Padding="30,0,30,0" Content="編　集"
                                  Height="30" FontSize="18" Margin="10,0,0,0" />
+                        <Button Command="{Binding AddNewCustomerCommand}" Padding="20,0,20,0" Content="新規追加"
+                                 Height="30" FontSize="18" Margin="10,0,0,0" />
                     </ToolBar>
                 </ToolBarTray>
                 <ListView ItemsSource="{Binding OrderHistories}"

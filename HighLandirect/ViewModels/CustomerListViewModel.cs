@@ -438,5 +438,9 @@ namespace HighLandirect.ViewModels
         {
             this.SelectedCustomer = e.CustomerViewModel;
         }
+        internal void AddNewCustomer(object sender, CustomerListEventArgs e)
+        {
+            this.AddNewCustomer();
+        }
     }
 }

@@ -223,6 +223,26 @@ namespace HighLandirect.ViewModels
         }
         #endregion
 
+        #region 注文履歴から顧客を新規追加する
+        public event EventHandler<CustomerListEventArgs> OnAddNewCustomerButtonClick;
+        private ViewModelCommand addNewCustomerCommand;
+
+        public ViewModelCommand AddNewCustomerCommand
+        {
+            get
+            {
+                return this.addNewCustomerCommand
+                       ?? (this.addNewCustomerCommand = new ViewModelCommand(this.addNewCustomer));
+            }
+        }
+
+        private void addNewCustomer()
+        {
+            var e = new CustomerListEventArgs();
+            OnAddNewCustomerButtonClick(this, e);
+        }
+
+        #endregion
         /**
          * 顧客一覧で依頼主顧客を選択したときのイベント
          */
