@@ -24,7 +24,8 @@
                 <Separator Width="10" />
                 <TextBox Width="150" Text="{Binding SearchString, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true, 
                      ValidatesOnDataErrors=true, NotifyOnValidationError=true}" Height="30" FontSize="18"
-                     InputMethod.PreferredImeConversionMode="Native,FullShape" InputMethod.PreferredImeState="On" />
+                     InputMethod.PreferredImeConversionMode="Native,FullShape" InputMethod.PreferredImeState="On"
+                         v:GoNextByEnterBehavior.EnterCommand="True"/>
                 <Button Command="{Binding SearchCommand}" Content="検索" Height="30" FontSize="18" Padding="10,0,10,0">
                     <i:Interaction.Triggers>
                         <l:InteractionMessageTrigger Messenger="{Binding Messenger}" MessageKey="NoOneFound">
