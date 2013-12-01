@@ -71,6 +71,11 @@ namespace HighLandirect.ViewModels
             this.selectedReportMemo = this.reportMemos.FirstOrDefault(x => x.IsDefault == true);
 
             this.entityService = entityService;
+            CreateOrderCollection(orders);
+        }
+
+        private void CreateOrderCollection(IEnumerable<Order> orders)
+        {
             this.Orders = new ObservableCollection<OrderViewModel>(orders.Select(x => new OrderViewModel(x)));
             this.Orders.CollectionChanged += (o, e) =>
             {
@@ -86,9 +91,10 @@ namespace HighLandirect.ViewModels
                 var customer = this.entityService.Customers.Where(x => x.CustNo == this.Orders.First().Order.SendCustID).First();
                 this.SendCustomerViewModel = new CustomerViewModel(customer);
                 this.ShowOrderHistoryBySendCustomer();
-                var arg = new CustomerListEventArgs() { CustomerViewModel = this.SendCustomerViewModel };
+                //var arg = new CustomerListEventArgs() { CustomerViewModel = this.SendCustomerViewModel };
                 //this.OnSendCustomerChanged(this, arg); //ここではまだイベント登録されてない。
             }
+            this.RaisePropertyChanged(() => this.Orders);
         }
 
         public bool DistinctSameCustomer { get; set; }
@@ -442,7 +448,7 @@ namespace HighLandirect.ViewModels
                     this.entityService.Customers.First(x => x.CustNo == order.CustomerMasterReceive.CustNo)
                         .LatestResceive = DateTime.Now;
                 }
-                
+
                 //ここもentityServiceとOrdersの両方をClearする必要はない気がする。
                 this.entityService.Orders.Clear();
                 this.Orders.Clear();
@@ -464,6 +470,62 @@ namespace HighLandirect.ViewModels
             this.PrintCommand.RaiseCanExecuteChanged();
             this.RemoveCommand.RaiseCanExecuteChanged();
             this.EditSelectedCustomerCommand.RaiseCanExecuteChanged();
+            this.MoveRowToLowerCommand.RaiseCanExecuteChanged();
+            this.MoveRowToUpperCommand.RaiseCanExecuteChanged();
         }
+
+        #region 注文グリッドの上へ下へボタン
+        private ViewModelCommand moveRowToUpperCommand;
+        public ViewModelCommand MoveRowToUpperCommand
+        {
+            get
+            {
+                return this.moveRowToUpperCommand
+                       ?? (this.moveRowToUpperCommand = new ViewModelCommand(this.MoveRowToUpper, this.CanMoveRowToUpper));
+            }
+        }
+        private bool CanMoveRowToUpper() { return this.SelectedOrder != this.Orders.First(); }
+        private void MoveRowToUpper()
+        {
+            for (var i = 0; i < this.Orders.Count; i++)
+            {
+                if (this.Orders[i] == this.SelectedOrder)
+                {
+                    var tmpList = this.Orders.ToList();
+                    this.Orders.Clear();
+                    var tmp = tmpList[i - 1];
+                    tmpList.RemoveAt(i - 1);
+                    tmpList.Insert(i, tmp);
+                    this.CreateOrderCollection(tmpList.Select(x => x.Order));
+                }
+            }
+        }
+
+        private ViewModelCommand moveRowToLowerCommand;
+        public ViewModelCommand MoveRowToLowerCommand
+        {
+            get
+            {
+                return this.moveRowToLowerCommand
+                       ?? (this.moveRowToLowerCommand = new ViewModelCommand(this.MoveRowToLower, this.CanMoveRowToLower));
+            }
+        }
+        private bool CanMoveRowToLower() { return this.SelectedOrder != this.Orders.Last(); }
+        private void MoveRowToLower()
+        {
+            for (var i = 0; i < this.Orders.Count; i++)
+            {
+                if (this.Orders[i] == this.SelectedOrder)
+                {
+                    var tmpList = this.Orders.ToList();
+                    this.Orders.Clear();
+                    var tmp = tmpList[i + 1];
+                    tmpList.RemoveAt(i + 1);
+                    tmpList.Insert(i, tmp);
+                    this.CreateOrderCollection(tmpList.Select(x => x.Order));
+                }
+            }
+        }
+        #endregion
     }
 }
