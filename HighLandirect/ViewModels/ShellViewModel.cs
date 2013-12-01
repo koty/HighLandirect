@@ -168,7 +168,7 @@ namespace HighLandirect.ViewModels
             if (parameter.Response == null || parameter.Response.Length == 0)
                 return;
 
-            File.Copy(AppDomain.CurrentDomain.BaseDirectory + @"\Resources\MyData.sdf", parameter.Response[0], true);
+            File.Copy(AppDomain.CurrentDomain.BaseDirectory + @"\Domains\Resources\MyData.sdf", parameter.Response[0], true);
             Messenger.Raise(new InformationMessage("保存しました。", "お知らせ", "Info"));
         }
 
