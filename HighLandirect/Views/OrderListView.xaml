@@ -53,8 +53,8 @@
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <Button Content="↑" Command="{Binding Path=DataContext.MoveRowToUpperCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}}" />
-                                    <Button Content="↓" Command="{Binding Path=DataContext.MoveRowToLowerCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}}" />
+                                    <Button Content="↑" Command="{Binding Path=DataContext.MoveRowToUpperCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}}" IsEnabled="{Binding CanMoveRowToUpper}" />
+                                    <Button Content="↓" Command="{Binding Path=DataContext.MoveRowToLowerCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}}" IsEnabled="{Binding CanMoveRowToLower}" />
                                 </StackPanel>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>

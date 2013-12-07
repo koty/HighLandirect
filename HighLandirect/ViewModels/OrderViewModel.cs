@@ -1,4 +1,6 @@
-﻿using HighLandirect.Domains;
+﻿using System.Collections.Generic;
+using System.Linq;
+using HighLandirect.Domains;
 using Livet;
 
 namespace HighLandirect.ViewModels
@@ -13,7 +15,10 @@ namespace HighLandirect.ViewModels
         private bool isValid = true;
         private Order order;
 
-        public bool IsEnabled { get { return Order != null; } }
+        public bool IsEnabled
+        {
+            get { return Order != null; }
+        }
 
         public bool IsValid
         {
@@ -46,5 +51,17 @@ namespace HighLandirect.ViewModels
          * 画面で使う
          */
         public bool IsSelected { get; set; }
+
+        public bool CanMoveRowToLower
+        {
+            get { return this.OrderListViewModel != null && this.OrderListViewModel.LastOrDefault() != this; }
+        }
+
+        public bool CanMoveRowToUpper
+        {
+            get { return this.OrderListViewModel != null && this.OrderListViewModel.FirstOrDefault() != this; }
+        }
+
+        public IEnumerable<OrderViewModel> OrderListViewModel { set; private get; }
     }
 }
