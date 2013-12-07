@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Printing;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System;
 using System.Linq;
@@ -23,6 +24,7 @@ namespace HighLandirect.ViewModels
         private Store selectedStore;
         private ReportMemo selectedReportMemo;
         private ViewModelCommand printCommand;
+        private ViewModelCommand printCommandSagawa;
         private ViewModelCommand removeCommand;
         private ViewModelCommand addOrderFromSelectedHistoryCommand;
         private ViewModelCommand distinctSameCustomerClickCommand;
@@ -145,6 +147,15 @@ namespace HighLandirect.ViewModels
             {
                 return this.printCommand
                        ?? (this.printCommand = new ViewModelCommand(this.PrintOrder, this.CanPrintOrder));
+            }
+        }
+
+        public ViewModelCommand PrintCommandSagawa
+        {
+            get
+            {
+                return this.printCommandSagawa
+                       ?? (this.printCommandSagawa = new ViewModelCommand(this.PrintOrderSagawa, this.CanPrintOrder));
             }
         }
 
@@ -397,10 +408,15 @@ namespace HighLandirect.ViewModels
         private bool CanPrintOrder() { return this.Orders != null && (this.Orders.Any()); }
         private void PrintOrder()
         {
-            PrintOrderCore();
+            PrintOrderCore<ReportYamato>();
         }
 
-        private void PrintOrderCore()
+        private void PrintOrderSagawa()
+        {
+            PrintOrderCore<ReportSagawa>();
+        }
+
+        private void PrintOrderCore<ReportType>() where ReportType : UserControl, new()
         {
 
             try
@@ -426,7 +442,7 @@ namespace HighLandirect.ViewModels
                     }
                 }
 
-                var printer = new PrintCutSheetReport<OrderSource, ReportYamato>(pq);
+                var printer = new PrintCutSheetReport<OrderSource, ReportType>(pq);
 
                 var orderSources = new List<OrderSource>();
                 foreach (var order in this.Orders)

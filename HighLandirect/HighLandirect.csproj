@@ -157,6 +157,9 @@
     <Compile Include="Domains\Reports\ReportYamatoSeal10P.xaml.cs">
       <DependentUpon>ReportYamatoSeal10P.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Domains\Reports\ReportSagawa.xaml.cs">
+      <DependentUpon>ReportSagawa.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Domains\Store.cs" />
     <Compile Include="Foundations\DataErrorInfoExtensions.cs" />
     <Compile Include="Foundations\DataErrorSupport.cs" />
@@ -203,6 +206,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Domains\Reports\ReportYamatoSeal10P.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Domains\Reports\ReportSagawa.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
