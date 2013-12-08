@@ -26,7 +26,7 @@
             <Setter Property="Foreground" Value="White" />
         </Style>
         <Style TargetType="TextBox">
-            <Setter Property="FontSize" Value="20" />
+            <Setter Property="FontSize" Value="18" />
         </Style>
     </UserControl.Resources>
     <Grid>
@@ -39,13 +39,13 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="30"/>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="27"/>
+            <RowDefinition Height="27"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Label Content="顧客番号" Grid.Column="0" Grid.Row="0" />
@@ -158,18 +158,18 @@
                         ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
                  MaxLength="12" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Stretch" DataContext="{Binding}" />
 
-        <CheckBox Grid.Row="6" Grid.Column="3" Content="ラベル" IsChecked="{Binding Customer.Label}" VerticalAlignment="Center" VerticalContentAlignment="Center" />
-        <CheckBox Grid.Row="6" Grid.Column="4" Content="顧客一覧に出さない" IsChecked="{Binding Customer.Delete}" VerticalAlignment="Center" VerticalContentAlignment="Center" />
+        <CheckBox Grid.Row="6" Grid.Column="3" Content="ラベル" FontSize="15" IsChecked="{Binding Customer.Label}" VerticalAlignment="Center" VerticalContentAlignment="Center" />
+        <CheckBox Grid.Row="6" Grid.Column="4" Content="顧客一覧に出さない" FontSize="15" IsChecked="{Binding Customer.Delete}" VerticalAlignment="Center" VerticalContentAlignment="Center" />
         
-        <Label Content="メールアドレス" Grid.Row="6" />
+        <Label Content="メールアドレス" Grid.Row="6" FontSize="15" />
         <TextBox Text="{Binding Customer.MailAddress, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True,
                         ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
                  MaxLength="200" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Stretch" DataContext="{Binding}" />
         
         <Label Content="メモ" Grid.Row="8" />
-        <Label Content="最終荷主日" Grid.Row="7" Grid.Column="0"/>
+        <Label Content="最終荷主日" Grid.Row="7" Grid.Column="0" FontSize="15"/>
         <TextBox MaxLength="200" Text="{Binding Customer.LatestSend, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" Grid.Column="1" Grid.Row="7" />
-        <Label Content="最終宛先日" Grid.Row="7" Grid.Column="3"/>
+        <Label Content="最終宛先日" Grid.Row="7" Grid.Column="3" FontSize="15"/>
         <TextBox MaxLength="200" Text="{Binding Customer.LatestResceive, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" Grid.Column="4" Grid.Row="7" />
     </Grid>
 </UserControl>
