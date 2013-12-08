@@ -361,6 +361,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <None Include="Domains\Reports\OverlaySagawa.jpg" />
     <Content Include="Domains\Resources\EmptyData\MyData.sdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -404,7 +405,7 @@
     <Content Include="InfrastructureAssemblies\Microsoft.Expression.Interactions.dll" />
     <Content Include="InfrastructureAssemblies\System.Windows.Interactivity.dll" />
     <Content Include="InfrastructureAssemblies\WPF.Themes.dll" />
-    <Resource Include="Domains\Resources\OverlayYamato.jpg" />
+    <Resource Include="Domains\Reports\OverlayYamato.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -33,7 +33,7 @@
                 Address3 = "なにぬねのはひふへほ",
                 Address4 = "まみむめもやゆよわを",
                 CustName = "長野　太郎あいうえおかきく",
-                Phone = "026-888-888",
+                Phone = "026-888-8888",
                 PostalCD = "1234567"
             };
             this.Order.CustomerMasterSend = new Customer()
@@ -44,7 +44,7 @@
                 Address3 = "なにぬねのはひふへほ",
                 Address4 = "まみむめもやゆよわを",
                 CustName = "長野　太郎あいうえおかきく",
-                Phone = "026-888-888",
+                Phone = "026-888-8888",
                 PostalCD = "1234567"
             };
 
