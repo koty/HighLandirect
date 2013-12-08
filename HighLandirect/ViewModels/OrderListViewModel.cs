@@ -413,15 +413,15 @@ namespace HighLandirect.ViewModels
         private bool CanPrintOrder() { return this.Orders != null && (this.Orders.Any()); }
         private void PrintOrder()
         {
-            PrintOrderCore<ReportYamato>();
+            PrintOrderCore<ReportYamato>(10m, 4.5m);
         }
 
         private void PrintOrderSagawa()
         {
-            PrintOrderCore<ReportSagawa>();
+            PrintOrderCore<ReportSagawa>(8.5m, 4.0m);
         }
 
-        private void PrintOrderCore<ReportType>() where ReportType : UserControl, new()
+        private void PrintOrderCore<ReportType>(decimal widthByInch, decimal heightByInch) where ReportType : UserControl, new()
         {
 
             try
@@ -431,7 +431,7 @@ namespace HighLandirect.ViewModels
                 try
                 {
                     pq = ps.GetPrintQueue("FUJITSU FMPR5000"); //指定したプリンタ
-                    pq.UserPrintTicket.PageMediaSize = new PageMediaSize(10 * 96, 4.5 * 96); //pixcel指定。1pixel=1/96inchだそうで
+                    pq.UserPrintTicket.PageMediaSize = new PageMediaSize((double)(widthByInch * 96m), (double)(heightByInch * 96m)); //pixcel指定。1pixel=1/96inchだそうで
                     pq.UserPrintTicket.PageResolution = new PageResolution(96, 96);
                     pq.UserPrintTicket.InputBin = InputBin.Tractor;
                 }

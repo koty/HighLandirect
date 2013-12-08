@@ -93,13 +93,13 @@
                 <Label Content="{Binding Order.CustomerMasterSend.PostalCD6}" FontFamily="MS Gothic" FontSize="14" Padding="3,8,3,0" />
                 <Label Content="{Binding Order.CustomerMasterSend.PostalCD7}" FontFamily="MS Gothic" FontSize="14" Padding="3,8,3,0" />
             </StackPanel>
-            <Label Content="{Binding Order.CustomerMasterSend.PrefectureName}" Grid.Column="1" Margin="0" Padding="15, 3, 0, 0"  Grid.Row="9" FontFamily="MS Gothic" FontSize="15" />
-            <Label Content="{Binding Order.CustomerMasterSend.Address1}" Grid.Column="1" Margin="65,0,0,0" Padding="15, 3, 0, 0"  Grid.Row="9" FontFamily="MS Gothic" FontSize="15" />
-            <Label Content="{Binding Order.CustomerMasterSend.Address2}" Grid.Column="1" Margin="0" Padding="15, 3, 0, 0"  Grid.Row="10" FontFamily="MS Gothic" FontSize="15" />
-            <Label Content="{Binding Order.CustomerMasterSend.Address3}" Grid.Column="1" Margin="0" Padding="15, 3, 0, 0"  Grid.Row="11" FontFamily="MS Gothic" FontSize="15" />
-            <Label Content="{Binding Order.CustomerMasterSend.Address4}" Grid.Column="1" Margin="0" Padding="15, 3, 0, 0"  Grid.Row="12" FontFamily="MS Gothic" FontSize="15" />
-            <Label Content="{Binding Order.CustomerMasterSend.CustName}" Grid.Column="1" Margin="0" Padding="15, 3, 0, 0"  Grid.Row="13" FontFamily="MS Gothic" FontSize="15" />
-            <Viewbox Grid.Column="1" Margin="98,4.8,52,0" Grid.Row="14" RenderTransformOrigin="0.5,0.5">
+            <Label Content="{Binding Order.CustomerMasterSend.PrefectureName}" Grid.Column="1" Margin="0" Padding="15, 1, 0, 0"  Grid.Row="9" FontFamily="MS Gothic" FontSize="15" />
+            <Label Content="{Binding Order.CustomerMasterSend.Address1}" Grid.Column="1" Margin="65,0,0,0" Padding="15, 1, 0, 0"  Grid.Row="9" FontFamily="MS Gothic" FontSize="15" />
+            <Label Content="{Binding Order.CustomerMasterSend.Address2}" Grid.Column="1" Margin="0" Padding="15, 1, 0, 0"  Grid.Row="10" FontFamily="MS Gothic" FontSize="15" />
+            <Label Content="{Binding Order.CustomerMasterSend.Address3}" Grid.Column="1" Margin="0" Padding="15, 1, 0, 0"  Grid.Row="11" FontFamily="MS Gothic" FontSize="15" />
+            <Label Content="{Binding Order.CustomerMasterSend.Address4}" Grid.Column="1" Margin="0" Padding="15, 1, 0, 0"  Grid.Row="12" FontFamily="MS Gothic" FontSize="15" />
+            <Label Content="{Binding Order.CustomerMasterSend.CustName}" Grid.Column="1" Margin="0" Padding="15, 1 0, 0"  Grid.Row="13" FontFamily="MS Gothic" FontSize="15" />
+            <Viewbox Grid.Column="1" Margin="98,3.8,52,0" Grid.Row="14" RenderTransformOrigin="0.5,0.5">
                 <Viewbox.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform ScaleX="1.5"/>
