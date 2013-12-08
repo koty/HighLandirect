@@ -5,13 +5,28 @@ using HighLandirect.Views;
 using Livet;
 using System.Windows.Markup;
 using System.Globalization;
+using System.Threading;
 
 namespace HighLandirect
 {
     public partial class App : Application
     {
+        // 多重起動チェックに使うミューテックス
+        // http://nine-works.blog.ocn.ne.jp/blog/2011/01/wpf_06c9.html
+        private Mutex mutex = new Mutex(false, "HighLandirect");
+
         protected void Application_Startup(object sender, StartupEventArgs e)
         {
+            // ミューテックスの所有権を要求
+            if (mutex.WaitOne(0, false) == false)
+            {
+                // すでに起動していると判断して終了
+                MessageBox.Show("既に起動しています。");
+                mutex.Close();
+                mutex = null;
+                this.Shutdown();
+            }
+
             DispatcherHelper.UIDispatcher = Dispatcher;
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
             FrameworkElement.LanguageProperty.OverrideMetadata(
@@ -44,31 +59,15 @@ namespace HighLandirect
 
             Environment.Exit(1);
         }
-        /*
-        private void AppDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+
+        private void Application_Exit(object sender, ExitEventArgs e)
         {
-            HandleException(e.Exception, false);
-            e.Handled = true;
-        }
 
-        private static void AppDomainUnhandledException(object sender, UnhandledExceptionEventArgs e)
-        {
-            HandleException(e.ExceptionObject as Exception, e.IsTerminating);
-        }
-
-        private static void HandleException(Exception e, bool isTerminating)
-        {
-            if (e == null) { return; }
-
-            Trace.TraceError(e.ToString());
-
-            if (!isTerminating)
+            if (mutex != null)
             {
-                MessageBox.Show(string.Format(CultureInfo.CurrentCulture,
-                        HighLandirect.Properties.Resources.UnknownError, e.ToString())
-                    , "HighLandirect", MessageBoxButton.OK, MessageBoxImage.Error);
+                mutex.ReleaseMutex();
+                mutex.Close();
             }
         }
-        */
     }
 }
