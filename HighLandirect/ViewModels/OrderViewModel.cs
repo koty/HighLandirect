@@ -51,17 +51,5 @@ namespace HighLandirect.ViewModels
          * 画面で使う
          */
         public bool IsSelected { get; set; }
-
-        public bool CanMoveRowToLower
-        {
-            get { return this.OrderListViewModel != null && this.OrderListViewModel.LastOrDefault() != this; }
-        }
-
-        public bool CanMoveRowToUpper
-        {
-            get { return this.OrderListViewModel != null && this.OrderListViewModel.FirstOrDefault() != this; }
-        }
-
-        public IEnumerable<OrderViewModel> OrderListViewModel { set; private get; }
     }
 }

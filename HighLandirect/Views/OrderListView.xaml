@@ -34,6 +34,9 @@
                         FontSize="18" Margin="10,0,0,0" />
                 <Button Command="{Binding RemoveCommand}" Content="削除" Height="30" FontSize="18"
                          Margin="10,0,0,0" />
+                <Button Content="↑" Command="{Binding MoveRowToUpperCommand}" Height="30" Margin="10,0,0,0" />
+                <Button Content="↓" Command="{Binding MoveRowToLowerCommand}" Height="30" Margin="10,0,0,0" />
+
             </ToolBar>
         </ToolBarTray>
         <Grid>
@@ -49,16 +52,6 @@
                          AutoGenerateColumns="False" AlternationCount="1"
                          CanUserAddRows="False" FontSize="16" HorizontalScrollBarVisibility="Auto">
                 <DataGrid.Columns>
-                    <DataGridTemplateColumn>
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
-                                    <Button Content="↑" Command="{Binding Path=DataContext.MoveRowToUpperCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}}" IsEnabled="{Binding CanMoveRowToUpper}" />
-                                    <Button Content="↓" Command="{Binding Path=DataContext.MoveRowToLowerCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}}" IsEnabled="{Binding CanMoveRowToLower}" />
-                                </StackPanel>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
                     <DataGridTextColumn Binding="{Binding Order.CustomerMasterReceive.CustNo}" Header="顧客番号" Width="60" IsReadOnly="True" />
                     <DataGridTextColumn Binding="{Binding Order.CustomerMasterReceive.CustName}" Header="氏名" Width="150" IsReadOnly="True" />
                     <DataGridTemplateColumn Header="品物" Width="100">

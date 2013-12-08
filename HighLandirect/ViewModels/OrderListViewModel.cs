@@ -96,10 +96,6 @@ namespace HighLandirect.ViewModels
                 //var arg = new CustomerListEventArgs() { CustomerViewModel = this.SendCustomerViewModel };
                 //this.OnSendCustomerChanged(this, arg); //ここではまだイベント登録されてない。
             }
-            foreach(var o in this.Orders)
-            {
-                o.OrderListViewModel = this.Orders;
-            }
             this.RaisePropertyChanged(() => this.Orders);
         }
 
@@ -308,7 +304,6 @@ namespace HighLandirect.ViewModels
                                 this.SendCustomerViewModel.Customer.CustNo, ProductIdDefaultValue);
             var orderVM = new OrderViewModel(order);
             this.Orders.Add(orderVM);
-            orderVM.OrderListViewModel = this.Orders;
             this.RaisePropertyChanged(() => this.Orders);
             this.UpdateCommands();
 
@@ -523,7 +518,7 @@ namespace HighLandirect.ViewModels
             get
             {
                 return this.moveRowToUpperCommand
-                       ?? (this.moveRowToUpperCommand = new ViewModelCommand(this.MoveRowToUpper));
+                       ?? (this.moveRowToUpperCommand = new ViewModelCommand(this.MoveRowToUpper, this.CanMoveRowToUpper));
             }
         }
 
@@ -549,7 +544,7 @@ namespace HighLandirect.ViewModels
             get
             {
                 return this.moveRowToLowerCommand
-                       ?? (this.moveRowToLowerCommand = new ViewModelCommand(this.MoveRowToLower));
+                       ?? (this.moveRowToLowerCommand = new ViewModelCommand(this.MoveRowToLower, this.CanMoveRowToLower));
             }
         }
 
@@ -568,6 +563,17 @@ namespace HighLandirect.ViewModels
                 }
             }
         }
+
+        private bool CanMoveRowToLower()
+        {
+            return this.SelectedOrder != null && this.Orders != null && this.Orders.LastOrDefault() != this.SelectedOrder;
+        }
+
+        private bool CanMoveRowToUpper()
+        {
+            return this.SelectedOrder != null && this.Orders != null && this.Orders.FirstOrDefault() != this.SelectedOrder;
+        }
+
         #endregion
     }
 }
