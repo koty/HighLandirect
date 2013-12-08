@@ -509,6 +509,7 @@ namespace HighLandirect.ViewModels
             this.AddOrderFromSelectedHistoryCommand.RaiseCanExecuteChanged();
             this.RemoveOrderFromSelectedHistoryCommand.RaiseCanExecuteChanged();
             this.PrintCommand.RaiseCanExecuteChanged();
+            this.PrintCommandSagawa.RaiseCanExecuteChanged();
             this.RemoveCommand.RaiseCanExecuteChanged();
             this.EditSelectedCustomerCommand.RaiseCanExecuteChanged();
             this.MoveRowToLowerCommand.RaiseCanExecuteChanged();
