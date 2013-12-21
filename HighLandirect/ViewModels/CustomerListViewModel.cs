@@ -13,7 +13,6 @@ using Livet.Commands;
 using System.IO;
 using System.Text;
 using Livet.Messaging;
-using Livet.Behaviors.Messaging;
 using Microsoft.VisualBasic;
 
 namespace HighLandirect.ViewModels
@@ -151,17 +150,9 @@ namespace HighLandirect.ViewModels
         private void RefreshCustomerViewModels()
         {
             //whereは遅延実行なのでコンストラクタに書いても良いよーな気がするが。。。
-            IEnumerable<Customer> filterdCustomers;
-            if (this.ShowDeletedData == true)
-            {
-                //「削除行を表示しない」→true:「削除行==true」以外を表示
-                filterdCustomers = customers;
-            }
-            else
-            {
-                //「削除行を表示」→全データを表示
-                filterdCustomers = this.customers.Where(x => x.Delete != true);
-            }
+            var filterdCustomers = this.ShowDeletedData == true
+                                    ? customers
+                                    : this.customers.Where(x => x.Delete != true);
             this.CustomerViewModels = new ObservableCollection<CustomerViewModel>(filterdCustomers.Select(x => new CustomerViewModel(x)));
             foreach(var customer in this.CustomerViewModels)
             {
@@ -184,16 +175,12 @@ namespace HighLandirect.ViewModels
         private void AddNewCustomer()
         {
             //最大番号プラス1
-            int CustNo;
-            if (this.entityService.Customers.Count == 0)
+            var CustNo = 1;
+            if (this.entityService.Customers.Count > 1)
             {
-                CustNo = 1;
-            }
-            else
-            {
-                CustNo = this.entityService.Customers
-                                    .OrderByDescending(x => x.CustNo)
-                                    .FirstOrDefault().CustNo + 1;
+                var firstOrDefault = this.entityService.Customers.OrderByDescending(x => x.CustNo).FirstOrDefault();
+                if (firstOrDefault != null)
+                    CustNo = firstOrDefault.CustNo + 1;
             }
             var customer = new Customer(CustNo) { Label = false, Delete = false };
             var customerVM = new CustomerViewModel(customer) { CustomerViewModels = this.CustomerViewModels };
@@ -243,12 +230,13 @@ namespace HighLandirect.ViewModels
         /// とりあえずCustNameでの検索。電話番号、ふりがなでの検索も可能とする
         /// </summary>
         /// <param name="searchString"></param>
+        /// <param name="customerViewModels"></param>
         /// <returns></returns>
         private static CustomerViewModel[] SearchCustomer(string searchString, IEnumerable<CustomerViewModel> customerViewModels)
         {
             int number;
             var re = new Regex("[０-９Ａ-Ｚａ-ｚ：－　]+");
-            var searchStringNormalized = re.Replace(searchString, m => Strings.StrConv(m.Value, VbStrConv.Narrow, 0));
+            var searchStringNormalized = re.Replace(searchString, m => Strings.StrConv(m.Value, VbStrConv.Narrow));
 
             //顧客番号
             if (int.TryParse(searchStringNormalized, out number))
@@ -274,8 +262,8 @@ namespace HighLandirect.ViewModels
 
         private void UpdateCommands()
         {
-            addNewCommand.RaiseCanExecuteChanged();
-            removeCommand.RaiseCanExecuteChanged();
+            this.AddNewCommand.RaiseCanExecuteChanged();
+            this.RemoveCommand.RaiseCanExecuteChanged();
         }
 
         public EventHandler<CustomerListEventArgs> OnSendCustomerAdded;
@@ -288,8 +276,7 @@ namespace HighLandirect.ViewModels
             set
             {
                 this._CanAddSendCustomer = value;
-                this.AddSendCustomerCommand.RaiseCanExecuteChanged();
-                this.AddResceiveCustomerCommand.RaiseCanExecuteChanged();
+                this.UpdateCommands();
             }
         }
 
@@ -383,16 +370,16 @@ namespace HighLandirect.ViewModels
 
         internal bool SetImportData(string filePath)
         {
-            bool ExistsError = false;
+            var ExistsError = false;
             using (var sr = new StreamReader(filePath, Encoding.UTF8))
             using (var sw = new StreamWriter("ErrorList.txt", false, Encoding.UTF8))
             {
-                string Line = sr.ReadLine();
+                var Line = sr.ReadLine();
                 //ヘッダが設定されてたら読み捨てる
-                if (Line.Trim() == Customer.HeaderCsv)
+                if (Line == null || Line.Trim() == Customer.HeaderCsv)
                     Line = sr.ReadLine();
-                int i = 0;
-                int CustNo = GetMaxCustNo();
+                var i = 0;
+                var CustNo = GetMaxCustNo();
 
                 while (Line != null)
                 {

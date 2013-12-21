@@ -17,5 +17,9 @@ namespace HighLandirect.Services
         ObservableCollection<Store> Stores { get; }
 
         ObservableCollection<ReportMemo> ReportMemos { get; }
+
+        void AcceptChanges();
+
+        void SaveChanges();
     }
 }

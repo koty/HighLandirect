@@ -98,5 +98,15 @@ namespace HighLandirect.Services
                 return reportMemos;
             }
         }
+
+        public void AcceptChanges()
+        {
+            this.Customerentities.AcceptAllChanges();
+        }
+
+        public void SaveChanges()
+        {
+            this.Customerentities.SaveChanges();
+        }
     }
 }

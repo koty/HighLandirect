@@ -42,7 +42,6 @@ namespace HighLandirect.ViewModels
             this.orderListViewModel = new OrderListViewModel(entityService,
                                                              entityService.Orders,
                                                              entityService.Stores,
-                                                             entityService.OrderHistories,
                                                              entityService.ReportMemos);
 
             //CustomerListのイベントをOrderListが購読

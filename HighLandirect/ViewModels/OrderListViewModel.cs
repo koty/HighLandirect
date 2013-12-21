@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Printing;
 using System.Windows.Controls;
-using System.Windows.Input;
 using System;
 using System.Linq;
 using HighLandirect.Domains;
@@ -50,12 +48,12 @@ namespace HighLandirect.ViewModels
 
         public OrderListViewModel()
         {
+            this.Orders = new ObservableCollection<OrderViewModel>();
         }
 
         public OrderListViewModel(IEntityService entityService,
                                     IEnumerable<Order> orders,
                                     IEnumerable<Store> stores,
-                                    IEnumerable<OrderHistory> histories,
                                     IEnumerable<ReportMemo> reportMemos)
         {
             if (orders == null)
@@ -81,16 +79,20 @@ namespace HighLandirect.ViewModels
             this.Orders = new ObservableCollection<OrderViewModel>(orders.Select(x => new OrderViewModel(x)));
             this.Orders.CollectionChanged += (o, e) =>
             {
-                if (e.NewItems != null)
-                    foreach (var item in e.NewItems)
-                        this.entityService.Orders.Add(((OrderViewModel)item).Order);
                 if (e.OldItems != null)
                     foreach (var item in e.OldItems)
                         this.entityService.Orders.Remove(((OrderViewModel)item).Order);
+
+                this.AcceptChanges();
+
+                if (e.NewItems != null)
+                    foreach (var item in e.NewItems)
+                        this.entityService.Orders.Add(((OrderViewModel)item).Order);
             };
             if (this.Orders.Any())
             {
-                var customer = this.entityService.Customers.Where(x => x.CustNo == this.Orders.First().Order.SendCustID).First();
+                var customer = this.entityService.Customers
+                    .First(x => x.CustNo == this.Orders.First().Order.SendCustID);
                 this.SendCustomerViewModel = new CustomerViewModel(customer);
                 this.ShowOrderHistoryBySendCustomer();
                 //var arg = new CustomerListEventArgs() { CustomerViewModel = this.SendCustomerViewModel };
@@ -106,12 +108,10 @@ namespace HighLandirect.ViewModels
             get { return selectedOrder; }
             set
             {
-                if (selectedOrder != value)
-                {
-                    selectedOrder = value;
-                    this.RaisePropertyChanged(() => SelectedOrder);
-                    this.UpdateCommands();
-                }
+                if (selectedOrder == value) return;
+                selectedOrder = value;
+                this.RaisePropertyChanged(() => SelectedOrder);
+                this.UpdateCommands();
             }
         }
 
@@ -120,11 +120,9 @@ namespace HighLandirect.ViewModels
             get { return selectedStore; }
             set
             {
-                if (selectedStore != value)
-                {
-                    selectedStore = value;
-                    this.RaisePropertyChanged(() => SelectedStore);
-                }
+                if (selectedStore.Equals(value)) return;
+                selectedStore = value;
+                this.RaisePropertyChanged(() => SelectedStore);
             }
         }
 
@@ -133,11 +131,9 @@ namespace HighLandirect.ViewModels
             get { return selectedReportMemo; }
             set
             {
-                if (selectedReportMemo != value)
-                {
-                    selectedReportMemo = value;
-                    this.RaisePropertyChanged(() => SelectedReportMemo);
-                }
+                if (Equals(selectedReportMemo, value)) return;
+                selectedReportMemo = value;
+                this.RaisePropertyChanged(() => SelectedReportMemo);
             }
         }
 
@@ -277,12 +273,12 @@ namespace HighLandirect.ViewModels
 
         private void AddNewOrderCore(int ResceiveCustNo)
         {
-            ((EntityService)this.entityService).Customerentities.SaveChanges();
+            this.SaveChanges();
             //テンポラリにOrderテーブル使っちゃったら同時実行はできんな。。。
 
             //最大番号プラス1
             long OrderID;
-            if (this.Orders == null || !this.Orders.Any())
+            if (!this.Orders.Any())
             {
                 //一件目のときは履歴の最大番号
                 if (this.OrderHistories == null || !this.OrderHistories.Any())
@@ -299,7 +295,7 @@ namespace HighLandirect.ViewModels
                 //二件目以降は画面のデータを使う
                 OrderID = this.Orders.Max(x => x.Order.OrderID) + 1;
             }
-            var ProductIdDefaultValue = 2;
+            const int ProductIdDefaultValue = 2;
             var order = Order.CreateOrder(OrderID, DateTime.Now, ResceiveCustNo,
                                 this.SendCustomerViewModel.Customer.CustNo, ProductIdDefaultValue);
             var orderVM = new OrderViewModel(order);
@@ -308,6 +304,16 @@ namespace HighLandirect.ViewModels
             this.UpdateCommands();
 
             this.SelectedOrder = orderVM;
+        }
+
+        private void AcceptChanges()
+        {
+            this.entityService.AcceptChanges();
+        }
+
+        private void SaveChanges()
+        {
+            this.entityService.SaveChanges();
         }
 
         private bool CanRemoveOrder() { return this.SelectedOrder != null; }
@@ -382,7 +388,7 @@ namespace HighLandirect.ViewModels
 
         private bool CanEditSelectedCustomerCommand()
         {
-            return (this.OrderHistories != null && this.OrderHistories.Where(x => x.IsSelected).Count() == 1);
+            return (this.OrderHistories != null && this.OrderHistories.Count(x => x.IsSelected) == 1);
         }
 
         private void AddOrderFromSelectedHistory()
@@ -418,85 +424,72 @@ namespace HighLandirect.ViewModels
 
         private void PrintOrderCore<ReportType>(decimal widthByInch, decimal heightByInch) where ReportType : UserControl, new()
         {
-
+            var ps = new LocalPrintServer();
+            PrintQueue pq = null;
             try
             {
-                var ps = new LocalPrintServer();
-                PrintQueue pq = null;
+                pq = ps.GetPrintQueue("FUJITSU FMPR5000"); //指定したプリンタ
+                pq.UserPrintTicket.PageMediaSize = new PageMediaSize((double)(widthByInch * 96m), (double)(heightByInch * 96m)); //pixcel指定。1pixel=1/96inchだそうで
+                pq.UserPrintTicket.PageResolution = new PageResolution(96, 96);
+                pq.UserPrintTicket.InputBin = InputBin.Tractor;
+            }
+            catch (PrintQueueException)
+            {
                 try
-                {
-                    pq = ps.GetPrintQueue("FUJITSU FMPR5000"); //指定したプリンタ
-                    pq.UserPrintTicket.PageMediaSize = new PageMediaSize((double)(widthByInch * 96m), (double)(heightByInch * 96m)); //pixcel指定。1pixel=1/96inchだそうで
-                    pq.UserPrintTicket.PageResolution = new PageResolution(96, 96);
-                    pq.UserPrintTicket.InputBin = InputBin.Tractor;
+                {   //PrimoPDF
+                    //pq = ps.GetPrintQueue("PrimoPDF");
                 }
                 catch (PrintQueueException)
                 {
-                    try
-                    {   //PrimoPDF
-                        //pq = ps.GetPrintQueue("PrimoPDF");
-                    }
-                    catch (PrintQueueException)
-                    {
-                        pq = ps.DefaultPrintQueue; //どれもダメなら既定のプリンタ
-                    }
+                    pq = ps.DefaultPrintQueue; //どれもダメなら既定のプリンタ
                 }
-
-                var printer = new PrintCutSheetReport<OrderSource, ReportType>(pq);
-
-                var orderSources = new List<OrderSource>();
-                foreach (var order in this.Orders)
-                {
-                    var orderSource = new OrderSource(order.Order)
-                    {
-                        CustomerCD = this.SelectedStore.CustomerCD,
-                        StoreId1 = this.SelectedStore.StoreId1,
-                        StoreId2 = this.SelectedStore.StoreId2,
-                        ReportMemo = this.SelectedReportMemo.ReportMemo1
-                    };
-
-                    orderSources.Add(orderSource);
-                }
-
-                printer.Print(orderSources);
-                long orderID = 0;
-                if (this.entityService.OrderHistories.Any())
-                {
-                    orderID = this.entityService.OrderHistories.Max(x => x.OrderID);
-                }
-                //OrderからOrderHistoryへレコードをmove
-                foreach (var order in entityService.Orders)
-                {
-                    orderID++;
-                    this.entityService.OrderHistories.Add(OrderHistory.CreateOrderHistory(orderID,
-                                                                                     order.OrderDate,
-                                                                                     order.ReceiveCustID,
-                                                                                     order.SendCustID,
-                                                                                     order.ProductID));
-                }
-
-                //最終発送を更新
-                this.SendCustomerViewModel.Customer.LatestSend = DateTime.Now;
-
-                //最終宛先を更新
-                foreach (var order in this.entityService.Orders)
-                {
-                    this.entityService.Customers.First(x => x.CustNo == order.CustomerMasterReceive.CustNo)
-                        .LatestResceive = DateTime.Now;
-                }
-
-                //ここもentityServiceとOrdersの両方をClearする必要はない気がする。
-                this.entityService.Orders.Clear();
-                this.Orders.Clear();
-
-                var arg = new CustomerListEventArgs() { CustomerViewModel = null };
-                this.OnSendCustomerChanged(this, arg);
-                this.UpdateCommands();
             }
-            catch
+
+            var printer = new PrintCutSheetReport<OrderSource, ReportType>(pq);
+
+            var orderSources = this.Orders.Select(
+                order => new OrderSource(order.Order)
+                             {
+                                 CustomerCD = this.SelectedStore.CustomerCD,
+                                 StoreId1 = this.SelectedStore.StoreId1,
+                                 StoreId2 = this.SelectedStore.StoreId2,
+                                 ReportMemo = this.SelectedReportMemo.ReportMemo1
+                             }).ToList();
+
+            printer.Print(orderSources);
+            long orderID = 0;
+            if (this.entityService.OrderHistories.Any())
             {
-                throw;
+                orderID = this.entityService.OrderHistories.Max(x => x.OrderID);
             }
+            //OrderからOrderHistoryへレコードをmove
+            foreach (var order in entityService.Orders)
+            {
+                orderID++;
+                this.entityService.OrderHistories.Add(OrderHistory.CreateOrderHistory(orderID,
+                                                                                      order.OrderDate,
+                                                                                      order.ReceiveCustID,
+                                                                                      order.SendCustID,
+                                                                                      order.ProductID));
+            }
+
+            //最終発送を更新
+            this.SendCustomerViewModel.Customer.LatestSend = DateTime.Now;
+
+            //最終宛先を更新
+            foreach (var order in this.entityService.Orders)
+            {
+                this.entityService.Customers.First(x => x.CustNo == order.CustomerMasterReceive.CustNo)
+                    .LatestResceive = DateTime.Now;
+            }
+
+            //ここもentityServiceとOrdersの両方をClearする必要はない気がする。
+            this.entityService.Orders.Clear();
+            this.Orders.Clear();
+
+            var arg = new CustomerListEventArgs() { CustomerViewModel = null };
+            this.OnSendCustomerChanged(this, arg);
+            this.UpdateCommands();
         }
 
         private void UpdateCommands()
@@ -524,18 +517,7 @@ namespace HighLandirect.ViewModels
 
         private void MoveRowToUpper()
         {
-            for (var i = 0; i < this.Orders.Count; i++)
-            {
-                if (this.Orders[i] == this.SelectedOrder)
-                {
-                    var tmpList = this.Orders.ToList();
-                    this.Orders.Clear();
-                    var tmp = tmpList[i - 1];
-                    tmpList.RemoveAt(i - 1);
-                    tmpList.Insert(i, tmp);
-                    this.CreateOrderCollection(tmpList.Select(x => x.Order));
-                }
-            }
+            this.MoveRowCore(true);
         }
 
         private ViewModelCommand moveRowToLowerCommand;
@@ -550,17 +532,23 @@ namespace HighLandirect.ViewModels
 
         private void MoveRowToLower()
         {
+            this.MoveRowCore(false);
+        }
+
+        private void MoveRowCore(bool up)
+        {
+            var orientation = up ? -1 : 1;
             for (var i = 0; i < this.Orders.Count; i++)
             {
-                if (this.Orders[i] == this.SelectedOrder)
-                {
-                    var tmpList = this.Orders.ToList();
-                    this.Orders.Clear();
-                    var tmp = tmpList[i + 1];
-                    tmpList.RemoveAt(i + 1);
-                    tmpList.Insert(i, tmp);
-                    this.CreateOrderCollection(tmpList.Select(x => x.Order));
-                }
+                if (this.Orders[i] != this.SelectedOrder) continue;
+
+                //いっこ移動
+                this.Orders.Move(i, i + orientation);
+
+                //this.RaisePropertyChanged(() => this.Orders);
+                this.UpdateCommands();
+                this.AcceptChanges();
+                break;
             }
         }
 

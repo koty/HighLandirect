@@ -51,6 +51,9 @@
             <DataGrid ItemsSource="{Binding Orders}" SelectedItem="{Binding SelectedOrder}" 
                          AutoGenerateColumns="False" AlternationCount="1"
                          CanUserAddRows="False" FontSize="16" HorizontalScrollBarVisibility="Auto">
+                <DataGrid.Resources>
+                    <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="#3399ff"/>
+                </DataGrid.Resources>
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding Order.CustomerMasterReceive.CustNo}" Header="顧客番号" Width="60" IsReadOnly="True" />
                     <DataGridTextColumn Binding="{Binding Order.CustomerMasterReceive.CustName}" Header="氏名" Width="150" IsReadOnly="True" />
