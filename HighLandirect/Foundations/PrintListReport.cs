@@ -5,6 +5,8 @@ using System.Printing;
 using System.Windows.Xps;
 using System.Windows.Documents;
 using System.Windows.Markup;
+using HighLandirect.Domains.Reports;
+using HighLandirect.Domains;
 
 namespace HighLandirect.Foundations
 {
@@ -39,7 +41,7 @@ namespace HighLandirect.Foundations
                 var objReportToPrint = new T2();
 
                 var ReportToPrint = objReportToPrint as UserControl;
-                ReportToPrint.DataContext = RecordsPerPage;
+                ReportToPrint.DataContext = new CustomerSource(RecordsPerPage.Cast<Customer>());
 
                 PageContent pageContent = new PageContent();
                 FixedPage fixedPage = new FixedPage();

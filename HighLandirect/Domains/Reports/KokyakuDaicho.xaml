@@ -1,12 +1,17 @@
 ﻿<UserControl x:Class="HighLandirect.Domains.Reports.KokyakuDaicho"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:scg="clr-namespace:System.Collections;assembly=mscorlib"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:r="clr-namespace:HighLandirect.Domains.Reports"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" xmlns:c="clr-namespace:HighLandirect.Converters"
              xmlns:m="clr-namespace:HighLandirect.Domains"
              d:DesignHeight="1122" d:DesignWidth="793">
-    <ItemsControl ItemsSource="{Binding }" Height="1050" VerticalAlignment="Top" Margin="30">
+    <UserControl.DataContext>
+        <r:CustomerSource />
+    </UserControl.DataContext>
+    <ItemsControl ItemsSource="{Binding Customers}" Height="1050" VerticalAlignment="Top" Margin="30">
         <ItemsControl.ItemTemplate>
             <DataTemplate>
                 <Grid Height="62">
@@ -20,15 +25,20 @@
                             <Setter Property="Foreground" Value="Black" />
                         </Style>
                     </Grid.Resources>
-                    <Label Content="{Binding CustNo}" FontFamily="MS Gothic" FontSize="13" Margin="12,2,593,0"  Width="95" />
-                    <Label Content="{Binding PostalCD, Converter={x:Static c:PostalCdConverter.Default}}" FontFamily="MS Gothic" FontSize="22" Margin="339,0,257,0" />
-                    <Label Content="{Binding CityName}" Grid.Row="1" FontFamily="MS Gothic" FontSize="13" Margin="12,0,591,0" />
-                    <Label Content="{Binding Address1}" Grid.Row="1" FontFamily="MS Gothic" FontSize="13" Margin="115,0,482,0" />
-                    <Label Content="{Binding Address2}" Grid.Row="1" FontFamily="MS Gothic" FontSize="13" Margin="224,0,367,0" />
-                    <Label Content="{Binding Address3}" Grid.Row="1" FontFamily="MS Gothic" FontSize="13" Margin="339,0,257,0"  />
-                    <Label Content="{Binding Address4}" Grid.Row="1" FontFamily="MS Gothic" FontSize="13" Margin="498,0,98,0" />
-                    <Label Content="{Binding CustName}" FontFamily="MS Gothic" FontSize="13" Margin="115,0,367,0"  />
-                    <Label Content="{Binding PrefectureName}" FontFamily="MS Gothic" FontSize="13" Margin="498,0,98,0" />
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="{Binding CustNo}" FontFamily="MS Gothic" FontSize="15" Width="80" />
+                        <Label Width="140" Content="{Binding CustName}" FontFamily="MS Gothic" FontSize="15" />
+                        <Label Width="140" Content="{Binding Phone}" Grid.Row="1" FontFamily="MS Gothic" FontSize="15" />
+                        <Label Width="140" Content="{Binding PostalCD, Converter={x:Static c:PostalCdConverter.Default}}"
+                               FontFamily="MS Gothic" FontSize="15" />
+                        <Label Width="70" Content="{Binding PrefectureName}" FontFamily="MS Gothic" FontSize="15" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="80,0,0,0">
+                        <Label Width="140" Content="{Binding Address1}" FontFamily="MS Gothic" FontSize="15" />
+                        <Label Width="140" Content="{Binding Address2}" FontFamily="MS Gothic" FontSize="15" />
+                        <Label Width="140" Content="{Binding Address3}" FontFamily="MS Gothic" FontSize="15" />
+                        <Label Width="140" Content="{Binding Address4}" FontFamily="MS Gothic" FontSize="15" />
+                    </StackPanel>
                     <Rectangle Grid.Row="2" Height="1" HorizontalAlignment="Left" Stroke="Gray" Width="600" />
                 </Grid>
             </DataTemplate>

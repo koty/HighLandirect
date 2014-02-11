@@ -147,6 +147,7 @@
     <Compile Include="Domains\Reports\AtenaSeal.xaml.cs">
       <DependentUpon>AtenaSeal.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Domains\Reports\CustomerSource.cs" />
     <Compile Include="Domains\Reports\KokyakuDaicho.xaml.cs">
       <DependentUpon>KokyakuDaicho.xaml</DependentUpon>
     </Compile>
