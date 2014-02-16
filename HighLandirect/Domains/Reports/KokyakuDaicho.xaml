@@ -27,17 +27,17 @@
                     </Grid.Resources>
                     <StackPanel Orientation="Horizontal">
                         <Label Content="{Binding CustNo}" FontFamily="MS Gothic" FontSize="15" Width="80" />
-                        <Label Width="140" Content="{Binding CustName}" FontFamily="MS Gothic" FontSize="15" />
-                        <Label Width="140" Content="{Binding Phone}" Grid.Row="1" FontFamily="MS Gothic" FontSize="15" />
-                        <Label Width="140" Content="{Binding PostalCD, Converter={x:Static c:PostalCdConverter.Default}}"
+                        <Label Width="160" Content="{Binding CustName}" FontFamily="MS Gothic" FontSize="15" />
+                        <Label Width="160" Content="{Binding Phone}" Grid.Row="1" FontFamily="MS Gothic" FontSize="15" />
+                        <Label Width="160" Content="{Binding PostalCD, Converter={x:Static c:PostalCdConverter.Default}}"
                                FontFamily="MS Gothic" FontSize="15" />
                         <Label Width="70" Content="{Binding PrefectureName}" FontFamily="MS Gothic" FontSize="15" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="80,0,0,0">
-                        <Label Width="140" Content="{Binding Address1}" FontFamily="MS Gothic" FontSize="15" />
-                        <Label Width="140" Content="{Binding Address2}" FontFamily="MS Gothic" FontSize="15" />
-                        <Label Width="140" Content="{Binding Address3}" FontFamily="MS Gothic" FontSize="15" />
-                        <Label Width="140" Content="{Binding Address4}" FontFamily="MS Gothic" FontSize="15" />
+                        <Label Width="160" Content="{Binding Address1}" FontFamily="MS Gothic" FontSize="15" />
+                        <Label Width="160" Content="{Binding Address2}" FontFamily="MS Gothic" FontSize="15" />
+                        <Label Width="160" Content="{Binding Address3}" FontFamily="MS Gothic" FontSize="15" />
+                        <Label Width="160" Content="{Binding Address4}" FontFamily="MS Gothic" FontSize="15" />
                     </StackPanel>
                     <Rectangle Grid.Row="2" Height="1" HorizontalAlignment="Left" Stroke="Gray" Width="600" />
                 </Grid>
