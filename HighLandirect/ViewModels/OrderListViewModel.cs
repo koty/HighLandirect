@@ -82,12 +82,12 @@ namespace HighLandirect.ViewModels
                 if (e.OldItems != null)
                     foreach (var item in e.OldItems)
                         this.entityService.Orders.Remove(((OrderViewModel)item).Order);
-
                 this.AcceptChanges();
 
                 if (e.NewItems != null)
                     foreach (var item in e.NewItems)
                         this.entityService.Orders.Add(((OrderViewModel)item).Order);
+                this.AcceptChanges();
             };
             if (this.Orders.Any())
             {

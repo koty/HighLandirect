@@ -264,6 +264,8 @@ namespace HighLandirect.ViewModels
         {
             this.AddNewCommand.RaiseCanExecuteChanged();
             this.RemoveCommand.RaiseCanExecuteChanged();
+            this.AddSendCustomerCommand.RaiseCanExecuteChanged();
+            this.AddResceiveCustomerCommand.RaiseCanExecuteChanged();
         }
 
         public EventHandler<CustomerListEventArgs> OnSendCustomerAdded;
