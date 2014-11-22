@@ -71,6 +71,7 @@
                         </DataGridTemplateColumn.CellEditingTemplate>
                     </DataGridTemplateColumn>
                     <DataGridTextColumn Binding="{Binding Order.CustomerMasterReceive.PostalCD}" Header="郵便番号" Width="80" IsReadOnly="True" />
+                    <DataGridTextColumn Binding="{Binding Order.CustomerMasterReceive.PrefectureName}" Header="都道府県" Width="80" IsReadOnly="True" />
                     <DataGridTextColumn Binding="{Binding Order.CustomerMasterReceive.Address1}" Header="住所１" Width="150" IsReadOnly="True" />
                     <DataGridTextColumn Binding="{Binding Order.CustomerMasterReceive.Address2}" Header="住所２" Width="150" IsReadOnly="True" />
                     <DataGridTextColumn Binding="{Binding Order.CustomerMasterReceive.Address3}" Header="住所３" Width="150" IsReadOnly="True" />
@@ -196,7 +197,7 @@
                             <GridViewColumn DisplayMemberBinding="{Binding OrderHistory.CustomerMasterReceive.CustNo}" Header="顧客番号" Width="60"/>
                             <GridViewColumn DisplayMemberBinding="{Binding OrderHistory.CustomerMasterReceive.CustName}" Header="氏名" Width="120"/>
                             <GridViewColumn DisplayMemberBinding="{Binding OrderHistory.CustomerMasterReceive.PostalCD}" Header="郵便番号" Width="70"/>
-                            <GridViewColumn DisplayMemberBinding="{Binding OrderHistory.CustomerMasterReceive.CityName}" Header="市町村名" Width="60"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding OrderHistory.CustomerMasterReceive.PrefectureName}" Header="都道府県" Width="70"/>
                             <GridViewColumn DisplayMemberBinding="{Binding OrderHistory.CustomerMasterReceive.Address1}" Header="住所１" Width="150"/>
                             <GridViewColumn DisplayMemberBinding="{Binding OrderHistory.CustomerMasterReceive.Address2}" Header="住所２" Width="150"/>
                             <GridViewColumn DisplayMemberBinding="{Binding OrderHistory.CustomerMasterReceive.Address3}" Header="住所３" Width="150"/>
