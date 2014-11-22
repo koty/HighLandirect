@@ -9,6 +9,7 @@
              xmlns:ViewModels="clr-namespace:HighLandirect.ViewModels"
              xmlns:v="clr-namespace:HighLandirect.Views"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:Converters="clr-namespace:HighLandirect.Converters"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance ViewModels:OrderListViewModel}"
              Background="#FF87B2F3" BorderBrush="#FF87B2F3">
@@ -70,7 +71,7 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellEditingTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTextColumn Binding="{Binding Order.CustomerMasterReceive.PostalCD}" Header="郵便番号" Width="80" IsReadOnly="True" />
+                    <DataGridTextColumn Binding="{Binding Order.CustomerMasterReceive.PostalCD, Converter={x:Static Converters:PostalCdConverter.Default}}" Header="郵便番号" Width="80" IsReadOnly="True" />
                     <DataGridTextColumn Binding="{Binding Order.CustomerMasterReceive.PrefectureName}" Header="都道府県" Width="80" IsReadOnly="True" />
                     <DataGridTextColumn Binding="{Binding Order.CustomerMasterReceive.Address1}" Header="住所１" Width="150" IsReadOnly="True" />
                     <DataGridTextColumn Binding="{Binding Order.CustomerMasterReceive.Address2}" Header="住所２" Width="150" IsReadOnly="True" />
@@ -196,7 +197,7 @@
                             <GridViewColumn DisplayMemberBinding="{Binding OrderHistory.OrderDate}" Header="注文日付" Width="85"/>
                             <GridViewColumn DisplayMemberBinding="{Binding OrderHistory.CustomerMasterReceive.CustNo}" Header="顧客番号" Width="60"/>
                             <GridViewColumn DisplayMemberBinding="{Binding OrderHistory.CustomerMasterReceive.CustName}" Header="氏名" Width="120"/>
-                            <GridViewColumn DisplayMemberBinding="{Binding OrderHistory.CustomerMasterReceive.PostalCD}" Header="郵便番号" Width="70"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding OrderHistory.CustomerMasterReceive.PostalCD, Converter={x:Static Converters:PostalCdConverter.Default}}" Header="郵便番号" Width="70"/>
                             <GridViewColumn DisplayMemberBinding="{Binding OrderHistory.CustomerMasterReceive.PrefectureName}" Header="都道府県" Width="70"/>
                             <GridViewColumn DisplayMemberBinding="{Binding OrderHistory.CustomerMasterReceive.Address1}" Header="住所１" Width="150"/>
                             <GridViewColumn DisplayMemberBinding="{Binding OrderHistory.CustomerMasterReceive.Address2}" Header="住所２" Width="150"/>
