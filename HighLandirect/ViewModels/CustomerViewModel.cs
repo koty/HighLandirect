@@ -97,6 +97,9 @@ namespace HighLandirect.ViewModels
 
         private static bool eq(string furigana1, string furigana2)
         {
+            if (furigana1 == null) return false;
+            if (furigana2 == null) return false;
+
             return (furigana1.Replace(" ", "").Replace("　", "")
                  == furigana2.Replace(" ", "").Replace("　", ""));
         }
