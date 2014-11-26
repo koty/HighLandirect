@@ -1,0 +1,60 @@
+﻿<UserControl x:Class="HighLandirect.Domains.Reports.ReportYamatoMany"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:r="clr-namespace:HighLandirect.Domains.Reports"
+             xmlns:c="clr-namespace:HighLandirect.Converters"
+             mc:Ignorable="d" 
+             xmlns:vm="clr-namespace:HighLandirect.Domains"
+             d:DesignHeight="1122" d:DesignWidth="793">
+    <UserControl.Background>
+        <ImageBrush ImageSource="OverLayYamatoMany.jpg"/>
+    </UserControl.Background>
+    <UserControl.DataContext>
+        <r:OrderSourceCollection />
+    </UserControl.DataContext>
+    <ItemsControl ItemsSource="{Binding Orders}" Height="950" Width="780" Margin="10,60,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
+        <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+                <WrapPanel />
+            </ItemsPanelTemplate>
+        </ItemsControl.ItemsPanel>
+        <ItemsControl.ItemTemplate>
+            <DataTemplate>
+                <Grid Height="160">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="390" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="26" />
+                        <RowDefinition Height="26" />
+                        <RowDefinition Height="26" />
+                        <RowDefinition Height="26" />
+                        <RowDefinition Height="26" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.Resources>
+                        <Style TargetType="Label">
+                            <Setter Property="Foreground" Value="Black" />
+                            <Setter Property="FontSize" Value="16" />
+                            <Setter Property="FontFamily" Value="MS Gothic" />
+                            <Setter Property="Padding" Value="30,3,0,0" />
+                        </Style>
+                    </Grid.Resources>
+                    <Label Content="{Binding Order.CustomerMasterReceive.PostalCD, Converter={x:Static c:PostalCdConverter.Default}}" FontSize="20" />
+
+                    <Label Grid.Row="1" Content="{Binding Order.CustomerMasterReceive.PrefectureName}" />
+                    <Label Grid.Row="1" Content="{Binding Order.CustomerMasterReceive.Address1}" Margin="65,0,0,0" />
+                    <Label Grid.Row="2" Content="{Binding Order.CustomerMasterReceive.Address2}" />
+                    <Label Grid.Row="3" Content="{Binding Order.CustomerMasterReceive.Address3}" />
+                    <Label Grid.Row="4" Content="{Binding Order.CustomerMasterReceive.Address4}" />
+                    <StackPanel Grid.Row="5" Orientation="Horizontal">
+                        <Label Content="{Binding Order.CustomerMasterReceive.CustName}" />
+                        <Label Content="{Binding Order.CustomerMasterReceive.Keisho}" Margin="10,0,0,0"/>
+                    </StackPanel>
+                </Grid>
+            </DataTemplate>
+        </ItemsControl.ItemTemplate>
+    </ItemsControl>
+</UserControl>
