@@ -203,7 +203,7 @@
                             <GridViewColumn DisplayMemberBinding="{Binding OrderHistory.CustomerMasterReceive.Address2}" Header="住所２" Width="150"/>
                             <GridViewColumn DisplayMemberBinding="{Binding OrderHistory.CustomerMasterReceive.Address3}" Header="住所３" Width="150"/>
                             <GridViewColumn DisplayMemberBinding="{Binding OrderHistory.CustomerMasterReceive.Address4}" Header="住所４" Width="150"/>
-                            <GridViewColumn DisplayMemberBinding="{Binding OrderHistory.CustomerMasterReceive.Phone}" Header="電話番号" Width="100"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding OrderHistory.CustomerMasterReceive.Phone}" Header="電話番号" Width="110"/>
                             <GridViewColumn DisplayMemberBinding="{Binding OrderHistory.CustomerMasterReceive.MailAddress}" Header="メールアドレス" Width="100"/>
                             <GridViewColumn Header="ラベル１" Width="30">
                                 <GridViewColumn.CellTemplate>
