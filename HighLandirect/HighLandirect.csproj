@@ -127,6 +127,7 @@
     </ApplicationDefinition>
     <Compile Include="Behaviors\TextBoxBehavior.cs" />
     <Compile Include="Converters\NumberFormatter.cs" />
+    <Compile Include="Converters\PostalMarkConverter.cs" />
     <Compile Include="Converters\PostalCdConverter.cs" />
     <Compile Include="Converters\ProductConverter.cs" />
     <Compile Include="Domains\Customer.cs" />

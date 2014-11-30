@@ -1,4 +1,6 @@
-﻿namespace HighLandirect.Domains.Reports
+﻿using System.ComponentModel;
+using System.Windows;
+namespace HighLandirect.Domains.Reports
 {
     public class OrderSource
     {
@@ -20,34 +22,36 @@
 
         public OrderSource()
         {
-            this.ReportMemo = "□□□□　111-222-3333";
-            this.CustomerCD = "0260000000-001(001)";
-            this.StoreId1 = "001";
-            this.StoreId2 = "023";
-            this.Order = new Order();
-            this.Order.CustomerMasterReceive = new Customer()
+            if (DesignerProperties.GetIsInDesignMode(new DependencyObject()))
             {
-                PrefectureName = "□■□県",
-                Address1 = "あいうえおかきくけこ",
-                Address2 = "さしすせそたちつてと",
-                Address3 = "なにぬねのはひふへほ",
-                Address4 = "まみむめもやゆよわを",
-                CustName = "長野　太郎あいうえおかきく",
-                Phone = "026-888-8888",
-                PostalCD = "1234567"
-            };
-            this.Order.CustomerMasterSend = new Customer()
-            {
-                PrefectureName = "□■□県",
-                Address1 = "あいうえおかきくけこ",
-                Address2 = "さしすせそたちつてと",
-                Address3 = "なにぬねのはひふへほ",
-                Address4 = "まみむめもやゆよわを",
-                CustName = "長野　太郎あいうえおかきく",
-                Phone = "026-888-8888",
-                PostalCD = "1234567"
-            };
-
+                this.ReportMemo = "□□□□　111-222-3333";
+                this.CustomerCD = "0260000000-001(001)";
+                this.StoreId1 = "001";
+                this.StoreId2 = "023";
+                this.Order = new Order();
+                this.Order.CustomerMasterReceive = new Customer()
+                {
+                    PrefectureName = "□■□県",
+                    Address1 = "あいうえおかきくけこ",
+                    Address2 = "さしすせそたちつてと",
+                    Address3 = "なにぬねのはひふへほ",
+                    Address4 = "まみむめもやゆよわを",
+                    CustName = "長野　太郎あいうえおかきく",
+                    Phone = "026-888-8888",
+                    PostalCD = "1234567"
+                };
+                this.Order.CustomerMasterSend = new Customer()
+                {
+                    PrefectureName = "□■□県",
+                    Address1 = "あいうえおかきくけこ",
+                    Address2 = "さしすせそたちつてと",
+                    Address3 = "なにぬねのはひふへほ",
+                    Address4 = "まみむめもやゆよわを",
+                    CustName = "長野　太郎あいうえおかきく",
+                    Phone = "026-888-8888",
+                    PostalCD = "1234567"
+                };
+            }
         }
     }
 }

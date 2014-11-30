@@ -8,13 +8,15 @@
              mc:Ignorable="d" 
              xmlns:vm="clr-namespace:HighLandirect.Domains"
              d:DesignHeight="1122" d:DesignWidth="793">
+<!--
     <UserControl.Background>
         <ImageBrush ImageSource="OverLayYamatoMany.jpg"/>
     </UserControl.Background>
+-->
     <UserControl.DataContext>
         <r:OrderSourceCollection />
     </UserControl.DataContext>
-    <ItemsControl ItemsSource="{Binding Orders}" Height="950" Width="780" Margin="10,60,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
+    <ItemsControl ItemsSource="{Binding Orders}" Height="1055" Width="780" Margin="0,58,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
         <ItemsControl.ItemsPanel>
             <ItemsPanelTemplate>
                 <WrapPanel />
@@ -22,36 +24,55 @@
         </ItemsControl.ItemsPanel>
         <ItemsControl.ItemTemplate>
             <DataTemplate>
-                <Grid Height="160">
+                <Grid Height="208" Margin="30,0,0,0">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="390" />
+                        <ColumnDefinition Width="359" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="26" />
-                        <RowDefinition Height="26" />
-                        <RowDefinition Height="26" />
-                        <RowDefinition Height="26" />
-                        <RowDefinition Height="26" />
+                        <RowDefinition Height="57" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <Grid.Resources>
                         <Style TargetType="Label">
                             <Setter Property="Foreground" Value="Black" />
-                            <Setter Property="FontSize" Value="16" />
+                            <Setter Property="FontSize" Value="12" />
                             <Setter Property="FontFamily" Value="MS Gothic" />
-                            <Setter Property="Padding" Value="30,3,0,0" />
                         </Style>
                     </Grid.Resources>
-                    <Label Content="{Binding Order.CustomerMasterReceive.PostalCD, Converter={x:Static c:PostalCdConverter.Default}}" FontSize="20" />
-
-                    <Label Grid.Row="1" Content="{Binding Order.CustomerMasterReceive.PrefectureName}" />
-                    <Label Grid.Row="1" Content="{Binding Order.CustomerMasterReceive.Address1}" Margin="65,0,0,0" />
-                    <Label Grid.Row="2" Content="{Binding Order.CustomerMasterReceive.Address2}" />
-                    <Label Grid.Row="3" Content="{Binding Order.CustomerMasterReceive.Address3}" />
-                    <Label Grid.Row="4" Content="{Binding Order.CustomerMasterReceive.Address4}" />
-                    <StackPanel Grid.Row="5" Orientation="Horizontal">
-                        <Label Content="{Binding Order.CustomerMasterReceive.CustName}" />
-                        <Label Content="{Binding Order.CustomerMasterReceive.Keisho}" Margin="10,0,0,0"/>
+                    <Label Grid.Row="0" Content="{Binding ReportMemo}" Margin="160,20,0,0" />
+                    <StackPanel Grid.Row="1" Orientation="Horizontal">
+                        <Label Content="{Binding Order.CustomerMasterReceive.PostalCD, Converter={x:Static c:PostalMarkConverter.Default}}" Padding="0,5,5,5" />
+                        <Label Content="{Binding Order.CustomerMasterReceive.PrefectureName}" />
+                        <Label Content="{Binding Order.CustomerMasterReceive.Address1}" />
+                        <Label Content="{Binding Order.CustomerMasterReceive.Address2}" />
+                        <Label Content="{Binding Order.CustomerMasterReceive.Address3}" />
+                        <Label Content="{Binding Order.CustomerMasterReceive.Address4}" />
+                    </StackPanel>
+                    <StackPanel Grid.Row="2" Orientation="Horizontal">
+                        <Label Content="{Binding Order.CustomerMasterReceive.CustName}" FontSize="18" />
+                        <Label Content="{Binding Order.CustomerMasterReceive.Keisho}" FontSize="18"/>
+                        <Label Content="{Binding Order.CustomerMasterReceive.Phone}" />
+                    </StackPanel>
+                    <StackPanel Grid.Row="3" Orientation="Horizontal">
+                        <Label Content="{Binding Order.CustomerMasterSend.PostalCD, Converter={x:Static c:PostalMarkConverter.Default}}" Padding="0,5,5,5" />
+                        <Label Content="{Binding Order.CustomerMasterSend.PrefectureName}" />
+                        <Label Content="{Binding Order.CustomerMasterSend.Address1}" />
+                        <Label Content="{Binding Order.CustomerMasterSend.Address2}" />
+                        <Label Content="{Binding Order.CustomerMasterSend.Address3}" />
+                        <Label Content="{Binding Order.CustomerMasterSend.Address4}" />
+                    </StackPanel>
+                    <StackPanel Grid.Row="4" Orientation="Horizontal">
+                        <Label Content="{Binding Order.CustomerMasterSend.CustName}" FontSize="18" />
+                        <Label Content="{Binding Order.CustomerMasterSend.Keisho}" FontSize="18"/>
+                        <Label Content="{Binding Order.CustomerMasterSend.Phone}" />
+                    </StackPanel>
+                    <StackPanel Grid.Row="5" Orientation="Horizontal" Margin="30,0,0,0">
+                        <Label Content="{Binding StoreId1}" FontSize="18" />
+                        <Label Content="{Binding StoreId2}" FontSize="18" />
                     </StackPanel>
                 </Grid>
             </DataTemplate>

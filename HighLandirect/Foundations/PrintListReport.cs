@@ -7,6 +7,7 @@ using System.Windows.Documents;
 using System.Windows.Markup;
 using HighLandirect.Domains.Reports;
 using HighLandirect.Domains;
+using System;
 
 namespace HighLandirect.Foundations
 {
@@ -21,7 +22,7 @@ namespace HighLandirect.Foundations
         }
 
 
-        public void Print(IEnumerable<T1> Records)
+        public void Print(IEnumerable<T1> Records, Func<IEnumerable<T1>, object> createDataContext)
         {
             //Set up the WPF Control to be printed
             //ListCountPerPageごとにリストを作ってDataContextに渡す
@@ -41,10 +42,10 @@ namespace HighLandirect.Foundations
                 var objReportToPrint = new T2();
 
                 var ReportToPrint = objReportToPrint as UserControl;
-                ReportToPrint.DataContext = new CustomerSource(RecordsPerPage.Cast<Customer>());
+                ReportToPrint.DataContext = createDataContext(RecordsPerPage);
 
-                PageContent pageContent = new PageContent();
-                FixedPage fixedPage = new FixedPage();
+                var pageContent = new PageContent();
+                var fixedPage = new FixedPage();
 
                 //Create first page of document
                 fixedPage.Children.Add(ReportToPrint);

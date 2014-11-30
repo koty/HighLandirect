@@ -341,7 +341,8 @@ namespace HighLandirect.ViewModels
             printer.Print(this.CustomerViewModels
                               .Where(customerVM => customerVM.Customer.Label == true)
                               .OrderBy(customerVM => customerVM.Customer.Furigana)
-                              .Select(customerVM => customerVM.Customer));
+                              .Select(customerVM => customerVM.Customer),
+                              x => new CustomerSource(x.Cast<Customer>()));
         }
 
         private void PrintKokyakuDaichoCore()
@@ -353,7 +354,8 @@ namespace HighLandirect.ViewModels
             printer.Print(this.CustomerViewModels
                               .Where(customerVM => customerVM.Customer.Label == true)
                               .OrderBy(customerVM => customerVM.Customer.CustNo)
-                              .Select(customerVM => customerVM.Customer));
+                              .Select(customerVM => customerVM.Customer),
+                              x => new CustomerSource(x.Cast<Customer>()));
         }
 
         private static PrintQueue GetPrintQueue()

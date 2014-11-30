@@ -11,7 +11,6 @@ namespace HighLandirect.Domains.Reports
     public class OrderSourceCollection
     {
         public IEnumerable<OrderSource> Orders { get; private set; }
-        public int StartAt { get; private set; }
 
         public OrderSourceCollection()
         {
@@ -26,10 +25,9 @@ namespace HighLandirect.Domains.Reports
             }
         }
 
-        public OrderSourceCollection(IEnumerable<OrderSource> orders, int startAt)
+        public OrderSourceCollection(IEnumerable<OrderSource> orders)
         {
             this.Orders = orders;
-            this.StartAt = startAt;
         }
     }
 }

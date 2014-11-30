@@ -23,6 +23,7 @@ namespace HighLandirect.ViewModels
         private ReportMemo selectedReportMemo;
         private ViewModelCommand printCommand;
         private ViewModelCommand printCommandSagawa;
+        private ViewModelCommand printCommandYamatoMany;
         private ViewModelCommand removeCommand;
         private ViewModelCommand addOrderFromSelectedHistoryCommand;
         private ViewModelCommand distinctSameCustomerClickCommand;
@@ -49,6 +50,7 @@ namespace HighLandirect.ViewModels
         public OrderListViewModel()
         {
             this.Orders = new ObservableCollection<OrderViewModel>();
+            this.StartFromAtYamatoMany = 1;
         }
 
         public OrderListViewModel(IEntityService entityService,
@@ -72,6 +74,7 @@ namespace HighLandirect.ViewModels
 
             this.entityService = entityService;
             CreateOrderCollection(orders);
+            this.StartFromAtYamatoMany = 1;
         }
 
         private void CreateOrderCollection(IEnumerable<Order> orders)
@@ -137,6 +140,8 @@ namespace HighLandirect.ViewModels
             }
         }
 
+        public int StartFromAtYamatoMany { get; set; }
+
         public ViewModelCommand PrintCommand
         {
             get
@@ -152,6 +157,15 @@ namespace HighLandirect.ViewModels
             {
                 return this.printCommandSagawa
                        ?? (this.printCommandSagawa = new ViewModelCommand(this.PrintOrderSagawa, this.CanPrintOrder));
+            }
+        }
+
+        public ViewModelCommand PrintCommandYamatoMany
+        {
+            get
+            {
+                return this.printCommandYamatoMany
+                       ?? (this.printCommandYamatoMany = new ViewModelCommand(this.PrintOrderYamatoMany, this.CanPrintOrder));
             }
         }
 
@@ -422,6 +436,22 @@ namespace HighLandirect.ViewModels
             PrintOrderCore<ReportSagawa>(8.5m, 4.0m);
         }
 
+        private void PrintOrderYamatoMany()
+        {
+            var printer = new PrintListReport<OrderSource, ReportYamatoMany>(10, null);
+            var orderSources = getOrderSources();
+            //テキストボックス入力値-1個、頭に空行を足す。
+            if (this.StartFromAtYamatoMany > 1)
+            {
+                for (var i = 0; i < this.StartFromAtYamatoMany - 1; i++)
+                {
+                    orderSources.Insert(0, new OrderSource());
+                }
+            }
+            printer.Print(orderSources, x => new OrderSourceCollection(x));
+            UpdateOrderHistory();
+        }
+
         private void PrintOrderCore<ReportType>(decimal widthByInch, decimal heightByInch) where ReportType : UserControl, new()
         {
             var ps = new LocalPrintServer();
@@ -447,16 +477,14 @@ namespace HighLandirect.ViewModels
 
             var printer = new PrintCutSheetReport<OrderSource, ReportType>(pq);
 
-            var orderSources = this.Orders.Select(
-                order => new OrderSource(order.Order)
-                             {
-                                 CustomerCD = this.SelectedStore.CustomerCD,
-                                 StoreId1 = this.SelectedStore.StoreId1,
-                                 StoreId2 = this.SelectedStore.StoreId2,
-                                 ReportMemo = this.SelectedReportMemo.ReportMemo1
-                             }).ToList();
+            var orderSources = getOrderSources();
 
             printer.Print(orderSources);
+            UpdateOrderHistory();
+        }
+
+        private void UpdateOrderHistory()
+        {
             long orderID = 0;
             if (this.entityService.OrderHistories.Any())
             {
@@ -492,12 +520,26 @@ namespace HighLandirect.ViewModels
             this.UpdateCommands();
         }
 
+        private List<OrderSource> getOrderSources()
+        {
+            var orderSources = this.Orders.Select(
+                order => new OrderSource(order.Order)
+                {
+                    CustomerCD = this.SelectedStore.CustomerCD,
+                    StoreId1 = this.SelectedStore.StoreId1,
+                    StoreId2 = this.SelectedStore.StoreId2,
+                    ReportMemo = this.SelectedReportMemo.ReportMemo1
+                }).ToList();
+            return orderSources;
+        }
+
         private void UpdateCommands()
         {
             this.AddOrderFromSelectedHistoryCommand.RaiseCanExecuteChanged();
             this.RemoveOrderFromSelectedHistoryCommand.RaiseCanExecuteChanged();
             this.PrintCommand.RaiseCanExecuteChanged();
             this.PrintCommandSagawa.RaiseCanExecuteChanged();
+            this.PrintCommandYamatoMany.RaiseCanExecuteChanged();
             this.RemoveCommand.RaiseCanExecuteChanged();
             this.EditSelectedCustomerCommand.RaiseCanExecuteChanged();
             this.MoveRowToLowerCommand.RaiseCanExecuteChanged();

@@ -33,6 +33,14 @@
                         FontSize="18" Margin="10,0,0,0" />
                 <Button Command="{Binding PrintCommandSagawa}" Content="印刷（佐川）" Width="150" Height="30"
                         FontSize="18" Margin="10,0,0,0" />
+                <Button Command="{Binding PrintCommandYamatoMany}" Width="150" Height="30"
+                        FontSize="18" Margin="10,0,0,0" >
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="ﾔﾏﾄ大口" FontSize="12" VerticalContentAlignment="Center" />
+                        <TextBox Width="25" Text="{Binding StartFromAtYamatoMany}" />
+                        <Label Content="番目から印刷" FontSize="12" VerticalContentAlignment="Center" />
+                    </StackPanel>
+                </Button>
                 <Button Command="{Binding RemoveCommand}" Content="削除" Height="30" FontSize="18"
                          Margin="10,0,0,0" />
                 <Button Content="↑" Command="{Binding MoveRowToUpperCommand}" Height="30" Margin="10,0,0,0" />
