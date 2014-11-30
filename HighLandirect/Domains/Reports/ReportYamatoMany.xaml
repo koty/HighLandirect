@@ -24,9 +24,9 @@
         </ItemsControl.ItemsPanel>
         <ItemsControl.ItemTemplate>
             <DataTemplate>
-                <Grid Height="208" Margin="30,0,0,0">
+                <Grid Height="208" Margin="35,0,0,0">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="359" />
+                        <ColumnDefinition Width="354" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="57" />
