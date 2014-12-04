@@ -28,6 +28,10 @@ namespace HighLandirect.Domains
                 //.AddValidationRule("Email", ValidateEmail);
             this.PostalCD = "";
             this.Keisho = "様";
+            this.CustName = "";
+            this.Furigana = "";
+            this.Phone = "";
+            this.Phone2 = "";
         }
 
 
