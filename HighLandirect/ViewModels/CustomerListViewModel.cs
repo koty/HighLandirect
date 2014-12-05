@@ -237,6 +237,7 @@ namespace HighLandirect.ViewModels
             int number;
             var re = new Regex("[０-９Ａ-Ｚａ-ｚ：－　]+");
             var searchStringNormalized = re.Replace(searchString, m => Strings.StrConv(m.Value, VbStrConv.Narrow));
+            searchStringNormalized = searchStringNormalized.Replace(" ", "");
 
             //顧客番号
             if (int.TryParse(searchStringNormalized, out number))
@@ -248,10 +249,12 @@ namespace HighLandirect.ViewModels
 
             //ふりがな
             if (IsHiragana(searchStringNormalized))
-                return customerViewModels.Where(x => x.Customer.Furigana.IndexOf(searchStringNormalized) >= 0).ToArray();
+                return customerViewModels.Where(x => x.Customer.Furigana.Replace(" ", "").Replace("　", "")
+                    .IndexOf(searchStringNormalized) >= 0).ToArray();
 
             //漢字氏名
-            return customerViewModels.Where(x => x.Customer.CustName.IndexOf(searchStringNormalized) >= 0).ToArray();
+            return customerViewModels.Where(x => x.Customer.CustName.Replace(" ", "").Replace("　", "")
+                .IndexOf(searchStringNormalized) >= 0).ToArray();
 
         }
 
