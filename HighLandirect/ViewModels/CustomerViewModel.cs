@@ -84,7 +84,7 @@ namespace HighLandirect.ViewModels
 
         public void CustNameTextBox_LostFocus()
         {
-            if (this.Customer.Furigana.Length > 3)
+            if (this.customerViewModels != null && this.Customer.Furigana.Length > 3)
             {
                 if (this.customerViewModels
                         .Any(x => eq(x.Customer.Furigana, this.Customer.Furigana)
