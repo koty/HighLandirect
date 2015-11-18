@@ -85,12 +85,10 @@ namespace HighLandirect.ViewModels
                 if (e.OldItems != null)
                     foreach (var item in e.OldItems)
                         this.entityService.Orders.Remove(((OrderViewModel)item).Order);
-                this.AcceptChanges();
 
                 if (e.NewItems != null)
                     foreach (var item in e.NewItems)
                         this.entityService.Orders.Add(((OrderViewModel)item).Order);
-                this.AcceptChanges();
             };
             if (this.Orders.Any())
             {
@@ -422,6 +420,8 @@ namespace HighLandirect.ViewModels
                     this.OrderHistories.RemoveAt(i);
                 }
             }
+            this.RaisePropertyChanged(() => this.OrderHistories);
+            this.SaveChanges();
             this.UpdateCommands();
         }
 
@@ -491,32 +491,37 @@ namespace HighLandirect.ViewModels
                 orderID = this.entityService.OrderHistories.Max(x => x.OrderID);
             }
             //OrderからOrderHistoryへレコードをmove
-            foreach (var order in entityService.Orders)
+            foreach (var order in this.Orders)
             {
                 orderID++;
-                this.entityService.OrderHistories.Add(OrderHistory.CreateOrderHistory(orderID,
-                                                                                      order.OrderDate,
-                                                                                      order.ReceiveCustID,
-                                                                                      order.SendCustID,
-                                                                                      order.ProductID));
+                this.OrderHistories.Add(new OrderHistoryViewModel(OrderHistory.CreateOrderHistory(orderID,
+                                                                                      order.Order.OrderDate,
+                                                                                      order.Order.ReceiveCustID,
+                                                                                      order.Order.SendCustID,
+                                                                                      order.Order.ProductID)));
             }
+            //ほんとはここでorderhistoryを並べ替えたい
 
             //最終発送を更新
             this.SendCustomerViewModel.Customer.LatestSend = DateTime.Now;
 
             //最終宛先を更新
-            foreach (var order in this.entityService.Orders)
+            foreach (var order in this.Orders)
             {
-                this.entityService.Customers.First(x => x.CustNo == order.CustomerMasterReceive.CustNo)
+                this.entityService.Customers.First(x => x.CustNo == order.Order.CustomerMasterReceive.CustNo)
                     .LatestResceive = DateTime.Now;
             }
 
-            //ここもentityServiceとOrdersの両方をClearする必要はない気がする。
-            this.entityService.Orders.Clear();
-            this.Orders.Clear();
+            // ClearだとCollectionChangedが起きないので一個一個消す
+            for(var i = this.Orders.Count - 1; i >= 0; i--)
+                this.Orders.RemoveAt(i);
 
             var arg = new CustomerListEventArgs() { CustomerViewModel = null };
+            this.RaisePropertyChanged(() => this.SendCustomerViewModel);
+            this.RaisePropertyChanged(() => this.OrderHistories);
+            this.RaisePropertyChanged(() => this.Orders);
             this.OnSendCustomerChanged(this, arg);
+            this.SaveChanges();
             this.UpdateCommands();
         }
 
