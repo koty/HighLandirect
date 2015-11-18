@@ -491,15 +491,16 @@ namespace HighLandirect.ViewModels
                 orderID = this.entityService.OrderHistories.Max(x => x.OrderID);
             }
             //OrderからOrderHistoryへレコードをmove
-            foreach (var order in entityService.Orders)
+            foreach (var order in this.Orders)
             {
                 orderID++;
                 this.OrderHistories.Add(new OrderHistoryViewModel(OrderHistory.CreateOrderHistory(orderID,
-                                                                                      order.OrderDate,
-                                                                                      order.ReceiveCustID,
-                                                                                      order.SendCustID,
-                                                                                      order.ProductID)));
+                                                                                      order.Order.OrderDate,
+                                                                                      order.Order.ReceiveCustID,
+                                                                                      order.Order.SendCustID,
+                                                                                      order.Order.ProductID)));
             }
+            //ほんとはここでorderhistoryを並べ替えたい
 
             //最終発送を更新
             this.SendCustomerViewModel.Customer.LatestSend = DateTime.Now;
@@ -511,7 +512,9 @@ namespace HighLandirect.ViewModels
                     .LatestResceive = DateTime.Now;
             }
 
-            this.Orders.Clear();
+            // ClearだとCollectionChangedが起きないので一個一個消す
+            for(var i = this.Orders.Count - 1; i >= 0; i--)
+                this.Orders.RemoveAt(i);
 
             var arg = new CustomerListEventArgs() { CustomerViewModel = null };
             this.RaisePropertyChanged(() => this.SendCustomerViewModel);

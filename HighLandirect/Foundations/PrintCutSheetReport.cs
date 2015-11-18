@@ -19,7 +19,25 @@ namespace HighLandirect.Foundations
         public void Print(IEnumerable<T1> Records)
         {
             //Set up the WPF Control to be printed
-            return;
+
+            var fixedDoc = new FixedDocument();
+            foreach (var order in Records)
+            {
+                var objReportToPrint = new T2();
+
+                var ReportToPrint = objReportToPrint as UserControl;
+                ReportToPrint.DataContext = order;
+
+                var pageContent = new PageContent();
+                var fixedPage = new FixedPage();
+
+                //Create first page of document
+                fixedPage.Children.Add(ReportToPrint);
+                ((IAddChild)pageContent).AddChild(fixedPage);
+                fixedDoc.Pages.Add(pageContent);
+            }
+
+            this.SendFixedDocumentToPrinter(fixedDoc);
         }
 
         private void SendFixedDocumentToPrinter(FixedDocument fixedDocument)
