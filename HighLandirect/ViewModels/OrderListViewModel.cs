@@ -458,7 +458,7 @@ namespace HighLandirect.ViewModels
             PrintQueue pq = null;
             try
             {
-                pq = ps.GetPrintQueue("FUJITSU FMPR5000"); //指定したプリンタ
+                pq = ps.GetPrintQueue("VP-D800N"); //指定したプリンタ
                 pq.UserPrintTicket.PageMediaSize = new PageMediaSize((double)(widthByInch * 96m), (double)(heightByInch * 96m)); //pixcel指定。1pixel=1/96inchだそうで
                 pq.UserPrintTicket.PageResolution = new PageResolution(96, 96);
                 pq.UserPrintTicket.InputBin = InputBin.Tractor;
