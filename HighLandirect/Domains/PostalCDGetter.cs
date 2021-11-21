@@ -11,7 +11,7 @@ namespace HighLandirect.Domains
         public PostalCDGetter()
         {
         }
-        private const string ApiUri = "http://zip.cgis.biz/xml/zip.php?zn={0}";
+        private const string ApiUri = "http://zip2.cgis.biz/xml/zip.php?zn={0}";
         public void GetAddress(string postalCD)
         {
             var req = HttpWebRequest.Create(string.Format(ApiUri, postalCD.Replace("-", "")));
