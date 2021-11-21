@@ -54,6 +54,11 @@ namespace HighLandirect.Foundations
             {
                 xpsdw = PrintQueue.CreateXpsDocumentWriter(pq);
             }
+            // これをやらないとMediaSizeが反映されない。参考：https://stackoverflow.com/a/66852287
+            xpsdw.WritingPrintTicketRequired += (s, e) =>
+            {
+                e.CurrentPrintTicket = pq.UserPrintTicket;
+            };
             xpsdw.Write(fixedDocument);
         }
     }
