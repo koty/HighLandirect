@@ -239,13 +239,15 @@ namespace HighLandirect.ViewModels
             var searchStringNormalized = re.Replace(searchString, m => Strings.StrConv(m.Value, VbStrConv.Narrow));
             searchStringNormalized = searchStringNormalized.Replace(" ", "");
 
-            //顧客番号
-            if (int.TryParse(searchStringNormalized, out number))
-                return customerViewModels.Where(x => x.Customer.CustNo == number).ToArray();
-
-            //電話番号
-            if (int.TryParse(searchStringNormalized.Replace("-", ""), out number))
-                return customerViewModels.Where(x => x.Customer.Phone.IndexOf(searchStringNormalized) >= 0).ToArray();
+            //顧客番号または電話番号
+            if (int.TryParse(searchStringNormalized.Replace("-", "").Replace("－", ""), out number))
+            {
+                return customerViewModels.Where(x => {
+                    return (x.Customer.CustNo == number)
+                         || x.Customer.Phone?.Contains(searchStringNormalized) == true
+                         || x.Customer.Memo?.Contains(searchStringNormalized) == true;
+                }).ToArray();
+            }
 
             //ふりがな
             if (IsHiragana(searchStringNormalized))
