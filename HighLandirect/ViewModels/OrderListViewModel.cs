@@ -344,24 +344,23 @@ namespace HighLandirect.ViewModels
 
         private void ShowOrderHistoryBySendCustomer()
         {
-            IEnumerable<OrderHistoryViewModel> list;
+            IEnumerable<OrderHistory> list;
             if (this.DistinctSameCustomer)
             {
                 list = entityService.OrderHistories.Where(
                     x => x.CustomerMasterSend.CustNo == this.SendCustomerViewModel.Customer.CustNo)
                                                .OrderByDescending(x => x.OrderDate)
-                                               .Distinct(new ReceiveCustomerEqualityComparer())
-                                               .Select(x => new OrderHistoryViewModel(x));
+                                               .Distinct(new ReceiveCustomerEqualityComparer());
             }
             else
             {
                 list = entityService.OrderHistories.Where(
                     x => x.CustomerMasterSend.CustNo == this.SendCustomerViewModel.Customer.CustNo)
-                                               .OrderByDescending(x => x.OrderDate)
-                                               .Select(x => new OrderHistoryViewModel(x));
+                                               .OrderByDescending(x => x.OrderDate);
             }
-
-            this.OrderHistories = new ObservableCollection<OrderHistoryViewModel>(list);
+            // 削除された宛先は表示しない
+            list = list.Where(x => x.CustomerMasterReceive.Delete != true);
+            this.OrderHistories = new ObservableCollection<OrderHistoryViewModel>(list.Select(x => new OrderHistoryViewModel(x)));
             this.OrderHistories.CollectionChanged += (o, e) =>
             {
                 if (e.NewItems != null)
