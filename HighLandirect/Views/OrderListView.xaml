@@ -31,7 +31,9 @@
                 <!--スタイルが適用されない。仕方ないので個別にHeightとFontSizeを設定する。-->
                 <Button Command="{Binding PrintCommand}" Content="印刷（ヤマト）" Width="150" Height="30"
                         FontSize="18" Margin="10,0,0,0" />
-                <Button Command="{Binding PrintCommandSagawa}" Content="印刷（佐川）" Width="150" Height="30"
+                <Button Command="{Binding PrintCommandSagawa}" Content="佐川" Width="50" Height="30"
+                        FontSize="18" Margin="10,0,0,0" />
+                <Button Command="{Binding PrintCommandSeino}" Content="西濃" Width="50" Height="30"
                         FontSize="18" Margin="10,0,0,0" />
                 <Button Command="{Binding PrintCommandYamatoMany}" Width="150" Height="30"
                         FontSize="18" Margin="10,0,0,0" >

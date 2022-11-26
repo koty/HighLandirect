@@ -23,6 +23,7 @@ namespace HighLandirect.ViewModels
         private ReportMemo selectedReportMemo;
         private ViewModelCommand printCommand;
         private ViewModelCommand printCommandSagawa;
+        private ViewModelCommand printCommandSeino;
         private ViewModelCommand printCommandYamatoMany;
         private ViewModelCommand removeCommand;
         private ViewModelCommand addOrderFromSelectedHistoryCommand;
@@ -155,6 +156,15 @@ namespace HighLandirect.ViewModels
             {
                 return this.printCommandSagawa
                        ?? (this.printCommandSagawa = new ViewModelCommand(this.PrintOrderSagawa, this.CanPrintOrder));
+            }
+        }
+
+        public ViewModelCommand PrintCommandSeino
+        {
+            get
+            {
+                return this.printCommandSeino
+                       ?? (this.printCommandSeino = new ViewModelCommand(this.PrintOrderSeino, this.CanPrintOrder));
             }
         }
 
@@ -434,6 +444,10 @@ namespace HighLandirect.ViewModels
         {
             PrintOrderCore<ReportSagawa>(8.5m, 4.0m);
         }
+        private void PrintOrderSeino()
+        {
+            PrintOrderCore<ReportSeino>(10m, 4.5m);
+        }
 
         private void PrintOrderYamatoMany()
         {
@@ -543,6 +557,7 @@ namespace HighLandirect.ViewModels
             this.RemoveOrderFromSelectedHistoryCommand.RaiseCanExecuteChanged();
             this.PrintCommand.RaiseCanExecuteChanged();
             this.PrintCommandSagawa.RaiseCanExecuteChanged();
+            this.PrintCommandSeino.RaiseCanExecuteChanged();
             this.PrintCommandYamatoMany.RaiseCanExecuteChanged();
             this.RemoveCommand.RaiseCanExecuteChanged();
             this.EditSelectedCustomerCommand.RaiseCanExecuteChanged();

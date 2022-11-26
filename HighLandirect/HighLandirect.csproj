@@ -154,6 +154,9 @@
     </Compile>
     <Compile Include="Domains\Reports\OrderSource.cs" />
     <Compile Include="Domains\Reports\OrderSourceCollection.cs" />
+    <Compile Include="Domains\Reports\ReportSeino.xaml.cs">
+      <DependentUpon>ReportSeino.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Domains\Reports\ReportYamato.xaml.cs">
       <DependentUpon>ReportYamato.xaml</DependentUpon>
     </Compile>
@@ -204,6 +207,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Domains\Reports\KokyakuDaicho.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Domains\Reports\ReportSeino.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -373,6 +380,7 @@
   <ItemGroup>
     <None Include="Domains\Reports\OverlaySagawa.jpg" />
     <Resource Include="Domains\Reports\OverLayYamatoMany.jpg" />
+    <Resource Include="Domains\Reports\OverlaySeino.jpg" />
     <Content Include="Domains\Resources\EmptyData\MyData.sdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
