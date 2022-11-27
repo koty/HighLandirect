@@ -25,69 +25,73 @@
     <UserControl.DataContext>
         <vm:OrderSource />
     </UserControl.DataContext>
-    <Grid Margin="-25,20,0,0">
-        <Grid.Resources>
-            <Style TargetType="Label">
-                <Setter Property="Foreground" Value="Black" />
-            </Style>
-        </Grid.Resources>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
+    <Grid>
+        <Label Content="{Binding ReportMemo}" Margin="110, 100, 0, 0" Height="80" Width="230" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="Black" />
 
-        <StackPanel Orientation="Horizontal" Margin="15, 180, 0, 0">
-            <Grid Width="360" HorizontalAlignment="Left">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="105" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="35"/>
-                    <RowDefinition Height="24"/>
-                    <RowDefinition Height="20"/>
-                    <RowDefinition Height="20"/>
-                    <RowDefinition Height="20"/>
-                    <RowDefinition Height="24"/>
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <Label Content="{Binding Order.CustomerMasterReceive.Phone}" Grid.Column="1" Margin="55,0,0,0" Grid.Row="0" FontFamily="MS Gothic" FontSize="28" />
-                <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1">
-                    <Label Content="{Binding Order.CustomerMasterReceive.PostalCD, Converter={x:Static Converters:PostalCdConverter.Default}}" FontFamily="MS Gothic" FontSize="14" />
-                    <Label Content="{Binding Order.CustomerMasterReceive.PrefectureName}" FontFamily="MS Gothic" FontSize="14" />
-                    <Label Content="{Binding Order.CustomerMasterReceive.Address1}" FontFamily="MS Gothic" FontSize="14" />
-                </StackPanel>
-                <Label Content="{Binding Order.CustomerMasterReceive.Address2}" Grid.Column="1" Margin="0" Padding="5, 0, 0, 0" Grid.Row="2" FontFamily="MS Gothic" FontSize="16" />
-                <Label Content="{Binding Order.CustomerMasterReceive.Address3}" Grid.Column="1" Margin="0" Padding="5, 0, 0, 0" Grid.Row="3" FontFamily="MS Gothic" FontSize="16" />
-                <Label Content="{Binding Order.CustomerMasterReceive.Address4}" Grid.Column="1" Margin="0" Padding="5, 0, 0, 0" Grid.Row="4" FontFamily="MS Gothic" FontSize="16" />
-                <Label Content="{Binding Order.CustomerMasterReceive.CustName}" Grid.Column="1" Margin="0" Padding="5, 0, 0, 0" Grid.Row="5" FontFamily="MS Gothic" FontSize="18" />
-            </Grid>
-            <Grid Width="380" HorizontalAlignment="Left" Margin="25, 0, 0, 0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="35"/>
-                    <RowDefinition Height="24"/>
-                    <RowDefinition Height="20"/>
-                    <RowDefinition Height="20"/>
-                    <RowDefinition Height="20"/>
-                    <RowDefinition Height="24"/>
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <Label Content="{Binding Order.CustomerMasterSend.Phone}" Grid.Column="1" Margin="18,0,0,0" Grid.Row="0" FontFamily="MS Gothic" FontSize="28" />
-                <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1">
-                    <Label Content="{Binding Order.CustomerMasterSend.PostalCD, Converter={x:Static Converters:PostalCdConverter.Default}}" FontFamily="MS Gothic" FontSize="14" />
-                    <Label Content="{Binding Order.CustomerMasterSend.PrefectureName}" FontFamily="MS Gothic" FontSize="14" />
-                    <Label Content="{Binding Order.CustomerMasterSend.Address1}" FontFamily="MS Gothic" FontSize="14" />
-                </StackPanel>
-                <Label Content="{Binding Order.CustomerMasterSend.Address2}" Grid.Column="1" Margin="0" Padding="5, 0, 0, 0" Grid.Row="2" FontFamily="MS Gothic" FontSize="16" />
-                <Label Content="{Binding Order.CustomerMasterSend.Address3}" Grid.Column="1" Margin="0" Padding="5, 0, 0, 0" Grid.Row="3" FontFamily="MS Gothic" FontSize="16" />
-                <Label Content="{Binding Order.CustomerMasterSend.Address4}" Grid.Column="1" Margin="0" Padding="5, 0, 0, 0" Grid.Row="4" FontFamily="MS Gothic" FontSize="16" />
-                <Label Content="{Binding Order.CustomerMasterSend.CustName}" Grid.Column="1" Margin="0" Padding="5, 0, 0, 0" Grid.Row="5" FontFamily="MS Gothic" FontSize="18" />
-            </Grid>
-        </StackPanel>
+        <Grid Margin="-25,20,0,0">
+            <Grid.Resources>
+                <Style TargetType="Label">
+                    <Setter Property="Foreground" Value="Black" />
+                </Style>
+            </Grid.Resources>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Horizontal" Margin="15, 180, 0, 0">
+                <Grid Width="360" HorizontalAlignment="Left">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="105" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="35"/>
+                        <RowDefinition Height="26"/>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="24"/>
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Label Content="{Binding Order.CustomerMasterReceive.Phone}" Grid.Column="1" Margin="55,0,0,0" Grid.Row="0" FontFamily="MS Gothic" FontSize="28" HorizontalAlignment="Center" />
+                    <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1">
+                        <Label Content="{Binding Order.CustomerMasterReceive.PostalCD, Converter={x:Static Converters:PostalCdConverter.Default}}" FontFamily="MS Gothic" FontSize="18" Margin="5, 0, 0, 0" />
+                        <Label Content="{Binding Order.CustomerMasterReceive.PrefectureName}" FontFamily="MS Gothic" FontSize="14" />
+                        <Label Content="{Binding Order.CustomerMasterReceive.Address1}" FontFamily="MS Gothic" FontSize="14" />
+                    </StackPanel>
+                    <Label Content="{Binding Order.CustomerMasterReceive.Address2}" Grid.Column="1" Margin="0" Padding="5, 0, 0, 0" Grid.Row="2" FontFamily="MS Gothic" FontSize="16" />
+                    <Label Content="{Binding Order.CustomerMasterReceive.Address3}" Grid.Column="1" Margin="0" Padding="5, 0, 0, 0" Grid.Row="3" FontFamily="MS Gothic" FontSize="16" />
+                    <Label Content="{Binding Order.CustomerMasterReceive.Address4}" Grid.Column="1" Margin="0" Padding="5, 0, 0, 0" Grid.Row="4" FontFamily="MS Gothic" FontSize="16" />
+                    <Label Content="{Binding Order.CustomerMasterReceive.CustName}" Grid.Column="1" Margin="0" Padding="5, 0, 0, 0" Grid.Row="5" FontFamily="MS Gothic" FontSize="18" />
+                </Grid>
+                <Grid Width="380" HorizontalAlignment="Left" Margin="25, 0, 0, 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="35"/>
+                        <RowDefinition Height="24"/>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="24"/>
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Label Content="{Binding Order.CustomerMasterSend.Phone}" Grid.Column="1" Margin="18,0,0,0" Grid.Row="0" FontFamily="MS Gothic" FontSize="28" />
+                    <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1">
+                        <Label Content="{Binding Order.CustomerMasterSend.PostalCD, Converter={x:Static Converters:PostalCdConverter.Default}}" FontFamily="MS Gothic" FontSize="14" />
+                        <Label Content="{Binding Order.CustomerMasterSend.PrefectureName}" FontFamily="MS Gothic" FontSize="14" />
+                        <Label Content="{Binding Order.CustomerMasterSend.Address1}" FontFamily="MS Gothic" FontSize="14" />
+                    </StackPanel>
+                    <Label Content="{Binding Order.CustomerMasterSend.Address2}" Grid.Column="1" Margin="0" Padding="5, 0, 0, 0" Grid.Row="2" FontFamily="MS Gothic" FontSize="16" />
+                    <Label Content="{Binding Order.CustomerMasterSend.Address3}" Grid.Column="1" Margin="0" Padding="5, 0, 0, 0" Grid.Row="3" FontFamily="MS Gothic" FontSize="16" />
+                    <Label Content="{Binding Order.CustomerMasterSend.Address4}" Grid.Column="1" Margin="0" Padding="5, 0, 0, 0" Grid.Row="4" FontFamily="MS Gothic" FontSize="16" />
+                    <Label Content="{Binding Order.CustomerMasterSend.CustName}" Grid.Column="1" Margin="0" Padding="5, 0, 0, 0" Grid.Row="5" FontFamily="MS Gothic" FontSize="18" />
+                </Grid>
+            </StackPanel>
+
+        </Grid>
 
     </Grid>
 </UserControl>
