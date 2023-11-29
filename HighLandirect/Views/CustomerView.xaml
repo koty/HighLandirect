@@ -4,7 +4,6 @@
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:f="clr-namespace:Microsoft.International.Windows.Controls;assembly=YomiganaWPFTextBox"
              xmlns:vm="clr-namespace:HighLandirect.ViewModels"
              xmlns:v="clr-namespace:HighLandirect.Views"
              xmlns:b="clr-namespace:Livet.Behaviors;assembly=Livet"
@@ -55,10 +54,10 @@
                  IsReadOnly="True" Background="LightGray" />
 
         <Label Content="氏名" Grid.Column="0" Grid.Row="1" />
-        <f:YomiganaWPFTextBox x:Name="CustName" Text="{Binding Customer.CustName, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True,
+        <TextBox x:Name="CustName" Text="{Binding Customer.CustName, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True,
                         ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
                  MaxLength="30" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Stretch" 
-                              BindingControl="Furigana" MinWidth="100" FontSize="18"
+                              MinWidth="100" FontSize="18"
                               InputMethod.PreferredImeState="On" InputMethod.PreferredImeConversionMode="FullShape,Native"
                               v:GoNextByEnterBehavior.EnterCommand="True">
             <i:Interaction.Triggers>
@@ -76,7 +75,7 @@
                     </l:ConfirmationDialogInteractionMessageAction>
                 </l:InteractionMessageTrigger>
             </i:Interaction.Triggers>
-        </f:YomiganaWPFTextBox>
+        </TextBox>
 
         <Label Content="ふりがな" Grid.Column="0" Grid.Row="2" />
         <TextBox Name="Furigana" Text="{Binding Customer.Furigana, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True,

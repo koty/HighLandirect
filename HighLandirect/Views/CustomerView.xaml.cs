@@ -7,7 +7,6 @@ namespace HighLandirect.Views
         public CustomerView()
         {
             InitializeComponent();
-            this.CustName.TextCapturedPreferredConversion = Microsoft.International.Windows.Controls.PreferredConversion.ToHiragana;
         }
     }
 }
